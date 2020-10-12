@@ -5,7 +5,7 @@
     android:id="@+id/login_scr"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/startup_screen2">
+    android:background="@drawable/startup_screen2_land">
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -22,21 +22,22 @@
         android:autofillHints=""
         tools:ignore="LabelFor" />
 
+
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:autofillHints=""
         android:background="@drawable/userinputtext"
-        android:layout_marginTop="376dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""
         tools:ignore="LabelFor" />
-
 
     <Button
         android:id="@+id/buttonlogin"
@@ -48,9 +49,10 @@
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        app:layout_constraintVertical_bias="0.867" />
 
     <TextView
         android:id="@+id/textView4"
@@ -68,11 +70,11 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="524dp"
+        android:layout_marginTop="276dp"
         android:text="@string/checkbox"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.217"
+        app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

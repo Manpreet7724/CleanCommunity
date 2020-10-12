@@ -9,5 +9,6 @@
     <string name="phone">\t\t\t\Phone</string>
     <string name="conPassword">\t\t\t\Confirm password</string>
     <string name="password">\t\t\t\Password</string>
-
+    <string name="frogot_pass">Forgot Password?</string>
+    <string name="checkbox">Stay signed in</string>
 </resources>
