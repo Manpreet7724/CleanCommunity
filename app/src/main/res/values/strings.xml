@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CleanCommunity</string>
+    <string name="slogon">Cleaning the world. One paper cup at a time.</string>
+    <string name="button_signup">SIGN UP</string>
+    <string name="button_login">LOGIN</string>
+    <string name="welcome">Welcome!</string>
+    <string name="full_name">\t\t\t\Full Name</string>
+    <string name="email">\t\t\t\Email</string>
+    <string name="phone">\t\t\t\Phone</string>
+    <string name="conPassword">\t\t\t\Confirm password</string>
+    <string name="password">\t\t\t\Password</string>
+
+</resources>
