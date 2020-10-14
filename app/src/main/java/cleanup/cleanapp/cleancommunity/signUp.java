@@ -37,7 +37,6 @@ public class signUp extends AppCompatActivity
         super.onStart();
 
     }
-
     @Override
     protected void onStop() // tells user the activy was stoped
     {

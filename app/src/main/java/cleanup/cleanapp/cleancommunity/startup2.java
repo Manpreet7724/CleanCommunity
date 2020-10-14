@@ -25,4 +25,15 @@ public class startup2 extends AppCompatActivity
         final Intent intent = new Intent(this, signUp.class);
         startActivity(intent);
     }
+    @Override
+    protected void onStop() // tells user the activy was stoped
+    {
+        super.onStop();
+
+    }
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
 }

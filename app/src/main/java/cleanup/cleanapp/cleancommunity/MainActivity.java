@@ -60,6 +60,17 @@ public class MainActivity extends AppCompatActivity
 
         }, 10000);
     }
+    @Override
+    protected void onStop() // tells user the activy was stoped
+    {
+        super.onStop();
+
+    }
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
 
 }
 
