@@ -3,12 +3,13 @@ package cleanup.cleanapp.cleancommunity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class login  extends AppCompatActivity
 {
-
+    private TextView wongtext;
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
     {
@@ -21,8 +22,15 @@ public class login  extends AppCompatActivity
         String pass = text.getText().toString().replaceAll("\\s+", "");
         text = findViewById(R.id.editTusername);
         String email = text.getText().toString().replaceAll("\\s+", "");
-        storeinfo.templogin(email,pass);
+        int val =storeinfo.templogin(email,pass);
+        if (val!=1)
+        {
+            wongtext = (TextView)findViewById(R.id.wongText);
+            wongtext.setVisibility(View.VISIBLE);
+        }
+
     }
+
 
 
 }

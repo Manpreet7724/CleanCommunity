@@ -8,6 +8,20 @@
     android:background="@drawable/startup_screen2">
 
 
+    <TextView
+        android:id="@+id/wongText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="472dp"
+        android:text="@string/wong_pass"
+        android:textColor="#F00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editPasswordLog"
         android:layout_width="wrap_content"
@@ -47,16 +61,16 @@
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:background="#FFFFFF"
-        android:text="@string/button_login"
         android:onClick="templogin"
+        android:text="@string/button_login"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
+        app:layout_constraintVertical_bias="0.856" />
 
     <TextView
         android:id="@+id/textView4"
@@ -66,10 +80,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.546"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+        app:layout_constraintVertical_bias="0.908" />
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -79,9 +93,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733" />
+        app:layout_constraintVertical_bias="0.782" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

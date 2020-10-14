@@ -1,6 +1,7 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,6 @@ public class storeinfo
                             break;
                         }
                     }
-
                     Log.e(TAG, "fail2");
                     return;
                 }
@@ -49,7 +49,7 @@ public class storeinfo
             }
         Log.e(TAG, "fail3"+conPass+"  "+pass);
     }
-    public static void templogin(String email, String pass)
+    public static int  templogin(String email, String pass)
     {
         final String TAG = "login";
         Log.d(TAG, "0");
@@ -68,12 +68,13 @@ public class storeinfo
                         if (hold.getPass().equals(pass))
                         {
                             Log.d(TAG, "pass");
-                            break;
+                            return  1;
                         }
                     }
                 }
             }
         }
+        return -1;
     }
 
 

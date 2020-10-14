@@ -32,7 +32,23 @@ public class signUp extends AppCompatActivity
 
         storeinfo.adddata(name,email,phone,pass,conPass);
     }
+    protected void onStart() // tells user the activy is started
+    {
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() // tells user the activy was stoped
+    {
+        super.onStop();
+
+    }
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
 }
 
 
