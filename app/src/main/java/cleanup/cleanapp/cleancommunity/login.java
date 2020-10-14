@@ -1,5 +1,6 @@
 package cleanup.cleanapp.cleancommunity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,11 @@ public class login  extends AppCompatActivity
         {
             wongtext = (TextView)findViewById(R.id.wongText);
             wongtext.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            final Intent intent = new Intent(this, startup2.class);
+            startActivity(intent);
         }
 
     }

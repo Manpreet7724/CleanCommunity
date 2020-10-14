@@ -1,5 +1,6 @@
 package cleanup.cleanapp.cleancommunity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -30,8 +31,16 @@ public class signUp extends AppCompatActivity
         text = findViewById(R.id.editPassword);
         String conPass = text.getText().toString().replaceAll("\\s+", "");
 
-        storeinfo.adddata(name,email,phone,pass,conPass);
+       int x = storeinfo.adddata(name,email,phone,pass,conPass);
+        if(x == 1)
+        {
+            final Intent intent = new Intent(this, startup2.class);
+            startActivity(intent);
+        }
+
+
     }
+
     protected void onStart() // tells user the activy is started
     {
         super.onStart();

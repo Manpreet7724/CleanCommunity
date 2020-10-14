@@ -10,7 +10,7 @@ public class storeinfo
     static ArrayList<account> accounts = new ArrayList<>();
 
 
-    public static void adddata(String name, String email, String phone, String pass, String conPass)
+    public static int adddata(String name, String email, String phone, String pass, String conPass)
     {
         final String TAG = "singUp";
         if(!accounts.isEmpty())
@@ -26,28 +26,26 @@ public class storeinfo
                         account hold = accounts.get(i);
                         if (hold.getEmail().equals(email))
                         {
-                            return;
+                            return -1;
                         }
                         if (i == accounts.size())
                         {
                             accounts.add(new account(name, pass, phone, email));
-                            Log.d(TAG, "pass");
-                            break;
+                            return 1;
                         }
                     }
-                    Log.e(TAG, "fail2");
-                    return;
+
+
                 }
-                Log.e(TAG, "fail4" + conPass + "  " + pass);
-                return;
             }
         }
         else
             {
             accounts.add(new account(name, pass, phone, email));
-            Log.d(TAG, "pass");
+                return 1;
             }
-        Log.e(TAG, "fail3"+conPass+"  "+pass);
+
+        return -1;
     }
     public static int  templogin(String email, String pass)
     {
