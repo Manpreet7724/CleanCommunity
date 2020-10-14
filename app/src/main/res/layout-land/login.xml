@@ -8,7 +8,7 @@
     android:background="@drawable/startup_screen2_land">
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editPasswordLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -18,13 +18,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/userinputtext"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTusername"
         android:autofillHints=""
         tools:ignore="LabelFor" />
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"

@@ -3,15 +3,23 @@ package cleanup.cleanapp.cleancommunity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,18 +28,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.startup);
 
         final Handler h = new Handler();
-
+        final Intent intent = new Intent(this, startup2.class);
         h.postDelayed(new Runnable() {
 
             @Override
 
             public void run()
             {
-                setContentView(R.layout.startup2);
+                startActivity(intent);
+
             }
 
         }, 1000);
 
     }
+    @Override
+    protected void onResume()
+    {
+        final Handler h = new Handler();
+        super.onResume();
+        final Intent intent = new Intent(this, startup2.class);
+        h.postDelayed(new Runnable() {
 
+            @Override
+
+            public void run()
+            {
+                startActivity(intent);
+
+            }
+
+        }, 10000);
     }
+
+}
+
+
+
