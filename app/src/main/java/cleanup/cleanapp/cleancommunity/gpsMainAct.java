@@ -6,14 +6,13 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class  getstarted<view> extends AppCompatActivity
+public class gpsMainAct extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.getstarted);
+        setContentView(R.layout.activty_maingps);
     }
     @Override
     protected void onStop() // tells user the activy was stoped
@@ -24,12 +23,5 @@ public class  getstarted<view> extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-    }
-
-
-    public void act_GPS(View view)
-    {
-        final Intent intent = new Intent(this, gpsMainAct.class);
-        startActivity(intent);
     }
 }
