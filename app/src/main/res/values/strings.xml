@@ -12,6 +12,6 @@
     <string name="frogot_pass">Forgot Password?</string>
     <string name="checkbox">Stay signed in</string>
     <string name="wong_pass">Ouch,Wrong password!!!!!!!!!!!!</string>
-    <string name="title_activity_gps">Map</string>
-    <string name="search">Search</string>
+    <string name="welcomemessage">Littering is slowly destroying the ecosystem, the beauty, and the life of our planet. The average distance someone carries litter before throwing it away is 12 paces. It\'s time to make a difference, lets do it together.</string>
+    <string name="button_getstarted">Get Started</string>
 </resources>
