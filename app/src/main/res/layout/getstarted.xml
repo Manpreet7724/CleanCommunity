@@ -45,5 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displaygetStart" />
+        app:layout_constraintTop_toBottomOf="@+id/displaygetStart"
+        android:onClick="act_GPS"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
