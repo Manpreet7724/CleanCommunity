@@ -28,8 +28,10 @@
         <activity android:name=".startup2" android:screenOrientation="fullSensor"> </activity>
         <activity android:name=".login" android:screenOrientation="fullSensor"> </activity>
         <activity android:name=".signUp" android:screenOrientation="fullSensor"> </activity>
+        <activity android:name=".getstarted" android:screenOrientation="fullSensor"> </activity>
 
 
     </application>
+
 
 </manifest>

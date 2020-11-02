@@ -26,45 +26,29 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         final Handler h = new Handler();
         final Intent intent = new Intent(this, startup2.class);
         h.postDelayed(new Runnable() {
 
             @Override
 
-            public void run()
-            {
+            public void run() {
                 startActivity(intent);
 
             }
 
         }, 1000);
-
     }
-    @Override
-    protected void onResume()
-    {
-        final Handler h = new Handler();
-        super.onResume();
-        final Intent intent = new Intent(this, startup2.class);
-        h.postDelayed(new Runnable() {
 
-            @Override
-
-            public void run()
-            {
-                startActivity(intent);
-
-            }
-
-        }, 10000);
-    }
     @Override
     protected void onStop() // tells user the activy was stoped
     {
         super.onStop();
-
     }
     @Override
     protected void onDestroy()

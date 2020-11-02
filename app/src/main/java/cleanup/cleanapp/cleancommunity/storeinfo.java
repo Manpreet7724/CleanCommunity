@@ -9,7 +9,6 @@ public class storeinfo
 {
     static ArrayList<account> accounts = new ArrayList<>();
 
-
     public static int adddata(String name, String email, String phone, String pass, String conPass)
     {
         final String TAG = "singUp";
@@ -40,13 +39,21 @@ public class storeinfo
             }
         }
         else
+        {
+            if (pass.equals(conPass))
             {
-            accounts.add(new account(name, pass, phone, email));
-                return 1;
+                boolean foundAt = email.contains("@");
+                if (foundAt)
+                {
+                    accounts.add(new account(name, pass, phone, email));
+                    return 1;
+                }
             }
+        }
 
         return -1;
     }
+
     public static int  templogin(String email, String pass)
     {
         final String TAG = "login";

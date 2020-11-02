@@ -2,6 +2,7 @@ package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class signUp extends AppCompatActivity
 {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
@@ -19,7 +21,7 @@ public class signUp extends AppCompatActivity
 
     public void adddata(View view)
     {
-
+        int x;
         EditText text = findViewById(R.id.editPersonName);
         String name = text.getText().toString();
         text = findViewById(R.id.editEmail);
@@ -28,13 +30,13 @@ public class signUp extends AppCompatActivity
         String phone = text.getText().toString().replaceAll("\\s+", "");
         text = findViewById(R.id.editPassword);
         String pass = text.getText().toString().replaceAll("\\s+", "");
-        text = findViewById(R.id.editPassword);
+        text = findViewById(R.id.editConPassword);
         String conPass = text.getText().toString().replaceAll("\\s+", "");
 
-       int x = storeinfo.adddata(name,email,phone,pass,conPass);
+        x = storeinfo.adddata(name,email,phone,pass,conPass);
         if(x == 1)
         {
-            final Intent intent = new Intent(this, startup2.class);
+            final Intent intent = new Intent(this, getstarted.class);
             startActivity(intent);
         }
 
