@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class login  extends AppCompatActivity
 {
-    private TextView wongtext;
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
     {
@@ -26,7 +25,7 @@ public class login  extends AppCompatActivity
         int val =storeinfo.templogin(email,pass);
         if (val!=1)
         {
-            wongtext = (TextView)findViewById(R.id.wongText);
+            TextView wongtext = findViewById(R.id.wongText);
             wongtext.setVisibility(View.VISIBLE);
         }
         else
