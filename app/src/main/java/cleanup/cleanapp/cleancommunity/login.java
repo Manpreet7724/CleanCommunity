@@ -31,7 +31,7 @@ public class login  extends AppCompatActivity
         }
         else
         {
-            final Intent intent = new Intent(this, startup2.class);
+            final Intent intent = new Intent(this, getstarted.class);
             startActivity(intent);
         }
 
@@ -40,7 +40,6 @@ public class login  extends AppCompatActivity
     protected void onStop() // tells user the activy was stoped
     {
         super.onStop();
-
     }
     @Override
     protected void onDestroy()
