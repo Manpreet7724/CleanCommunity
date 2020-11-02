@@ -32,10 +32,7 @@
             android:value="@string/google_maps_key" />
         <activity
             android:name=".gpsMainAct"
-            android:label="@string/title_activity_gps" />
-<!--        <activity-->
-<!--            android:name=".gpsActivity"-->
-<!--            android:label="@string/title_activity_gps" />-->
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".StartActivity"
             android:screenOrientation="fullSensor"
