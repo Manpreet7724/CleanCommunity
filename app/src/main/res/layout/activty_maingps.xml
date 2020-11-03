@@ -35,6 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="634dp" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="140dp"
+        android:layout_height="72dp"
+        android:text="Button" />
+
 
 </LinearLayout>
 
