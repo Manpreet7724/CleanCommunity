@@ -31,6 +31,9 @@ public class storeinfo
                         {
                             accounts.add(new account(name, pass, phone, email));
                             return 1;
+
+
+
                         }
                     }
 
