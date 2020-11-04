@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "cleanup.cleanapp.cleancommunity"
@@ -11,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -29,9 +31,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation files('libs\\jsch-0.1.55.jar')
+    implementation files('libs\\retrofit-2.9.0.jar')
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
+
+    implementation project(':mysql-connector-java-3.0.17-ga-bin')
 }
