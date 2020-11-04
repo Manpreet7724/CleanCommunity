@@ -33,13 +33,17 @@
         android:id="@+id/fragment"
         android:name="cleanup.cleanapp.cleancommunity.gps_Fragment"
         android:layout_width="match_parent"
-        android:layout_height="634dp" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="140dp"
-        android:layout_height="72dp"
-        android:text="Button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:text="Demo Button"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingEnd="10dp"/>
+    </fragment>
 
 
 </LinearLayout>
