@@ -11,42 +11,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import org.apache.http.*;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import org.apache.http.*;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.regex.Pattern;
 
 
 public class signUp extends AppCompatActivity
@@ -54,10 +30,8 @@ public class signUp extends AppCompatActivity
     String urlAddress = "http://apollo.humber.ca/~n01323567/signup.php";
     String nameTxt,emailTxt,phoneTxt,passwordTxt,conPasswordTxt;
     EditText editName, editEmail, editPhone, editPassword, editConPass;
-    private static final String TAG = "Error found: ";
-    URL url = new URL(urlAddress);
 
-    public signUp() throws MalformedURLException {
+    public signUp() {
     }
 
     @Override
@@ -70,12 +44,11 @@ public class signUp extends AppCompatActivity
     @SuppressLint("LongLogTag")
     public void adddata(View view)
     {
-        int x;
-        editName = (EditText) findViewById(R.id.editPersonName);
-        editEmail = (EditText) findViewById(R.id.editEmail);
-        editPhone = (EditText) findViewById(R.id.editPhone);
-        editPassword = (EditText) findViewById(R.id.editPassword);
-        editConPass = (EditText) findViewById(R.id.editConPassword);
+        editName = findViewById(R.id.editPersonName);
+        editEmail = findViewById(R.id.editEmail);
+        editPhone = findViewById(R.id.editPhone);
+        editPassword = findViewById(R.id.editPassword);
+        editConPass = findViewById(R.id.editConPassword);
 
         nameTxt = editName.getText().toString().trim();
         emailTxt = editEmail.getText().toString().trim();
@@ -94,11 +67,12 @@ public class signUp extends AppCompatActivity
     }
 
     public void InsertData(final String name, final String email, final String phone, final String password){
+        @SuppressLint("StaticFieldLeak")
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
                 nameValuePairs.add(new BasicNameValuePair("Name", nameTxt));
                 nameValuePairs.add(new BasicNameValuePair("Email", emailTxt));
                 nameValuePairs.add(new BasicNameValuePair("Phone", phoneTxt));
