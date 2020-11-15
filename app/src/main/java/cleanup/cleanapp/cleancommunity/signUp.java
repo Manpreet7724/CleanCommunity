@@ -9,7 +9,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,20 +27,19 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class signUp extends AppCompatActivity
 {
-    String urlAddress = "http://apollo.humber.ca/~n01323567/signup.php";
     String nameTxt,emailTxt,phoneTxt,passwordTxt,conPasswordTxt;
     EditText editName, editEmail, editPhone, editPassword, editConPass;
-
-    public signUp() {
-    }
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
@@ -44,61 +51,51 @@ public class signUp extends AppCompatActivity
     @SuppressLint("LongLogTag")
     public void adddata(View view)
     {
+
+        auth = FirebaseAuth.getInstance();
+
         editName = findViewById(R.id.editPersonName);
         editEmail = findViewById(R.id.editEmail);
         editPhone = findViewById(R.id.editPhone);
         editPassword = findViewById(R.id.editPassword);
         editConPass = findViewById(R.id.editConPassword);
 
+
+        registerUserdata();
+
+    }
+
+    private void registerUserdata(){
         nameTxt = editName.getText().toString().trim();
         emailTxt = editEmail.getText().toString().trim();
         phoneTxt = editPhone.getText().toString().trim();
         passwordTxt = editPassword.getText().toString().trim();
         conPasswordTxt = editConPass.getText().toString().trim();
 
-        if(passwordTxt.equals(conPasswordTxt)){
-            InsertData(nameTxt, emailTxt, phoneTxt, passwordTxt);
-            final Intent intent = new Intent(this, getstarted.class);
-            startActivity(intent);
-        }else{
-            Toast.makeText(signUp.this, "Passwords do not match", Toast.LENGTH_LONG).show();
-        }
+        auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    userdata userdata = new userdata(nameTxt, phoneTxt, emailTxt, passwordTxt);
 
-    }
-
-    public void InsertData(final String name, final String email, final String phone, final String password){
-        @SuppressLint("StaticFieldLeak")
-        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
-
-                List<NameValuePair> nameValuePairs = new ArrayList<>();
-                nameValuePairs.add(new BasicNameValuePair("Name", nameTxt));
-                nameValuePairs.add(new BasicNameValuePair("Email", emailTxt));
-                nameValuePairs.add(new BasicNameValuePair("Phone", phoneTxt));
-                nameValuePairs.add(new BasicNameValuePair("Password", passwordTxt));
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost(urlAddress);
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    HttpResponse httpResponse = httpClient.execute(httpPost);
-                    HttpEntity httpEntity = httpResponse.getEntity();
-                }  catch (IOException e) {
-                    Log.e("log_tag", "Error in http connection", e);
+                    FirebaseDatabase.getInstance().getReference("User")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(userdata).addOnCompleteListener(new OnCompleteListener<Void>(){
+                                public void onComplete(@NonNull Task<Void> task){
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(signUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
+                                        final Intent intent = new Intent(signUp.this, getstarted.class);
+                                        startActivity(intent);
+                                    }else{
+                                        Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                    });
+                }else{
+                    Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
                 }
-
-                return "Data Inserted Successfully";
             }
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                Toast.makeText(signUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
-            }
-        }
-        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(name, email, phone, password);
+        });
     }
-
 
     protected void onStart() // tells user the activy is started
     {

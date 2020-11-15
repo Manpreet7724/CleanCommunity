@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "147003681036",
+    "firebase_url": "https://clean-community.firebaseio.com",
+    "project_id": "clean-community",
+    "storage_bucket": "clean-community.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147003681036:android:f28a8beedf0c4d487c8129",
+        "android_client_info": {
+          "package_name": "cleanup.cleanapp.cleancommunity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147003681036-tiusv6c3l7ge2s4h19b608mrfv1aq5u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0Upm3JAG2Kf2oUlU4epKR_EYOqES6qKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147003681036-tiusv6c3l7ge2s4h19b608mrfv1aq5u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
