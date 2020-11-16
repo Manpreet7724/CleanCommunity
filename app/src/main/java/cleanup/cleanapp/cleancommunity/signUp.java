@@ -72,10 +72,34 @@ public class signUp extends AppCompatActivity
         passwordTxt = editPassword.getText().toString().trim();
         conPasswordTxt = editConPass.getText().toString().trim();
 
+        if(nameTxt.isEmpty()){
+            editName.setError("Please input your Name");
+            editName.requestFocus();
+            return;
+        } if(emailTxt.isEmpty()){
+            editEmail.setError("Please input your Email");
+            editEmail.requestFocus();
+            return;
+        } if(phoneTxt.isEmpty()){
+            editPhone.setError("Please input your Phone number");
+            editPhone.requestFocus();
+            return;
+        }
+        if(passwordTxt.isEmpty()){
+            editPassword.setError("Please input a Password");
+            editPassword.requestFocus();
+            return;
+        }
+        if(passwordTxt.length() < 6){
+            editPassword.setError("Password should be longer than 6 characters");
+            editPassword.requestFocus();
+            return;
+        }
+
         auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    userdata userdata = new userdata(nameTxt, phoneTxt, emailTxt, passwordTxt);
+                    userdata userdata = new userdata(nameTxt, emailTxt,phoneTxt , passwordTxt);
 
                     FirebaseDatabase.getInstance().getReference("User")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -85,14 +109,16 @@ public class signUp extends AppCompatActivity
                                         Toast.makeText(signUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
                                         final Intent intent = new Intent(signUp.this, getstarted.class);
                                         startActivity(intent);
-                                    }else{
+                                    }else
+                                        {
                                         Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
-                                    }
+                                        }
                                 }
-                    });
-                }else{
+                            });
+                }else
+                    {
                     Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
-                }
+                    }
             }
         });
     }

@@ -7,8 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -35,6 +42,8 @@ public class login  extends AppCompatActivity
     EditText editEmail;
     EditText editPassword;
 
+    private FirebaseAuth auth;
+
     public login() {
     }
 
@@ -49,54 +58,49 @@ public class login  extends AppCompatActivity
         editEmail = findViewById(R.id.editTusername);
         editPassword = findViewById(R.id.editPasswordLog);
 
-        emailTxt = editEmail.getText().toString().trim();
-        passwordTxt = editPassword.getText().toString().trim();
+       //ReceiveData(emailTxt, passwordTxt);
 
-       ReceiveData(emailTxt, passwordTxt);
-
+        LoginUser();
 
     }
 
-   private void  ReceiveData(final String email,final String password)
-   {
-       @SuppressLint("StaticFieldLeak")
-       class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
-           @Override
-           protected String doInBackground(String... params)
-           {
-               List<NameValuePair> nameValuePairs = new ArrayList<>();
-               nameValuePairs.add(new BasicNameValuePair("email", emailTxt));
-               nameValuePairs.add(new BasicNameValuePair("password", passwordTxt));
+    private void LoginUser()
+    {
+        emailTxt = editEmail.getText().toString().trim();
+        passwordTxt = editPassword.getText().toString().trim();
 
-               InputStream is;
-               String result = null;
-               try {
-                   HttpClient httpClient = new DefaultHttpClient();
-                   HttpPost httpPost = new HttpPost(urlAddress);
-                   httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                   HttpResponse httpResponse = httpClient.execute(httpPost);
-                   HttpEntity httpEntity = httpResponse.getEntity();
+        if(emailTxt.isEmpty()){
+            editEmail.setError("Please input your Email");
+            editEmail.requestFocus();
+            return;
+        }
+        if(passwordTxt.isEmpty()){
+            editPassword.setError("Please input a Password");
+            editPassword.requestFocus();
+            return;
+        }
+        if(passwordTxt.length() < 6){
+            editPassword.setError("Password should be longer than 6 characters");
+            editPassword.requestFocus();
+            return;
+        }
 
-                   is = httpEntity.getContent();
-                   BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8), 8);
-                   String line;
-                   while ((line = reader.readLine()) != null) {
-                       Log.d("log_tag", line);
-                       if (line.trim().equalsIgnoreCase("success")) {
-                           final Intent intent = new Intent(login.this, gpsMainAct.class);
-                           startActivity(intent);
-                           finish();
-                       }
-                   }
-                   result = "";
-               } catch (IOException e) {
-                   Log.e("log_tag", "Error in http connection", e);
-               }
-               return result;
-           }
-       }
-       new SendPostReqAsyncTask().execute(email, password);
-   }
+        auth = FirebaseAuth.getInstance();
+
+        auth.signInWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
+            public void onComplete(@NonNull Task<AuthResult> task){
+                if(task.isSuccessful()){
+                    Toast.makeText(login.this, "Login Successful", Toast.LENGTH_LONG).show();
+                    final Intent intent = new Intent(login.this, getstarted.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(login.this, "Failed to login", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
 
     @Override
     protected void onStop() // tells user the activy was stoped
