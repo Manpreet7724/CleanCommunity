@@ -1,3 +1,4 @@
+
 package cleanup.cleanapp.cleancommunity;
 
 import androidx.annotation.NonNull;
@@ -46,26 +47,39 @@ public class gps_Fragment extends Fragment
         @Override
         public void onMapReady(GoogleMap googleMap)
         {
-            String areaname,rating,areainfo;
-            areaname="";
-//            object save cirlce
-//                then object array lsit atray list maybe ????
-            rating="";
+            String areaname ="",areainfo="";
+            String areaNickname="", email="";
+            long longitude=0, latitude=0, radius=0;
+            int index=0, rating=10;
 
+            ArrayList<LocationData> circle = new ArrayList<LocationData>();
+            int x=0;
             int y=0;
             double lon,lad;
             lad=-33.87365;
             lon=151.20689;
-            areainfo="";
-            ArrayList<Circle> circle = new ArrayList<Circle>();
 
+            LocationData temp;
 
-                circle.add(googleMap.addCircle(new CircleOptions()
+            while(x==0)
+            {
+                if(y==1)
+                {
+                    x=1;
+                    lad++;
+                }
+                circle.add(new LocationData( areaname,  email,  longitude,  latitude,  radius,  rating,index));
+                temp = circle.get(x);
+                temp.addcircle(  googleMap.addCircle(new CircleOptions()
                         .center(new LatLng(lad, lon))
                         .radius(10000)
                         .strokeColor(Color.RED)
                         .fillColor(Color.RED)
                         .clickable(true)));
+                y++;
+            }
+
+
 
 
             googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {

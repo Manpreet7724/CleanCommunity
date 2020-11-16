@@ -26,40 +26,39 @@
         android:id="@+id/editPasswordLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginBottom="124dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textPassword"
         android:text="@string/password"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonlogin2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.085"
         tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/editTusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
+        android:layout_marginBottom="8dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/email"
+        app:layout_constraintBottom_toTopOf="@+id/editPasswordLog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/buttonlogin2"
         android:layout_width="169dp"
         android:layout_height="42dp"
+        android:layout_marginBottom="92dp"
         android:background="#FFFFFF"
         android:onClick="templogin"
         android:text="@string/button_login"
@@ -67,10 +66,8 @@
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.856" />
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
