@@ -16,4 +16,10 @@
     <string name="welcomemessage">Les déchets détruisent lentement l\'écosystème, la beauté et la vie de notre planète. La distance moyenne qu\'une personne transporte avant de la jeter est de 12 pas. Il est temps de faire une différence, faisons-le ensemble.</string>
     <string name="button_getstarted">Commencer</string>
     <string name="search">chercher</string>
+    <string name="contributor">Donateur:</string>
+    <string name="radius">Rayon:</string>
+    <string name="area_name">Nom de la zone:</string>
+    <string name="rating">Évaluation:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
 </resources>

@@ -15,4 +15,10 @@
     <string name="welcomemessage">Littering is slowly destroying the ecosystem, the beauty, and the life of our planet. The average distance someone carries litter before throwing it away is 12 paces. It\'s time to make a difference, lets do it together.</string>
     <string name="button_getstarted">Get Started</string>
     <string name="search">search</string>
+    <string name="contributor">Contributor:</string>
+    <string name="radius">Radius:</string>
+    <string name="area_name">Area Name:</string>
+    <string name="rating">Rating:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
 </resources>
