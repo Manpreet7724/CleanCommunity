@@ -4,22 +4,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.CustomCap;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polygon;
@@ -28,6 +34,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,20 +46,45 @@ public class gps_Fragment extends Fragment
         @Override
         public void onMapReady(GoogleMap googleMap)
         {
-            Polygon polygon1 = googleMap.addPolygon(new PolygonOptions()
-                    .clickable(true)
-                    .add(
-                            new LatLng(-27.457, 153.040),
-                            new LatLng(-33.852, 151.211),
-                            new LatLng(-37.813, 144.962),
-                            new LatLng(-34.928, 138.599)));
+            String areaname,rating,areainfo;
+            areaname="";
+//            object save cirlce
+//                then object array lsit atray list maybe ????
+            rating="";
 
-            stylePolygon(polygon1);
+            int y=0;
+            double lon,lad;
+            lad=-33.87365;
+            lon=151.20689;
+            areainfo="";
+            ArrayList<Circle> circle = new ArrayList<Circle>();
 
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+                circle.add(googleMap.addCircle(new CircleOptions()
+                        .center(new LatLng(lad, lon))
+                        .radius(10000)
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.RED)
+                        .clickable(true)));
+
+
+            googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+                @Override
+                public void onCircleClick(Circle circle)
+                {
+                    // Flip the r, g and b components of the circle's stroke color.
+                    int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
+                    circle.setStrokeColor(strokeColor);
+                }
+            });
+
+
         }
+
+
+
+
+
     };
 
     @Nullable
@@ -84,37 +116,16 @@ public class gps_Fragment extends Fragment
         private static final int COLOR_PURPLE_ARGB = 0xff81C784;
         private static final int COLOR_ORANGE_ARGB = 0xffF57F17;
         private static final int COLOR_BLUE_ARGB = 0xffF9A825;
-
         private static final int POLYGON_STROKE_WIDTH_PX = 8;
         private static final int PATTERN_DASH_LENGTH_PX = 20;
         private static final PatternItem DASH = new Dash(PATTERN_DASH_LENGTH_PX);
-
-        // Create a stroke pattern of a gap followed by a dash.
         private static final List<PatternItem> PATTERN_POLYGON_ALPHA = Arrays.asList(GAP, DASH);
-
-        // Create a stroke pattern of a dot followed by a gap, a dash, and another gap.
         private static final List<PatternItem> PATTERN_POLYGON_BETA =
                 Arrays.asList(DOT, GAP, DASH, GAP);
 
 
-        private void stylePolygon(Polygon polygon)
-        {
-        String type = "";
-        // Get the data object stored with the polygon.
-        if (polygon.getTag() != null) {
-            type = polygon.getTag().toString();
-        }
-
-        List<PatternItem> pattern = null;
-        int strokeColor = 0xAFFF5F49 ;
-        int fillColor = 0xAFFF5F49;
 
 
-        polygon.setStrokePattern(pattern);
-        polygon.setStrokeWidth(POLYGON_STROKE_WIDTH_PX);
-        polygon.setStrokeColor(strokeColor);
-        polygon.setFillColor(fillColor);
-    }
 
 
 }

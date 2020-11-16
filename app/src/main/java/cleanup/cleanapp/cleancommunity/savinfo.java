@@ -1,12 +1,12 @@
 package cleanup.cleanapp.cleancommunity;
 
-public class account
+public class savinfo
 {
     String name;
     String pass;
     String phoneNum;
     String email;
-    public account(String newName, String newPass,String newPhone, String newEmail)
+    public savinfo(String newName, String newPass,String newPhone, String newEmail)
     {
         this.name = newName;
         this.pass = newPass;
