@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CleanCommunauté</string>
+    <string name="slogon">Nettoyer le monde. Une tasse de papier à la fois.</string>
+    <string name="button_signup">S\'INSCRIRE</string>
+    <string name="button_login">S\'IDENTIFIER</string>
+    <string name="welcome">Bienvenu!</string>
+    <string name="full_name">Nom complet</string>
+    <string name="email">Email</string>
+    <string name="phone">Téléphone</string>
+    <string name="conPassword">Confirmez le mot de passe</string>
+    <string name="password">Mot de passe</string>
+    <string name="frogot_pass">Mot de passe oublié?</string>
+    <string name="checkbox">Rester connecté</string>
+    <string name="wong_pass">Aïe, mauvais mot de passe!!!!!!!!!!!!</string>
+    <string name="welcomemessage">Les déchets détruisent lentement l\'écosystème, la beauté et la vie de notre planète. La distance moyenne qu\'une personne transporte avant de la jeter est de 12 pas. Il est temps de faire une différence, faisons-le ensemble.</string>
+    <string name="button_getstarted">Commencer</string>
+    <string name="search">chercher</string>
+</resources>
