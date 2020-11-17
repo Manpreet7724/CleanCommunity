@@ -58,7 +58,7 @@ public class gps_Fragment extends Fragment
         @Override
         public void onMapReady(final GoogleMap googleMap)
         {
-            
+
             final ArrayList<LocationData> circle = new ArrayList<>();
 
             LocationData temp;
@@ -98,19 +98,27 @@ public class gps_Fragment extends Fragment
                 @Override
                 public void onCircleClick(Circle circle)
                 {
+                    DatabaseReference myRef = database.getReference("Location");
                     // Flip the r, g and b components of the circle's stroke color.
                     int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
                     circle.setStrokeColor(strokeColor);
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            String value = dataSnapshot.getValue(String.class);
+                            Log.d("qweqwe", "Value is: " + value);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            // Failed to read value
+                            Log.w("qweqwe", "Failed to read value.", error.toException());
+                        }
+                    });
                 }
             });
-
-
         }
-
-
-
-
-
     };
 
     @Nullable
