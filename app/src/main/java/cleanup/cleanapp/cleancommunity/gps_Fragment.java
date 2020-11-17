@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,17 +58,8 @@ public class gps_Fragment extends Fragment
         @Override
         public void onMapReady(final GoogleMap googleMap)
         {
-            String areaname ="",areainfo="";
-            String areaNickname="", contributor="";
-            long longitude=0, latitude=0;
-            int radius=0, rating=0;
-
-            final ArrayList<LocationData> circle = new ArrayList<LocationData>();
-            final int x=0;
-            int y=0;
-            final double lon,lad;
-            lad=-33.87365;
-            lon=151.20689;
+            
+            final ArrayList<LocationData> circle = new ArrayList<>();
 
             LocationData temp;
             FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener(){
@@ -76,20 +68,23 @@ public class gps_Fragment extends Fragment
                    LocationData temp;
                    FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                    DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
-
                    int x = 0;
+
                    for(DataSnapshot snapshot : dataSnapshot.getChildren())
                    {
+                       LocationData data = snapshot.getValue(LocationData.class);
                        DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
+
+                       Log.d("TAG", "onDataChange: "+data.latitude);
                        String uid = currentLocationUserChild.toString();
                        circle.add(new LocationData(uid));
                        temp = circle.get(x);
                        temp.addcircle(googleMap.addCircle(new CircleOptions()
-                               .center(new LatLng(lad, lon))
-                               .radius(10000)
-                       .strokeColor(Color.RED)
-                       .fillColor(Color.RED)
-                       .clickable(true)));
+                               .center(new LatLng(data.latitude, data.longitude))
+                               .radius(data.radius)
+                               .strokeColor(Color.RED)
+                                .fillColor(Color.RED)
+                                .clickable(true)));
                        x++;
                    }
                }

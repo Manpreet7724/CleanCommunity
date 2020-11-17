@@ -67,8 +67,8 @@ public class swipeupActivity  extends AppCompatActivity
         DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Location");
         int ratingInput = Integer.parseInt(ratingText);
         int radiusInput = Integer.parseInt(radiusText);
-        long latitudeInput = Long.parseLong(latitudeText);
-        long longitudeInput = Long.parseLong(longitudeText);
+        float latitudeInput = Float.parseFloat(latitudeText);
+        float longitudeInput = Float.parseFloat(longitudeText);
 
         locationData.setAreaNickname(areaNicknameText);
         locationData.setLatitude(latitudeInput);

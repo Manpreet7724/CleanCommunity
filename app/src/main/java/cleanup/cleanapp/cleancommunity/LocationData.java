@@ -5,23 +5,19 @@ import com.google.android.gms.maps.model.Circle;
 public class LocationData {
 
     String areaNickname, contributor;
-    Long longitude, latitude;
+    float longitude, latitude;
     int radius, rating;
     Circle circle;
     String uid;
 
-    public LocationData(){}
+    public LocationData(){
 
-    public LocationData(String areaNickname, String contributor, long longitude, long latitude, int radius, int rating) {
-        this.areaNickname = areaNickname;
-        this.contributor = contributor;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.radius = radius;
-        this.rating = rating;
     }
 
-    public LocationData(String uid) {
+    public LocationData(String uid)
+    {
+        this.uid = uid;
+
     }
 
     public void setAreaNickname(String areaNickname) {
@@ -32,11 +28,11 @@ public class LocationData {
         this.contributor = contributor;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
@@ -56,11 +52,11 @@ public class LocationData {
         return contributor;
     }
 
-    public Long getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public Long getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
@@ -84,10 +80,5 @@ public class LocationData {
     public void setCircle(Circle circle)
     {
         this.circle = circle;
-    }
-
-    public void LocationData(String uid)
-    {
-        this.uid = uid;
     }
 }
