@@ -43,19 +43,70 @@
             android:name="cleanup.cleanapp.cleancommunity.gps_Fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <Button
-            android:id="@+id/getStarbutton"
-            android:layout_width="169dp"
-            android:layout_height="42dp"
-            android:layout_marginTop="76dp"
-            android:text="@string/add"
-            android:textStyle="bold"
-            app:backgroundTint="@android:color/transparent"
-            />
-            </fragment>
-        </LinearLayout>
+            <Button
+                android:id="@+id/getStarbutton"
+                android:layout_width="169dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="76dp"
+                android:text="add"
+                android:onClick="addNewLocation"
+                android:textStyle="bold"
+                app:backgroundTint="@android:color/transparent"
+                />
+        </fragment>
+    </LinearLayout>
+
+
 
         <include layout="@layout/swipeupmenu"/>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:orientation="vertical"-->
+<!--    android:background="@drawable/base_screen">-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="63dp">-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/search_loct"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="43dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:autofillHints=""-->
+<!--            android:background="@drawable/searchbar"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="text"-->
+<!--            android:text="@string/search"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.494"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="LabelFor,MissingConstraints" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/fragment"-->
+<!--        android:name="cleanup.cleanapp.cleancommunity.gps_Fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|center"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:paddingEnd="10dp"-->
+<!--            android:text="Demo Button" />-->
+<!--    </fragment>-->
+
+<!--</LinearLayout>-->
 
