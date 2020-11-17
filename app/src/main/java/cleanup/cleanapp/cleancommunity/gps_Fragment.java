@@ -75,16 +75,17 @@ public class gps_Fragment extends Fragment
                        LocationData data = snapshot.getValue(LocationData.class);
                        DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
 
-                       Log.d("TAG", "onDataChange: "+data.latitude);
+                    //   Log.d("TAG", "onDataChange: "+data.latitude);
                        String uid = currentLocationUserChild.toString();
                        circle.add(new LocationData(uid));
                        temp = circle.get(x);
+                       //Log.d("TAG", "onDataChange: "+circle.get(x));
                        temp.addcircle(googleMap.addCircle(new CircleOptions()
                                .center(new LatLng(data.latitude, data.longitude))
                                .radius(data.radius)
                                .strokeColor(Color.RED)
-                                .fillColor(Color.RED)
-                                .clickable(true)));
+                               .fillColor(Color.RED)
+                               .clickable(true)));
                        x++;
                    }
                }
@@ -98,22 +99,41 @@ public class gps_Fragment extends Fragment
                 @Override
                 public void onCircleClick(Circle circle)
                 {
-                    DatabaseReference myRef = database.getReference("Location");
+                    String id = circle.getId().substring(2);
+                    final int idInt = Integer.parseInt(id);
+                    Log.d("TAG", "onDataChange: " + idInt);
+
+                    DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
                     // Flip the r, g and b components of the circle's stroke color.
                     int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
                     circle.setStrokeColor(strokeColor);
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener(){
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+                            LocationData temp;
+                            FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
+                            DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
+                            int x = 0;
+                            final ArrayList<LocationData> circle = new ArrayList<>();
+                            for(int i = 0; i<100; i++)
+                            {
+                             if(i == idInt){
+                                 for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                                 {
+                                     LocationData data = snapshot.getValue(LocationData.class);
+                                     DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
 
-                            String value = dataSnapshot.getValue(String.class);
-                            Log.d("qweqwe", "Value is: " + value);
+                                     Log.d("TAG", "onDataChange1: "+data.latitude);
+
+                                 }
+                             }
+
+                            }
+
                         }
-
                         @Override
-                        public void onCancelled(DatabaseError error) {
-                            // Failed to read value
-                            Log.w("qweqwe", "Failed to read value.", error.toException());
+                        public void onCancelled(@NonNull DatabaseError error){
+
                         }
                     });
                 }
@@ -156,10 +176,5 @@ public class gps_Fragment extends Fragment
         private static final List<PatternItem> PATTERN_POLYGON_ALPHA = Arrays.asList(GAP, DASH);
         private static final List<PatternItem> PATTERN_POLYGON_BETA =
                 Arrays.asList(DOT, GAP, DASH, GAP);
-
-
-
-
-
 
 }
