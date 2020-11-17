@@ -10,55 +10,53 @@
 
     <TextView
         android:id="@+id/wongText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="472dp"
+        android:layout_width="64dp"
+        android:layout_height="63dp"
         android:text="@string/wong_pass"
         android:textColor="#F00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.959"
-        app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone"
 
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editPasswordLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
+        android:layout_marginTop="16dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textPassword"
         android:text="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/buttonlogin2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTusername"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/editTusername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/email"
-        app:layout_constraintBottom_toTopOf="@+id/editPasswordLog"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575"
         tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/buttonlogin2"
         android:layout_width="169dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="92dp"
         android:background="#FFFFFF"
         android:onClick="templogin"
         android:text="@string/button_login"
@@ -66,8 +64,9 @@
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintVertical_bias="0.31" />
 
     <TextView
         android:id="@+id/textView4"
@@ -77,22 +76,23 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonlogin2"
+        app:layout_constraintVertical_bias="0.197" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/checkbox"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintTop_toBottomOf="@+id/editPasswordLog"
+        app:layout_constraintVertical_bias="0.093" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
