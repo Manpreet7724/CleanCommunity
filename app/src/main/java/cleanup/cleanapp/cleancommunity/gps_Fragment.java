@@ -48,9 +48,9 @@ public class gps_Fragment extends Fragment
         public void onMapReady(GoogleMap googleMap)
         {
             String areaname ="",areainfo="";
-            String areaNickname="", email="";
-            long longitude=0, latitude=0, radius=0;
-            int index=0, rating=10;
+            String areaNickname="", contributor="";
+            String longitude="0", latitude="0", radius="0";
+            String index="0", rating="10";
 
             ArrayList<LocationData> circle = new ArrayList<LocationData>();
             int x=0;
@@ -68,7 +68,7 @@ public class gps_Fragment extends Fragment
                     x=1;
                     lad++;
                 }
-                circle.add(new LocationData( areaname,  email,  longitude,  latitude,  radius,  rating,index));
+                circle.add(new LocationData());
                 temp = circle.get(x);
                 temp.addcircle(  googleMap.addCircle(new CircleOptions()
                         .center(new LatLng(lad, lon))

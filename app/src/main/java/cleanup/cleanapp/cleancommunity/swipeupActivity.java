@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class swipeupActivity  extends AppCompatActivity
     EditText areaNickname, radius, longitude, latitude, rating, contributor;
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     Button LocationButton;
+    SeekBar seekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
