@@ -34,6 +34,13 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,46 +48,56 @@ import java.util.List;
 
 public class gps_Fragment extends Fragment
 {
+    FirebaseUser user;
+    FirebaseAuth auth;
+    FirebaseDatabase database;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback()
     {
         @Override
-        public void onMapReady(GoogleMap googleMap)
+        public void onMapReady(final GoogleMap googleMap)
         {
             String areaname ="",areainfo="";
             String areaNickname="", contributor="";
-            String longitude="0", latitude="0", radius="0";
-            String index="0", rating="10";
+            long longitude=0, latitude=0;
+            int radius=0, rating=0;
 
-            ArrayList<LocationData> circle = new ArrayList<LocationData>();
-            int x=0;
+            final ArrayList<LocationData> circle = new ArrayList<LocationData>();
+            final int x=0;
             int y=0;
-            double lon,lad;
+            final double lon,lad;
             lad=-33.87365;
             lon=151.20689;
 
             LocationData temp;
+            FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener(){
+               @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+                   LocationData temp;
+                   FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
+                   DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
-            while(x==0)
-            {
-                if(y==1)
-                {
-                    x=1;
-                    lad++;
+                   int x = 0;
+                   for(DataSnapshot snapshot : dataSnapshot.getChildren())
+                   {
+                       DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
+                       String uid = currentLocationUserChild.toString();
+                       circle.add(new LocationData(uid));
+                       temp = circle.get(x);
+                       temp.addcircle(googleMap.addCircle(new CircleOptions()
+                               .center(new LatLng(lad, lon))
+                               .radius(10000)
+                       .strokeColor(Color.RED)
+                       .fillColor(Color.RED)
+                       .clickable(true)));
+                       x++;
+                   }
+               }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error){
+
                 }
-                circle.add(new LocationData());
-                temp = circle.get(x);
-                temp.addcircle(  googleMap.addCircle(new CircleOptions()
-                        .center(new LatLng(lad, lon))
-                        .radius(10000)
-                        .strokeColor(Color.RED)
-                        .fillColor(Color.RED)
-                        .clickable(true)));
-                y++;
-            }
-
-
-
+            });
 
             googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
                 @Override

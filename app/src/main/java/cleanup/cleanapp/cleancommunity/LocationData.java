@@ -8,6 +8,21 @@ public class LocationData {
     Long longitude, latitude;
     int radius, rating;
     Circle circle;
+    String uid;
+
+    public LocationData(){}
+
+    public LocationData(String areaNickname, String contributor, long longitude, long latitude, int radius, int rating) {
+        this.areaNickname = areaNickname;
+        this.contributor = contributor;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.radius = radius;
+        this.rating = rating;
+    }
+
+    public LocationData(String uid) {
+    }
 
     public void setAreaNickname(String areaNickname) {
         this.areaNickname = areaNickname;
@@ -71,4 +86,8 @@ public class LocationData {
         this.circle = circle;
     }
 
+    public void LocationData(String uid)
+    {
+        this.uid = uid;
+    }
 }

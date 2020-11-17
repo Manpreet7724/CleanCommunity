@@ -30,7 +30,6 @@ public class login  extends AppCompatActivity
     CheckBox stayLogin;
 
     private FirebaseAuth auth;
-    private SharedPreferences sharedPref;
 
     public login() {
     }
