@@ -51,7 +51,6 @@ public class signUp extends AppCompatActivity
         setContentView(R.layout.signup);
     }
 
-    @SuppressLint("LongLogTag")
     public void adddata(View view)
     {
 

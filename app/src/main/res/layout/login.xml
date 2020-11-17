@@ -7,7 +7,6 @@
     android:layout_height="fill_parent"
     android:background="@drawable/startup_screen2">
 
-
     <TextView
         android:id="@+id/wongText"
         android:layout_width="64dp"
@@ -82,7 +81,7 @@
         app:layout_constraintVertical_bias="0.197" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/loginCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
