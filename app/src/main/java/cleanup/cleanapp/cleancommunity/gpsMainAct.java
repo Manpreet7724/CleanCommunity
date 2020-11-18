@@ -33,4 +33,6 @@ public class gpsMainAct extends AppCompatActivity
         final Intent intent = new Intent(this, swipeupActivity.class);
         startActivity(intent);
     }
+
+
 }

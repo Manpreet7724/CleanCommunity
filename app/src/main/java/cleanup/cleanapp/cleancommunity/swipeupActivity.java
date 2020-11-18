@@ -1,8 +1,11 @@
 package cleanup.cleanapp.cleancommunity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,21 +20,28 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class swipeupActivity  extends AppCompatActivity
 {
     EditText areaNickname, radius, longitude, latitude, rating, contributor;
+
+    private SlidingUpPanelLayout mLayout;
+
+
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     Button LocationButton;
     SeekBar seekbar;
 
+
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swipeupmenu);
 
-        areaNickname = (EditText)findViewById(R.id.areaNicknameText);
+        areaNickname = findViewById(R.id.areaNicknameText);
         radius = findViewById(R.id.radiusText);
         longitude = findViewById(R.id.longitudeText);
         latitude = findViewById(R.id.latitudeText);
@@ -50,11 +60,14 @@ public class swipeupActivity  extends AppCompatActivity
         contributor.setFocusable(true);
         contributor.setFocusableInTouchMode(true);
 
-        LocationButton = (Button)findViewById(R.id.addLocationButton);
+        LocationButton = findViewById(R.id.addLocationButton);
         LocationButton.setVisibility(View.VISIBLE);
+
+
     }
 
-    public void AddLocation(View view) {
+    public void AddLocation(View view)
+    {
         areaNicknameText = areaNickname.getText().toString().trim();
         radiusText = radius.getText().toString().trim();
         longitudeText = longitude.getText().toString().trim();
@@ -77,5 +90,9 @@ public class swipeupActivity  extends AppCompatActivity
         locationData.setRating(ratingInput);
         locationData.setContributor(contributorText);
         database.push().setValue(locationData);
+
+        gps_Fragment circle = new gps_Fragment();
+        circle.drawCircle(longitudeInput,latitudeInput,radiusInput);
     }
+
 }

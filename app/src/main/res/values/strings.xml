@@ -21,5 +21,7 @@
     <string name="rating">Rating:</string>
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
+    <string name="okay">Okay</string>
     <string name="add">add</string>
+
 </resources>
