@@ -12,7 +12,7 @@
     android:background="@drawable/base_screen">
 
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,42 +21,85 @@
             android:layout_width="match_parent"
             android:layout_height="80dp">
 
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_launcher"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <EditText
                 android:id="@+id/search_loct"
                 android:layout_width="300dp"
                 android:layout_height="43dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="95dp"
+                android:layout_marginTop="18dp"
                 android:autofillHints=""
                 android:background="@drawable/searchbar"
                 android:ems="10"
                 android:inputType="text"
                 android:text="@string/search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="LabelFor,MissingConstraints" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="cleanup.cleanapp.cleancommunity.gps_Fragment"
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <Button
-                android:id="@+id/getStarbutton"
-                android:layout_width="169dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="76dp"
-                android:text="@string/add"
-                android:onClick="addNewLocation"
-                android:textStyle="bold"
-                app:backgroundTint="@android:color/transparent"
-                />
-        </fragment>
-    </LinearLayout>
+            <fragment
+                android:id="@+id/fragment"
+                android:name="cleanup.cleanapp.cleancommunity.gps_Fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/getStarbutton"
+                    android:layout_width="169dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="76dp"
+                    android:text="@string/add"
+                    android:onClick="addNewLocation"
+                    android:textStyle="bold"
+                    app:backgroundTint="@android:color/transparent"
+                    />
+            </fragment>
+            <!-- This LinearLayout represents the contents of the screen  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <!-- The ActionBar displayed at the top -->
+                <include
+                    layout="@layout/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- The main content view where fragments are loaded -->
+                <FrameLayout
+                    android:id="@+id/flContent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <!-- The navigation drawer that comes from the left -->
+            <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+            <com.google.android.material.navigation.NavigationView
+
+                android:id="@+id/nvView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:menu="@menu/drawer" />
+        </androidx.drawerlayout.widget.DrawerLayout>
 
 
         <include layout="@layout/swipeupmenu"/>

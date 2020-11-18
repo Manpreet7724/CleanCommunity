@@ -62,8 +62,6 @@ public class swipeupActivity  extends AppCompatActivity
 
         LocationButton = findViewById(R.id.addLocationButton);
         LocationButton.setVisibility(View.VISIBLE);
-
-
     }
 
     public void AddLocation(View view)
@@ -89,10 +87,11 @@ public class swipeupActivity  extends AppCompatActivity
         locationData.setRadius(radiusInput);
         locationData.setRating(ratingInput);
         locationData.setContributor(contributorText);
+
         database.push().setValue(locationData);
 
-        gps_Fragment circle = new gps_Fragment();
-        circle.drawCircle(longitudeInput,latitudeInput,radiusInput);
+       // gps_Fragment circle = new gps_Fragment();
+       // circle.drawCircle(longitudeInput,latitudeInput,radiusInput);
     }
 
 }
