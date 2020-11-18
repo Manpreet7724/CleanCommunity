@@ -108,14 +108,14 @@
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:background="#FFFFFF"
-        android:text="@string/button_signup"
         android:onClick="adddata"
+        android:text="@string/button_signup"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editConPassword"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.202" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
