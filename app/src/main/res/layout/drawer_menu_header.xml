@@ -32,7 +32,7 @@
         android:layout_marginTop="108dp"
         android:text="@string/email"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
         android:layout_marginTop="84dp"
         android:text="@string/full_name"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

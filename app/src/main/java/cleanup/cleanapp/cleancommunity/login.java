@@ -46,9 +46,11 @@ public class login  extends AppCompatActivity
         editEmail = findViewById(R.id.editTusername);
         editPassword = findViewById(R.id.editPasswordLog);
 
-        final Intent intent = new Intent(login.this, getstarted.class);
-        startActivity(intent);
-       // LoginUser();
+        LoginUser();
+
+        //final Intent intent = new Intent(login.this, getstarted.class);
+        //startActivity(intent);
+
     }
 
     private void LoginUser()
