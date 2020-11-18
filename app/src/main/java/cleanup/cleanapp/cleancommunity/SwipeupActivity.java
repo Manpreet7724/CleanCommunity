@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-public class swipeupActivity  extends AppCompatActivity
+public class SwipeupActivity extends AppCompatActivity
 {
     EditText areaNickname, radius, longitude, latitude, rating, contributor;
 

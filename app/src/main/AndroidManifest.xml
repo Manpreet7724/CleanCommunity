@@ -38,10 +38,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".gpsMainAct"
+            android:name=".GpsMainAct"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".swipeupActivity"
+            android:name=".SwipeupActivity"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".StartActivity"
@@ -54,16 +54,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".startup2"
+            android:name=".Startup2"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".login"
+            android:name=".Login"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".signUp"
+            android:name=".SignUp"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".getstarted"
+            android:name=".GetStarted"
             android:screenOrientation="fullSensor" />
     </application>
 

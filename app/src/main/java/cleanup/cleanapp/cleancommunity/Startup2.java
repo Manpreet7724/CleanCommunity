@@ -2,11 +2,10 @@ package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.*;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class startup2 extends AppCompatActivity
+public class Startup2 extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
@@ -16,13 +15,13 @@ public class startup2 extends AppCompatActivity
     }
     public void login(View view )
     {
-        final Intent intent = new Intent(this, login.class);
+        final Intent intent = new Intent(this, Login.class);
         startActivity(intent);
 
     }
     public void signUp(View view )
     {
-        final Intent intent = new Intent(this, signUp.class);
+        final Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
     @Override

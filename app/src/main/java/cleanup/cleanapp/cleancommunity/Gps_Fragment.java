@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class gps_Fragment extends Fragment
+public class Gps_Fragment extends Fragment
 {
     public static String holdArea;
     FirebaseUser user;

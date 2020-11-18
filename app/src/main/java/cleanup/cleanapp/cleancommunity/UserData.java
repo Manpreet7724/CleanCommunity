@@ -1,13 +1,13 @@
 package cleanup.cleanapp.cleancommunity;
 
-public class userdata {
+public class UserData {
     public String name, email, phone, password;
 
-    public userdata(){
+    public UserData(){
 
     }
 
-    public userdata(String name, String email, String phone, String password) {
+    public UserData(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;

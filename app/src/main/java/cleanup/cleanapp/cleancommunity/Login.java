@@ -1,11 +1,7 @@
 package cleanup.cleanapp.cleancommunity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,10 +14,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
-public class login  extends AppCompatActivity
+public class Login extends AppCompatActivity
 {
     String emailTxt;
     String passwordTxt;
@@ -31,7 +26,7 @@ public class login  extends AppCompatActivity
 
     private FirebaseAuth auth;
 
-    public login() {
+    public Login() {
     }
 
     @Override
@@ -79,11 +74,11 @@ public class login  extends AppCompatActivity
         auth.signInWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(task.isSuccessful()){
-                    Toast.makeText(login.this, "Login Successful", Toast.LENGTH_LONG).show();
-                    final Intent intent = new Intent(login.this, getstarted.class);
+                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_LONG).show();
+                    final Intent intent = new Intent(Login.this, GetStarted.class);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(login.this, "Failed to login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, "Failed to login", Toast.LENGTH_LONG).show();
                 }
             }
         });

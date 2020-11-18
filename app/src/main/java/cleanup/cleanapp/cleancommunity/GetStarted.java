@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class  getstarted<view> extends AppCompatActivity
+public class GetStarted<view> extends AppCompatActivity
 {
 
     @Override
@@ -29,7 +29,7 @@ public class  getstarted<view> extends AppCompatActivity
 
     public void act_GPS(View view)
     {
-        final Intent intent = new Intent(this, gpsMainAct.class);
+        final Intent intent = new Intent(this, GpsMainAct.class);
         startActivity(intent);
     }
 }

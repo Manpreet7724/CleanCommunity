@@ -25,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class gpsMainAct extends AppCompatActivity
+public class GpsMainAct extends AppCompatActivity
 {
     TextView username, useremail;
     private DrawerLayout drawerLayout;
@@ -68,7 +68,7 @@ public class gpsMainAct extends AppCompatActivity
                 DatabaseReference currentID = FirebaseDatabase.getInstance().getReference("User")
                         .child(uid);
                 String stringID = currentID.toString().substring(44);
-                userdata data = dataSnapshot.child(stringID).getValue(userdata.class);
+                UserData data = dataSnapshot.child(stringID).getValue(UserData.class);
 
                 if (stringID.equals(uid)) {
                     String name = data.name;
@@ -103,7 +103,7 @@ public class gpsMainAct extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 item.setChecked(false);
                 FirebaseAuth.getInstance().signOut();
-                final Intent intent = new Intent(gpsMainAct.this, StartActivity.class);
+                final Intent intent = new Intent(GpsMainAct.this, StartActivity.class);
                 startActivity(intent);
 
             }
@@ -132,7 +132,7 @@ public class gpsMainAct extends AppCompatActivity
     }
 
     public void addNewLocation(View view) {
-        final Intent intent = new Intent(this, swipeupActivity.class);
+        final Intent intent = new Intent(this, SwipeupActivity.class);
         startActivity(intent);
     }
 

@@ -1,10 +1,7 @@
 package cleanup.cleanapp.cleancommunity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,29 +13,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class signUp extends AppCompatActivity
+public class SignUp extends AppCompatActivity
 {
     String nameTxt,emailTxt,phoneTxt,passwordTxt,conPasswordTxt;
     EditText editName, editEmail, editPhone, editPassword, editConPass;
@@ -68,7 +46,7 @@ public class signUp extends AppCompatActivity
         if(passwordTxt.equals(conPasswordTxt)){
             registerUserdata();
         }else{
-            Toast.makeText(signUp.this, "Passwords do not Match", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUp.this, "Passwords do not Match", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -107,25 +85,25 @@ public class signUp extends AppCompatActivity
         auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    userdata userdata = new userdata(nameTxt, emailTxt,phoneTxt , passwordTxt);
+                    UserData userdata = new UserData(nameTxt, emailTxt,phoneTxt , passwordTxt);
 
                     FirebaseDatabase.getInstance().getReference("User")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(userdata).addOnCompleteListener(new OnCompleteListener<Void>(){
                                 public void onComplete(@NonNull Task<Void> task){
                                     if(task.isSuccessful()){
-                                        Toast.makeText(signUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
-                                        final Intent intent = new Intent(signUp.this, getstarted.class);
+                                        Toast.makeText(SignUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
+                                        final Intent intent = new Intent(SignUp.this, GetStarted.class);
                                         startActivity(intent);
                                     }else
                                         {
-                                        Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
                                         }
                                 }
                             });
                 }else
                     {
-                    Toast.makeText(signUp.this, "Failed to register", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
                     }
             }
         });
