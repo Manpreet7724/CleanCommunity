@@ -24,5 +24,6 @@
     <string name="okay" translatable="false">Okay</string>
     <string name="add">add</string>
     <string name="placeholder" translatable="false">placeholder</string>
+    <string name="signout">SignOut</string>
 
 </resources>

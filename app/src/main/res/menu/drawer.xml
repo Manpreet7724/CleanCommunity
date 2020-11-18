@@ -10,8 +10,9 @@
             android:icon="@drawable/ic_arrow"
             android:title="@string/placeholder" />
         <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/signout"
             android:icon="@drawable/ic_arrow"
-            android:title="@string/placeholder" />
+            android:title="@string/signout"
+            android:onClick="signout"/>
     </group>
 </menu>

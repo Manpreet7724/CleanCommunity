@@ -1,12 +1,12 @@
 package cleanup.cleanapp.cleancommunity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,8 +63,7 @@ public class gpsMainAct extends AppCompatActivity
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String uid= user.getUid();
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 DatabaseReference currentID = FirebaseDatabase.getInstance().getReference("User")
                         .child(uid);
@@ -87,14 +86,40 @@ public class gpsMainAct extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
+        // The action bar home/up action should open or close the drawer.
+        if (item.getItemId() == android.R.id.home) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+    public void signout(final MenuItem item) {
+        item.setChecked(true);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                item.setChecked(false);
+                FirebaseAuth.getInstance().signOut();
+                final Intent intent = new Intent(gpsMainAct.this, StartActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                item.setChecked(false);
+                dialog.cancel();
+            }
+        });
+        AlertDialog a = builder.create();
+        a.show();
+    }
+
+
     @Override
     protected void onStop() // tells user the activy was stoped
     {
@@ -110,6 +135,5 @@ public class gpsMainAct extends AppCompatActivity
         final Intent intent = new Intent(this, swipeupActivity.class);
         startActivity(intent);
     }
-
 
 }
