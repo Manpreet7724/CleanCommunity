@@ -111,6 +111,7 @@ public class gps_Fragment extends Fragment
                                 save = new LatLng(data.latitude, data.longitude);
                                 if (circle.getCenter().equals(save))
                                 {
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage(getResources().getString(R.string.area_name)+" "+data.areaNickname+"\n"
                                             +getResources().getString(R.string.rating)+" "+data.rating+"\n"
