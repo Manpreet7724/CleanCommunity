@@ -51,6 +51,7 @@
         android:background="#FFFFFF"
         android:text="@string/button_login"
         android:textStyle="bold"
+        android:onClick="templogin"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
