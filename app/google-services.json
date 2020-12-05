@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "147003681036-n3pgrqaa1ieh08gojvirgj50rar96bve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cleanup.cleanapp.cleancommunity",
+            "certificate_hash": "673ea2f07875085965f00a1be15ab89b8b9d4d3c"
+          }
+        },
+        {
           "client_id": "147003681036-tiusv6c3l7ge2s4h19b608mrfv1aq5u1.apps.googleusercontent.com",
           "client_type": 3
         }

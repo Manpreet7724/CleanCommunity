@@ -34,7 +34,7 @@ public class GpsMainAct extends AppCompatActivity
     ImageButton openmenu;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_maingps);
