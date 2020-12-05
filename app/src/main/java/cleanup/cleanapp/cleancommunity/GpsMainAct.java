@@ -71,8 +71,8 @@ public class GpsMainAct extends AppCompatActivity
                 UserData data = dataSnapshot.child(stringID).getValue(UserData.class);
 
                 if (stringID.equals(uid)) {
-                    String name = data.name;
-                    username.setText(name);
+                    //String name = data.name;
+                    //username.setText(name);
                 }
             }
 
