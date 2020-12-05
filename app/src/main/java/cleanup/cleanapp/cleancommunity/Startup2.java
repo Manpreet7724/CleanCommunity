@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,6 +45,14 @@ public class Startup2 extends AppCompatActivity
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        SignInButton googleButton = findViewById(R.id.googleSignup);
+        googleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignup();
+            }
+        });
     }
     public void login(View view )
     {
@@ -68,7 +77,7 @@ public class Startup2 extends AppCompatActivity
         super.onDestroy();
     }
 
-    public void googleSignup(View view) {
+    public void googleSignup() {
         Log.d("123123", "error 1");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         Log.d("123123", "error 2");
