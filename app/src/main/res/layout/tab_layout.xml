@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/red10">
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:layout_width="match_parent"
@@ -28,10 +28,10 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/red10"
-            app:tabSelectedTextColor="@color/red2"
-            app:tabTextColor="@color/red10"
-            android:background="@color/red1"/>
+            app:tabIndicatorColor="@color/black"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/black"
+            android:background="@color/colorPrimary"/>
 
         <fragment
             android:id="@+id/fragment"
