@@ -15,8 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class GpsMainAct extends AppCompatActivity
 {
     TextView username, useremail;
@@ -32,17 +36,28 @@ public class GpsMainAct extends AppCompatActivity
     private Toolbar toolbar;
     private NavigationView navigationView;
     ImageButton openmenu;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_maingps);
+        setContentView(R.layout.tab_layout);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(Gps_Fragment.getInstance(), "Map");
+
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+
+        /*drawerLayout = findViewById(R.id.drawer_layout);
         openmenu =findViewById(R.id.home);
         NavigationView navigationView = findViewById(R.id.nvView);
         View headerLayout = navigationView.inflateHeaderView(R.layout.drawer_menu_header);
@@ -81,7 +96,7 @@ public class GpsMainAct extends AppCompatActivity
                 // Failed to read value
                 Log.d("TAG", "Failed to read value.", error.toException());
             }
-        });
+        });*/
     }
 
     @Override

@@ -48,6 +48,12 @@ public class Gps_Fragment extends Fragment
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public String holdAreaname;
 
+
+    public static Gps_Fragment getInstance(){
+        Gps_Fragment chatFragment = new Gps_Fragment();
+        return chatFragment;
+    }
+
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(final GoogleMap googleMap)

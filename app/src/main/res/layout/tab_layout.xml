@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="qwe"
+                android:textSize="15dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/red10"
+            app:tabSelectedTextColor="@color/red2"
+            app:tabTextColor="@color/red10"
+            android:background="@color/red1"/>
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="cleanup.cleanapp.cleancommunity.Gps_Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/getStarbutton"
+                android:layout_width="169dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="76dp"
+                android:text="@string/add"
+                android:onClick="addNewLocation"
+                android:textStyle="bold"
+                app:backgroundTint="@android:color/transparent"
+                />
+        </fragment>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewPager" />
+
+
+</LinearLayout>
