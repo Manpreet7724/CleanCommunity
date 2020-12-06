@@ -37,12 +37,10 @@ public class Startup2 extends AppCompatActivity
         setContentView(R.layout.startup2);
 
         auth = FirebaseAuth.getInstance();
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                //.requestIdToken(getString(R.string.api_web_client_ip))
                 .requestEmail()
                 .build();
-
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -78,32 +76,32 @@ public class Startup2 extends AppCompatActivity
     }
 
     public void googleSignup() {
-        Log.d("123123", "error 1");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        Log.d("123123", "error 2");
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        Log.d("123123", "error 3");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("123123", "error 4");
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d("123123", "error 5");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("123123", "error 6");
-            try {
-                Log.d("123123", "error 7");
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("123123", "error 8");
-                firebaseAuthWithGoogle(account.getIdToken());
-                Log.d("123123", "error 9");
-            } catch (ApiException e) {
-                Toast.makeText(this, "Google sign up failed", Toast.LENGTH_LONG).show();
-            }
+            handleSignInResult(task);
+
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Intent intent = new Intent(getApplicationContext(),GetStarted.class);
+            startActivity(intent);
+            // Signed in successfully, show authenticated UI.
+            Toast.makeText(Startup2.this, "Authentication Successful", Toast.LENGTH_LONG).show();
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Toast.makeText(Startup2.this, "Authentication failed", Toast.LENGTH_LONG).show();
         }
     }
 
