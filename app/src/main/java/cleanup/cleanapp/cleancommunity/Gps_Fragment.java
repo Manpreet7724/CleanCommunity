@@ -50,8 +50,8 @@ public class Gps_Fragment extends Fragment
 
 
     public static Gps_Fragment getInstance(){
-        Gps_Fragment chatFragment = new Gps_Fragment();
-        return chatFragment;
+        Gps_Fragment gpsFragment = new Gps_Fragment();
+        return gpsFragment;
     }
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {

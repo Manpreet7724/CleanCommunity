@@ -1,10 +1,12 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,12 @@ public class Login extends AppCompatActivity
     EditText editEmail;
     EditText editPassword;
     CheckBox stayLogin;
+    public String PREFS_USERNAME= "prefsUsername";
+    public String PREFS_PASSWORD="prefsPassword";
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFS_USER = "prefsUsername";
+    public static final String PREFS_PASS = "prefsPassword";
+
 
     private FirebaseAuth auth;
 
@@ -35,20 +43,23 @@ public class Login extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-    }
-    public void templogin(View view)
-    {
         editEmail = findViewById(R.id.editTusername);
         editPassword = findViewById(R.id.editPasswordLog);
 
-        LoginUser();
+        stayLogin = findViewById(R.id.checkBox);
 
-        //final Intent intent = new Intent(login.this, getstarted.class);
-        //startActivity(intent);
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        String emailTxt = pref.getString(PREFS_USERNAME, "");
+        String passwordTxt = pref.getString(PREFS_PASSWORD, "");
+
+        editEmail.setText(emailTxt);
+        editPassword.setText(passwordTxt);
 
     }
 
-    private void LoginUser()
+
+    public void loginUser(View view)
     {
         emailTxt = editEmail.getText().toString().trim();
         passwordTxt = editPassword.getText().toString().trim();
@@ -70,6 +81,10 @@ public class Login extends AppCompatActivity
         }
 
         auth = FirebaseAuth.getInstance();
+        if(stayLogin.isChecked()) {
+            checkPreferences();
+        }
+
 
         auth.signInWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task){
@@ -83,6 +98,17 @@ public class Login extends AppCompatActivity
             }
         });
 
+    }
+
+    private SharedPreferences checkPreferences() {
+        SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(PREFS_USERNAME, emailTxt)
+                .putString(PREFS_PASSWORD, passwordTxt)
+                .apply();
+        return pref;
     }
 
 
