@@ -90,8 +90,7 @@ public class SwipeupActivity extends AppCompatActivity
 
         database.push().setValue(locationData);
 
-       // gps_Fragment circle = new gps_Fragment();
-       // circle.drawCircle(longitudeInput,latitudeInput,radiusInput);
+
     }
 
 }

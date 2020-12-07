@@ -17,6 +17,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,7 +63,8 @@ public class  GpsMainAct extends AppCompatActivity
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -141,12 +144,14 @@ public class  GpsMainAct extends AppCompatActivity
         super.onDestroy();
     }
 
-    public void addNewLocation(View view) {
+    public void addNewLocation(View view)
+    {
         final Intent intent = new Intent(this, SwipeupActivity.class);
         startActivity(intent);
     }
 
-    public void signout(View view) {
+    public void signout(View view)
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to log out?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -167,4 +172,7 @@ public class  GpsMainAct extends AppCompatActivity
         AlertDialog a = builder.create();
         a.show();
     }
+
+
+
 }

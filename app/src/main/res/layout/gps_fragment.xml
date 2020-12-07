@@ -19,4 +19,5 @@
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         tools:ignore="OnClick" />
+
 </fragment>
