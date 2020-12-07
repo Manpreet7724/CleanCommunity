@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     tools:context=".Gps_Fragment">
 
-    <Button
+    <!--<Button
         android:id="@+id/getStarbutton"
         android:layout_width="169dp"
         android:layout_height="42dp"
@@ -18,5 +18,5 @@
         android:text="@string/add"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
-        tools:ignore="OnClick" />
+        tools:ignore="OnClick" />-->
 </fragment>

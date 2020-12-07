@@ -1,23 +1,14 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -92,6 +83,10 @@ public class SwipeupActivity extends AppCompatActivity
 
        // gps_Fragment circle = new gps_Fragment();
        // circle.drawCircle(longitudeInput,latitudeInput,radiusInput);
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

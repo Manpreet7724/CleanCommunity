@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class StartActivity extends AppCompatActivity
 {
@@ -15,6 +17,7 @@ public class StartActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup);
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override

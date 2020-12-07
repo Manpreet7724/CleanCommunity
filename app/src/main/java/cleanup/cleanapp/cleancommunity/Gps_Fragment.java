@@ -223,8 +223,11 @@ public class Gps_Fragment extends Fragment
 
         circleOptions.strokeWidth(2);
         googleMap.addCircle(circleOptions);
+    }
 
+    public void onDestroy() {
 
+        super.onDestroy();
 
     }
 }
