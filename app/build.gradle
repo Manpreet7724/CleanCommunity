@@ -18,10 +18,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("release-key.keystore")
+            storeFile file('C:\\Users\\Merry\\Documents\\CleanCommunity\\app\\debug.ks')
             storePassword 'cleancommunity'
-            keyAlias 'release-key.keystore'
-            keyPassword ''
+            keyAlias 'debug'
+            keyPassword 'cleancommunity'
+        }
+        debug {
+            storeFile file('C:\\Users\\Merry\\Documents\\CleanCommunity\\app\\debug.ks')
+            storePassword 'cleancommunity'
+            keyAlias 'debug'
+            keyPassword 'cleancommunity'
         }
     }
 
@@ -33,6 +39,7 @@ android {
         }
         debug {
             debuggable true
+            signingConfig signingConfigs.debug
         }
     }
 }

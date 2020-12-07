@@ -13,16 +13,7 @@
           "package_name": "cleanup.cleanapp.cleancommunity"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "147003681036-m1c9fs8af76nfcrgl34ek0c9urae0ltf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "cleanup.cleanapp.cleancommunity",
-            "certificate_hash": "a5ea3ad5edf7aa972215df2e858703d96a3c64de"
-          }
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyA0Upm3JAG2Kf2oUlU4epKR_EYOqES6qKA"
@@ -30,7 +21,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147003681036-f72u9gieukuu31vtjresuondk63eeao2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
