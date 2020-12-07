@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">CleanCommunity</string>
+    <string name="slogon">Cleaning the world. One paper cup at a time.</string>
+    <string name="button_signup">SIGN UP</string>
+    <string name="button_login">LOGIN</string>
+    <string name="welcome">Welcome!</string>
+    <string name="full_name">\t\t\t\Full Name</string>
+    <string name="email">\t\t\t\Email</string>
+    <string name="phone">\t\t\t\Phone</string>
+    <string name="conPassword">\t\t\t\Confirm password</string>
+    <string name="password">\t\t\t\Password</string>
+    <string name="frogot_pass">Forgot Password?</string>
+    <string name="checkbox">Stay signed in</string>
+    <string name="wong_pass">Ouch,Wrong password!!!!!!!!!!!!</string>
+    <string name="welcomemessage">Littering is slowly destroying the ecosystem, the beauty, and the life of our planet. The average distance someone carries litter before throwing it away is 12 paces. It\'s time to make a difference, lets do it together.</string>
+    <string name="button_getstarted">Get Started</string>
+    <string name="search">search</string>
+    <string name="contributor">Contributor:</string>
+    <string name="radius">Radius:</string>
+    <string name="area_name">Area Name:</string>
+    <string name="rating">Rating:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="okay" translatable="false">Okay</string>
+    <string name="add">add</string>
+    <string name="placeholder" translatable="false">placeholder</string>
+    <string name="signout">SignOut</string>
+    <string name="add_location">Add Location</string>
+
+</resources>
