@@ -33,28 +33,32 @@
             app:tabTextColor="@color/black"
             android:background="@color/colorPrimary"/>
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="cleanup.cleanapp.cleancommunity.Gps_Fragment"
+
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/getStarbutton"
-                android:layout_width="169dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="76dp"
-                android:text="@string/add"
-                android:onClick="addNewLocation"
-                android:textStyle="bold"
-                app:backgroundTint="@android:color/transparent"
-                />
-        </fragment>
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+            tools:layout_editor_absoluteX="8dp"
+            android:id="@+id/viewPager"
+            android:background="@color/cardview_light_background"
+            />
+
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewPager" />
+
 
 
 </LinearLayout>
+
+<!--<Button
+android:id="@+id/getStarbutton"
+android:layout_width="169dp"
+android:layout_height="42dp"
+android:layout_marginTop="76dp"
+android:text="@string/add"
+android:onClick="addNewLocation"
+android:textStyle="bold"
+app:backgroundTint="@android:color/transparent"
+    />-->

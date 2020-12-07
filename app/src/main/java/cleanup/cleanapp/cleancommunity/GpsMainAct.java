@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class GpsMainAct extends AppCompatActivity
+public class  GpsMainAct extends AppCompatActivity
 {
     TextView username, useremail;
     private DrawerLayout drawerLayout;
@@ -47,15 +47,34 @@ public class GpsMainAct extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        tabLayout=(TabLayout)findViewById(R.id.tabLayout);
+        viewPager=(ViewPager)findViewById(R.id.viewPager);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(Gps_Fragment.getInstance(), "Map");
+        tabLayout.addTab(tabLayout.newTab().setText("Map"));
+        tabLayout.addTab(tabLayout.newTab().setText("Settings"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager.setAdapter(viewPagerAdapter);
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(this,getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
 
-        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         /*drawerLayout = findViewById(R.id.drawer_layout);
         openmenu =findViewById(R.id.home);
@@ -109,30 +128,6 @@ public class GpsMainAct extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-    public void signout(final MenuItem item) {
-        item.setChecked(true);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to log out?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                item.setChecked(false);
-                FirebaseAuth.getInstance().signOut();
-                final Intent intent = new Intent(GpsMainAct.this, StartActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                item.setChecked(false);
-                dialog.cancel();
-            }
-        });
-        AlertDialog a = builder.create();
-        a.show();
-    }
 
 
     @Override
@@ -151,4 +146,25 @@ public class GpsMainAct extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void signout(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseAuth.getInstance().signOut();
+                final Intent intent = new Intent(GpsMainAct.this, StartActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog a = builder.create();
+        a.show();
+    }
 }

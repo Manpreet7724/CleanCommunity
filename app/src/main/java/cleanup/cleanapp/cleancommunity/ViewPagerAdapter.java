@@ -17,33 +17,31 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> fragmentList = new ArrayList<>();
-    private List<String> stringList = new ArrayList<>();
+    private Context myContext;
+    int totalTabs;
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm) {
+    public ViewPagerAdapter(Context context, FragmentManager fm, int totalTabs) {
         super(fm);
+        myContext = context;
+        this.totalTabs = totalTabs;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
-    }
+        Gps_Fragment gps_fragment = new Gps_Fragment();
+        Settings_Fragment settings_fragment = new Settings_Fragment();
+        switch (position) {
+            case 1:
+                return settings_fragment;
+            default:
+                return gps_fragment;
+            }
+        }
 
     @Override
     public int getCount() {
-        return fragmentList.size();
+        return totalTabs;
     }
 
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return stringList.get(position);
-    }
-
-    public void addFragment(Fragment fragment, String title){
-        fragmentList.add(fragment);
-        stringList.add(title);
-    }
 }

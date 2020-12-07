@@ -38,7 +38,7 @@ public class Startup2 extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //.requestIdToken(getString(R.string.api_web_client_ip))
+                .requestIdToken(getString(R.string.api_web_client_ip))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -86,12 +86,19 @@ public class Startup2 extends AppCompatActivity
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Toast.makeText(Startup2.this, "Google Sign in failed", Toast.LENGTH_LONG).show();
+                // ...
+            }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+   /* private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
@@ -103,7 +110,7 @@ public class Startup2 extends AppCompatActivity
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Toast.makeText(Startup2.this, "Authentication failed", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -113,14 +120,16 @@ public class Startup2 extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(Startup2.this, "Authentication Successful", Toast.LENGTH_LONG).show();
-                            FirebaseUser user = auth.getCurrentUser();
+                            Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
                             startActivity(intent);
+
                         } else {
-                            Toast.makeText(Startup2.this, "Authentication failed", Toast.LENGTH_LONG).show();
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
                         }
 
+                        // ...
                     }
                 });
     }
