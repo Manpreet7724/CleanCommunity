@@ -3,15 +3,15 @@
     <color name="colorPrimary">#A2EA5B</color>
     <color name="colorPrimaryDark">#A2EA5B</color>
     <color name="colorAccent">#3EE5A9</color>
-    <color name="red1">#37FF0000</color>
-    <color name="red2">#52FF0000</color>
-    <color name="red3">#6BFF0000</color>
-    <color name="red4">#85FF0000</color>
-    <color name="red5">#9EFF0000</color>
-    <color name="red6">#B8FF0000</color>
-    <color name="red7">#D1FF0000</color>
-    <color name="red8">#EBFF0000</color>
-    <color name="red9">#831000</color>
-    <color name="red10">#5E0B00</color>
+    <color name="red1">#96FF5F49</color>
+    <color name="red2">#96FF5F49</color>
+    <color name="red3">#96FF5F49</color>
+    <color name="red4">#96FF5F49</color>
+    <color name="red5">#96FF5F49</color>
+    <color name="red6">#96FF5F49</color>
+    <color name="red7">#96FF5F49</color>
+    <color name="red8">#96FF5F49</color>
+    <color name="red9">#96FF5F49</color>
+    <color name="red10">#96FF5F49</color>
     <color name="black">#000000</color>
 </resources>

@@ -14,7 +14,6 @@
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:layout_marginTop="76dp"
-        android:onClick="addNewLocation"
         android:text="@string/add"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"

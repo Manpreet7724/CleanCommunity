@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.Manifest;
@@ -35,6 +36,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,17 +67,21 @@ public class Gps_Fragment extends Fragment
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public double lat;
     public double longt;
+    Button button;
     public String holdAreaname;
-
+    Marker centerMarker;
+    Circle addcircle;
 
     public static Gps_Fragment getInstance() {
         Gps_Fragment chatFragment = new Gps_Fragment();
         return chatFragment;
     }
 
-    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback()
+    {
         @Override
-        public void onMapReady(final GoogleMap googleMap) {
+        public void onMapReady(final GoogleMap googleMap)
+        {
             x = 0;
             final ArrayList<LocationData> circle = new ArrayList<>();
 
@@ -104,8 +111,8 @@ public class Gps_Fragment extends Fragment
                         temp.addcircle(googleMap.addCircle(new CircleOptions()
                                 .center(new LatLng(data.latitude, data.longitude))
                                 .radius(data.radius)
-                                .strokeColor(getRedcolor(data.radius, res))
-                                .fillColor(getRedcolor(data.radius, res))
+                                .strokeColor(getRedcolor(data.rating, res))
+                                .fillColor(getRedcolor(data.rating, res))
                                 .clickable(true)));
                         x++;
                     }
@@ -183,7 +190,8 @@ public class Gps_Fragment extends Fragment
 
                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                        {
                             LocationData temp;
                             FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                             DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
@@ -200,16 +208,16 @@ public class Gps_Fragment extends Fragment
                                 temp.addcircle(googleMap.addCircle(new CircleOptions()
                                         .center(new LatLng(data.latitude, data.longitude))
                                         .radius(data.radius)
-                                        .strokeColor(getRedcolor(data.radius, res))
-                                        .fillColor(getRedcolor(data.radius, res))
+                                        .strokeColor(getRedcolor(data.rating, res))
+                                        .fillColor(getRedcolor(data.rating, res))
                                         .clickable(true)));
                                 x++;
                             }
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                        public void onCancelled(@NonNull DatabaseError error)
+                        {
                         }
                     });
 
@@ -217,9 +225,34 @@ public class Gps_Fragment extends Fragment
 
             });
 
+
+            button= getActivity().findViewById(R.id.getStarbutton);
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    getLocation();
+                    centerMarker = googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(lat, longt))
+                            .draggable(true));
+
+                    addcircle = googleMap.addCircle(new CircleOptions()
+                            .center(new LatLng(lat, longt))
+                            .radius(10)
+                            .strokeColor(getRedcolor(1, getResources()))
+                            .fillColor(getRedcolor(1, getResources()))
+                            .clickable(true));
+                }
+            });
+
+
         }
 
+
     };
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -227,18 +260,19 @@ public class Gps_Fragment extends Fragment
         return inflater.inflate(R.layout.gps_fragment, container, false);
     }
 
-
-    public void onStop() // tells user the activy was stoped
+    public void onStop()
     {
         super.onStop();
     }
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
+        if (mapFragment != null)
+        {
             mapFragment.getMapAsync(callback);
         }
     }
