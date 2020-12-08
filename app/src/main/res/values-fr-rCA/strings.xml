@@ -7,7 +7,6 @@
     <string name="welcome">Bienvenu!</string>
     <string name="full_name">Nom complet</string>
     <string name="email">Email</string>
-    <string name="phone">Téléphone</string>
     <string name="conPassword">Confirmez le mot de passe</string>
     <string name="password">Mot de passe</string>
     <string name="frogot_pass">Mot de passe oublié?</string>
