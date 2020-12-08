@@ -28,7 +28,8 @@ public class GpsMainAct extends AppCompatActivity {
     private ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_layout);
         toolbar = findViewById(R.id.toolbar);
@@ -50,7 +51,8 @@ public class GpsMainAct extends AppCompatActivity {
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                  viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -79,7 +81,8 @@ public class GpsMainAct extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void addNewLocation(View view) {
+    public void addNewLocation(View view)
+    {
         final Intent intent = new Intent(this, SwipeupActivity.class);
         startActivity(intent);
     }

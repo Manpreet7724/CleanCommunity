@@ -5,6 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".Settings_Fragment">
 
+    <Button
+        android:id="@+id/notification"
+        android:layout_width="169dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="320dp"
+        android:text="@string/send_coordinates"
+        android:textStyle="bold"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/passUpdate"
@@ -12,7 +24,7 @@
         android:layout_height="39dp"
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="412dp"
+        android:layout_marginTop="410dp"
         android:text="@string/update_password"
         android:textStyle="bold"
         app:backgroundTint="@color/colorPrimaryDark"
@@ -25,7 +37,7 @@
         android:layout_width="182dp"
         android:layout_height="39dp"
         android:layout_marginStart="212dp"
-        android:layout_marginTop="412dp"
+        android:layout_marginTop="410dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
@@ -42,10 +54,36 @@
         android:layout_height="42dp"
         android:layout_gravity="center"
         android:layout_marginStart="121dp"
-        android:layout_marginTop="498dp"
+        android:layout_marginTop="500dp"
         android:text="@string/signout"
         android:textStyle="bold"
         app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userNameSetting"
+        android:layout_width="280dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/full_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userEmailSetting"
+        android:layout_width="280dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

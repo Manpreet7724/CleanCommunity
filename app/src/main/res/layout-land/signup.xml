@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signup_scr"
@@ -27,34 +26,33 @@
         android:layout_width="234dp"
         android:layout_height="27dp"
         android:layout_marginTop="80dp"
+        android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
-        android:textSize="10sp"
         android:inputType="textPersonName"
-        android:hint="@string/full_name"
+        android:text="@string/full_name"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""
         tools:ignore="LabelFor,SmallSp" />
 
     <EditText
         android:id="@+id/editEmail"
-        android:layout_width="234dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="239dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="127dp"
+        android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="@string/email"
+        android:text="@string/email"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPersonName"
-        tools:ignore="LabelFor,SmallSp"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor,SmallSp" />
 
 
     <EditText
@@ -66,12 +64,12 @@
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textVisiblePassword"
-        android:hint="@string/password"
+        android:text="@string/password"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEmail"
+        app:layout_constraintTop_toBottomOf="parent"
         tools:ignore="LabelFor,SmallSp" />
 
     <EditText
@@ -79,16 +77,16 @@
         android:layout_width="234dp"
         android:layout_height="27dp"
         android:layout_marginTop="20dp"
+        android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:inputType="textVisiblePassword"
-        android:hint="@string/conPassword"
+        android:text="@string/conPassword"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        android:autofillHints=""
         tools:ignore="LabelFor,SmallSp" />
 
     <Button
@@ -96,8 +94,8 @@
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:background="#FFFFFF"
-        android:text="@string/button_signup"
         android:onClick="addData"
+        android:text="@string/button_signup"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"

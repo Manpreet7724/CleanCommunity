@@ -6,7 +6,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.Manifest;
@@ -16,12 +18,15 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.location.LocationManager;
+import android.widget.SeekBar;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +40,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,17 +71,23 @@ public class Gps_Fragment extends Fragment
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public double lat;
     public double longt;
+    Button abutton,bbutton,cbutton,dbutton;
     public String holdAreaname;
-
+    Marker centerMarker;
+    Circle addcircle;
+    Boolean addbutton =false,nextbtn=false;
+    SeekBar rseekBar,radseekbar;
 
     public static Gps_Fragment getInstance() {
         Gps_Fragment chatFragment = new Gps_Fragment();
         return chatFragment;
     }
 
-    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback()
+    {
         @Override
-        public void onMapReady(final GoogleMap googleMap) {
+        public void onMapReady(final GoogleMap googleMap)
+        {
             x = 0;
             final ArrayList<LocationData> circle = new ArrayList<>();
 
@@ -90,7 +103,7 @@ public class Gps_Fragment extends Fragment
                     }
                     googleMap.setMyLocationEnabled(true);
                     getLocation();
-                    float zoom = 12;
+                    float zoom = 15;
                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, longt), zoom));
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -104,8 +117,8 @@ public class Gps_Fragment extends Fragment
                         temp.addcircle(googleMap.addCircle(new CircleOptions()
                                 .center(new LatLng(data.latitude, data.longitude))
                                 .radius(data.radius)
-                                .strokeColor(getRedcolor(data.radius, res))
-                                .fillColor(getRedcolor(data.radius, res))
+                                .strokeColor(getRedcolor(data.rating, res))
+                                .fillColor(getRedcolor(data.rating, res))
                                 .clickable(true)));
                         x++;
                     }
@@ -125,7 +138,7 @@ public class Gps_Fragment extends Fragment
                 {
                     circle.getCenter();
 
-                    DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
+                    final DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
                     int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
                     circle.setStrokeColor(strokeColor);
@@ -135,12 +148,14 @@ public class Gps_Fragment extends Fragment
                         @SuppressLint("ResourceType")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                LocationData data = snapshot.getValue(LocationData.class);
+                            for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                final LocationData data = snapshot.getValue(LocationData.class);
                                 LatLng save;
+
                                 save = new LatLng(data.latitude, data.longitude);
                                 if (circle.getCenter().equals(save))
                                 {
+                                    final String key = snapshot.getKey();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage(getResources().getString(R.string.area_name) + " " + data.areaNickname + "\n"
                                             + getResources().getString(R.string.rating) + " " + data.rating + "\n"
@@ -149,7 +164,16 @@ public class Gps_Fragment extends Fragment
                                             + getResources().getString(R.string.radius) + " " + data.radius + "\n"
                                             + getResources().getString(R.string.contributor) + " " + data.contributor).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
+                                            circle.setStrokeColor(strokeColor);
 
+                                        }
+                                    });
+                                    builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            FirebaseDatabase.getInstance().getReference("Location").child(key).removeValue();
                                         }
                                     });
                                     AlertDialog a = builder.create();
@@ -159,8 +183,6 @@ public class Gps_Fragment extends Fragment
                             }
 
                         }
-
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error)
                         {
@@ -177,6 +199,8 @@ public class Gps_Fragment extends Fragment
             {
                 @Override
                 public void onCameraIdle() {
+                    if (!addbutton)
+                    {
                     LatLng center = googleMap.getCameraPosition().target;
                     googleMap.clear();
 
@@ -188,8 +212,7 @@ public class Gps_Fragment extends Fragment
                             FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                             DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                            {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 LocationData data = snapshot.getValue(LocationData.class);
                                 DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
 
@@ -200,26 +223,144 @@ public class Gps_Fragment extends Fragment
                                 temp.addcircle(googleMap.addCircle(new CircleOptions()
                                         .center(new LatLng(data.latitude, data.longitude))
                                         .radius(data.radius)
-                                        .strokeColor(getRedcolor(data.radius, res))
-                                        .fillColor(getRedcolor(data.radius, res))
+                                        .strokeColor(getRedcolor(data.rating, res))
+                                        .fillColor(getRedcolor(data.rating, res))
                                         .clickable(true)));
                                 x++;
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
-
+                }
                 }
 
             });
 
+
+            abutton= getActivity().findViewById(R.id.getStarbutton);
+            bbutton= getActivity().findViewById(R.id.btn_cancel);
+            cbutton= getActivity().findViewById(R.id.btn_next);
+            dbutton=getActivity().findViewById(R.id.btn_done);
+            abutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    addbutton=true;
+                    abutton.setVisibility(View.GONE);
+                    bbutton.setVisibility(View.VISIBLE);
+                    cbutton.setVisibility(View.VISIBLE);
+                    getLocation();
+                    centerMarker = googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(lat, longt)));
+
+                    addcircle = googleMap.addCircle(new CircleOptions()
+                            .center(new LatLng(lat, longt))
+                            .radius(100)
+                            .strokeColor(getRedcolor(1, getResources()))
+                            .fillColor(getRedcolor(1, getResources()))
+                            .clickable(true));
+                    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                    {
+                        @Override
+                        public void onMapClick(LatLng point)
+                        {
+                            if(!nextbtn)
+                            {
+                                centerMarker.setPosition(point);
+                                addcircle.setCenter(point);
+                            }
+                        }
+                    });
+                }
+            });
+            bbutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    addbutton=false;
+                    nextbtn=false;
+                    abutton.setVisibility(View.VISIBLE);
+                    bbutton.setVisibility(View.GONE);
+                    cbutton.setVisibility(View.GONE);
+                    centerMarker.remove();
+                    addcircle.remove();
+                }
+            });
+            rseekBar= getActivity().findViewById(R.id.ratingseekBar);
+            radseekbar= getActivity().findViewById(R.id.radseekBar);
+            cbutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    nextbtn=true;
+                    abutton.setVisibility(View.GONE);
+                    bbutton.setVisibility(View.VISIBLE);
+                    cbutton.setVisibility(View.GONE);
+                    rseekBar.setVisibility(View.VISIBLE);
+                    dbutton.setVisibility(View.VISIBLE);
+                    radseekbar.setVisibility(View.VISIBLE);
+
+                    centerMarker.remove();
+                    rseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+                    {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+                        {
+                            Resources res = getResources();
+                            addcircle.setStrokeColor(getRedcolor(progress, res));
+                            addcircle.setFillColor(getRedcolor(progress, res));
+                        }
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
+                    });
+                    radseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+                    {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+                        {
+                            Resources res = getResources();
+                            addcircle.setRadius((double)progress);
+
+                        }
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
+                    });
+
+
+                }
+            });
+            dbutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    nextbtn=false;
+                    addbutton=false;
+                    abutton.setVisibility(View.VISIBLE);
+                    bbutton.setVisibility(View.GONE);
+                    cbutton.setVisibility(View.GONE);
+                    rseekBar.setVisibility(View.GONE);
+                    dbutton.setVisibility(View.GONE);
+                    radseekbar.setVisibility(View.GONE);
+                    addcircle.remove();
+                }
+            });
+
         }
 
+
     };
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -227,18 +368,19 @@ public class Gps_Fragment extends Fragment
         return inflater.inflate(R.layout.gps_fragment, container, false);
     }
 
-
-    public void onStop() // tells user the activy was stoped
+    public void onStop()
     {
         super.onStop();
     }
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
+        if (mapFragment != null)
+        {
             mapFragment.getMapAsync(callback);
         }
     }

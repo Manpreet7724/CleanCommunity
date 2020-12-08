@@ -14,10 +14,66 @@
         android:layout_width="169dp"
         android:layout_height="42dp"
         android:layout_marginTop="76dp"
-        android:onClick="addNewLocation"
         android:text="@string/add"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
-        tools:ignore="OnClick" />
+     />
 
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="169dp"
+        android:layout_height="42dp"
+        android:text="@string/cancel"
+        android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|start"
+        app:backgroundTint="@android:color/transparent"
+        android:visibility="gone"
+        />
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="169dp"
+        android:layout_height="42dp"
+        android:text="@string/next"
+        android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@android:color/transparent"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="169dp"
+        android:layout_height="42dp"
+        android:text="@string/done"
+        android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@android:color/transparent"
+        android:visibility="gone"
+        />
+
+    <SeekBar
+        android:id="@+id/ratingseekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="269dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="32dp"
+        android:max="10"
+        android:progress="3"
+        android:layout_gravity="center|top"
+        android:visibility="gone"
+        />
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/radseekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="269dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="64dp"
+        android:max="100"
+        android:progress="100"
+        android:layout_gravity="center|top"
+        android:visibility="gone"
+        />
 </fragment>

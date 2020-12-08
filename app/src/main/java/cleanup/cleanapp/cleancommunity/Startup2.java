@@ -44,12 +44,12 @@ public class Startup2 extends AppCompatActivity
                 .requestIdToken(getString(R.string.api_web_client_ip))
                 .requestEmail()
                 .build();
-        // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         requestPermissions();
 
         SignInButton googleButton = findViewById(R.id.googleSignup);
-        googleButton.setOnClickListener(new View.OnClickListener() {
+        googleButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 googleSignup();
@@ -60,7 +60,6 @@ public class Startup2 extends AppCompatActivity
     {
         final Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-
     }
     public void signUp(View view )
     {
@@ -105,25 +104,11 @@ public class Startup2 extends AppCompatActivity
         }
     }
 
-   /* private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent intent = new Intent(getApplicationContext(),GetStarted.class);
-            startActivity(intent);
-            // Signed in successfully, show authenticated UI.
-            Toast.makeText(Startup2.this, "Authentication Successful", Toast.LENGTH_LONG).show();
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Toast.makeText(Startup2.this, "Authentication failed", Toast.LENGTH_LONG).show();
-        }
-    }*/
-
     private void firebaseAuthWithGoogle(String idToken)
     {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        auth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+        {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -136,8 +121,6 @@ public class Startup2 extends AppCompatActivity
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
                         }
-
-                        // ...
                     }
                 });
     }
@@ -147,16 +130,16 @@ public class Startup2 extends AppCompatActivity
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
-    void requestPermissions() {
+    void requestPermissions()
+    {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_ID);
     }
 
-    private boolean isLocationEnabled() {
+    private boolean isLocationEnabled()
+    {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
 
