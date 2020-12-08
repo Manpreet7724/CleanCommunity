@@ -81,4 +81,5 @@ public class LocationData {
     {
         this.circle = circle;
     }
+
 }
