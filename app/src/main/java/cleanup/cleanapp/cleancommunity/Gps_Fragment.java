@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +133,7 @@ public class Gps_Fragment extends Fragment
                 {
                     circle.getCenter();
 
-                    DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
+                    final DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
                     int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
                     circle.setStrokeColor(strokeColor);
@@ -142,12 +143,14 @@ public class Gps_Fragment extends Fragment
                         @SuppressLint("ResourceType")
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                LocationData data = snapshot.getValue(LocationData.class);
+                            for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                final LocationData data = snapshot.getValue(LocationData.class);
                                 LatLng save;
+
                                 save = new LatLng(data.latitude, data.longitude);
                                 if (circle.getCenter().equals(save))
                                 {
+                                    final String key = snapshot.getKey();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage(getResources().getString(R.string.area_name) + " " + data.areaNickname + "\n"
                                             + getResources().getString(R.string.rating) + " " + data.rating + "\n"
@@ -156,7 +159,16 @@ public class Gps_Fragment extends Fragment
                                             + getResources().getString(R.string.radius) + " " + data.radius + "\n"
                                             + getResources().getString(R.string.contributor) + " " + data.contributor).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
+                                            circle.setStrokeColor(strokeColor);
 
+                                        }
+                                    });
+                                    builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            FirebaseDatabase.getInstance().getReference("Location").child(key).removeValue();
                                         }
                                     });
                                     AlertDialog a = builder.create();
