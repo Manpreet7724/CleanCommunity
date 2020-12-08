@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.location.LocationManager;
+import android.widget.SeekBar;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -70,11 +71,12 @@ public class Gps_Fragment extends Fragment
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public double lat;
     public double longt;
-    Button abutton,bbutton,cbutton;
+    Button abutton,bbutton,cbutton,dbutton;
     public String holdAreaname;
     Marker centerMarker;
     Circle addcircle;
-    Boolean addbutton =false;
+    Boolean addbutton =false,nextbtn=false;
+    SeekBar rseekBar,radseekbar;
 
     public static Gps_Fragment getInstance() {
         Gps_Fragment chatFragment = new Gps_Fragment();
@@ -239,6 +241,8 @@ public class Gps_Fragment extends Fragment
 
             abutton= getActivity().findViewById(R.id.getStarbutton);
             bbutton= getActivity().findViewById(R.id.btn_cancel);
+            cbutton= getActivity().findViewById(R.id.btn_next);
+            dbutton=getActivity().findViewById(R.id.btn_done);
             abutton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -247,7 +251,7 @@ public class Gps_Fragment extends Fragment
                     addbutton=true;
                     abutton.setVisibility(View.GONE);
                     bbutton.setVisibility(View.VISIBLE);
-                    //cbutton.setVisibility(View.VISIBLE);
+                    cbutton.setVisibility(View.VISIBLE);
                     getLocation();
                     centerMarker = googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(lat, longt)));
@@ -263,30 +267,13 @@ public class Gps_Fragment extends Fragment
                         @Override
                         public void onMapClick(LatLng point)
                         {
-                            centerMarker.setPosition(point);
-                            addcircle.setCenter(point);
+                            if(!nextbtn)
+                            {
+                                centerMarker.setPosition(point);
+                                addcircle.setCenter(point);
+                            }
                         }
                     });
-                    googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener()
-                    {
-                        @Override
-                        public void onMarkerDragStart(Marker marker)
-                        {
-                        }
-
-                        @Override
-                        public void onMarkerDragEnd(Marker marker)
-                        {
-                            lat = centerMarker.getPosition().latitude;
-                            longt=centerMarker.getPosition().longitude;
-                        }
-
-                        @Override
-                        public void onMarkerDrag(Marker marker)
-                        {
-                        }
-                    });
-
                 }
             });
             bbutton.setOnClickListener(new View.OnClickListener()
@@ -295,10 +282,75 @@ public class Gps_Fragment extends Fragment
                 public void onClick(View v)
                 {
                     addbutton=false;
+                    nextbtn=false;
                     abutton.setVisibility(View.VISIBLE);
                     bbutton.setVisibility(View.GONE);
-                    //cbutton.setVisibility(View.GONE);
+                    cbutton.setVisibility(View.GONE);
                     centerMarker.remove();
+                    addcircle.remove();
+                }
+            });
+            rseekBar= getActivity().findViewById(R.id.ratingseekBar);
+            radseekbar= getActivity().findViewById(R.id.radseekBar);
+            cbutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    nextbtn=true;
+                    abutton.setVisibility(View.GONE);
+                    bbutton.setVisibility(View.VISIBLE);
+                    cbutton.setVisibility(View.GONE);
+                    rseekBar.setVisibility(View.VISIBLE);
+                    dbutton.setVisibility(View.VISIBLE);
+                    radseekbar.setVisibility(View.VISIBLE);
+
+                    centerMarker.remove();
+                    rseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+                    {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+                        {
+                            Resources res = getResources();
+                            addcircle.setStrokeColor(getRedcolor(progress, res));
+                            addcircle.setFillColor(getRedcolor(progress, res));
+                        }
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
+                    });
+                    radseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+                    {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+                        {
+                            Resources res = getResources();
+                            addcircle.setRadius((double)progress);
+
+                        }
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {}
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {}
+                    });
+
+
+                }
+            });
+            dbutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    nextbtn=false;
+                    addbutton=false;
+                    abutton.setVisibility(View.VISIBLE);
+                    bbutton.setVisibility(View.GONE);
+                    cbutton.setVisibility(View.GONE);
+                    rseekBar.setVisibility(View.GONE);
+                    dbutton.setVisibility(View.GONE);
+                    radseekbar.setVisibility(View.GONE);
                     addcircle.remove();
                 }
             });
