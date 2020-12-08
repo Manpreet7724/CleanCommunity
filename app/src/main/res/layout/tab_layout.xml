@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="qwe"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -40,13 +40,11 @@
             app:layout_constraintTop_toBottomOf="@+id/tabLayout"
             tools:layout_editor_absoluteX="8dp"
             android:id="@+id/viewPager"
-            android:background="@color/cardview_light_background"
-            />
+            android:background="@color/cardview_light_background"/>
 
 
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
 

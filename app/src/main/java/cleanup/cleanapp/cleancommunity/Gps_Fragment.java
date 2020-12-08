@@ -1,21 +1,30 @@
-
 package cleanup.cleanapp.cleancommunity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.location.LocationManager;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +36,8 @@ import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +49,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.Inflater;
+
 
 public class Gps_Fragment extends Fragment
 {
@@ -46,24 +57,24 @@ public class Gps_Fragment extends Fragment
     FirebaseUser user;
     FirebaseAuth auth;
     int x;
-    private GoogleMap gMap;
+    private static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
     FirebaseDatabase database;
     EditText areaNickname, radius, longitude, latitude, rating, contributor;
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
+    public double lat;
+    public double longt;
     public String holdAreaname;
 
 
-    public static Gps_Fragment getInstance()
-    {
+    public static Gps_Fragment getInstance() {
         Gps_Fragment chatFragment = new Gps_Fragment();
         return chatFragment;
     }
 
-    private final OnMapReadyCallback callback = new OnMapReadyCallback()
-    {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
-        public void onMapReady(final GoogleMap googleMap)
-        {
+        public void onMapReady(final GoogleMap googleMap) {
             x = 0;
             final ArrayList<LocationData> circle = new ArrayList<>();
 
@@ -73,9 +84,16 @@ public class Gps_Fragment extends Fragment
                     LocationData temp;
                     FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                     DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
-                    //googleMap.setMyLocationEnabled(true);
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
                     {
+                        return;
+                    }
+                    googleMap.setMyLocationEnabled(true);
+                    getLocation();
+                    float zoom = 12;
+                   googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, longt), zoom));
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         LocationData data = snapshot.getValue(LocationData.class);
                         DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
 
@@ -86,13 +104,13 @@ public class Gps_Fragment extends Fragment
                         temp.addcircle(googleMap.addCircle(new CircleOptions()
                                 .center(new LatLng(data.latitude, data.longitude))
                                 .radius(data.radius)
-                                .strokeColor(getRedcolor(data.radius,res))
-                                .fillColor(getRedcolor(data.radius,res))
+                                .strokeColor(getRedcolor(data.radius, res))
+                                .fillColor(getRedcolor(data.radius, res))
                                 .clickable(true)));
-                       gMap= googleMap;
                         x++;
                     }
                 }
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -116,14 +134,13 @@ public class Gps_Fragment extends Fragment
                     {
                         @SuppressLint("ResourceType")
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                        {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 LocationData data = snapshot.getValue(LocationData.class);
                                 LatLng save;
                                 save = new LatLng(data.latitude, data.longitude);
-                                if (circle.getCenter().equals(save)) {
-
+                                if (circle.getCenter().equals(save))
+                                {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage(getResources().getString(R.string.area_name) + " " + data.areaNickname + "\n"
                                             + getResources().getString(R.string.rating) + " " + data.rating + "\n"
@@ -132,7 +149,6 @@ public class Gps_Fragment extends Fragment
                                             + getResources().getString(R.string.radius) + " " + data.radius + "\n"
                                             + getResources().getString(R.string.contributor) + " " + data.contributor).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-
 
                                         }
                                     });
@@ -146,11 +162,11 @@ public class Gps_Fragment extends Fragment
 
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                        public void onCancelled(@NonNull DatabaseError error)
+                        {
 
                         }
                     });
-
 
 
                 }
@@ -160,8 +176,7 @@ public class Gps_Fragment extends Fragment
             googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener()
             {
                 @Override
-                public void onCameraIdle()
-                {
+                public void onCameraIdle() {
                     LatLng center = googleMap.getCameraPosition().target;
                     googleMap.clear();
 
@@ -172,7 +187,7 @@ public class Gps_Fragment extends Fragment
                             LocationData temp;
                             FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                             DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
-                            //googleMap.setMyLocationEnabled(true);
+
                             for (DataSnapshot snapshot : dataSnapshot.getChildren())
                             {
                                 LocationData data = snapshot.getValue(LocationData.class);
@@ -185,10 +200,9 @@ public class Gps_Fragment extends Fragment
                                 temp.addcircle(googleMap.addCircle(new CircleOptions()
                                         .center(new LatLng(data.latitude, data.longitude))
                                         .radius(data.radius)
-                                        .strokeColor(getRedcolor(data.radius,res))
-                                        .fillColor(getRedcolor(data.radius,res))
+                                        .strokeColor(getRedcolor(data.radius, res))
+                                        .fillColor(getRedcolor(data.radius, res))
                                         .clickable(true)));
-                                gMap= googleMap;
                                 x++;
                             }
                         }
@@ -201,12 +215,11 @@ public class Gps_Fragment extends Fragment
 
                 }
 
-
             });
 
         }
-    };
 
+    };
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -215,28 +228,17 @@ public class Gps_Fragment extends Fragment
     }
 
 
-//    @Override
-//    public void onResume()
-//    {
-//        super.onResume();
-//        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        if (mapFragment != null)
-//        {
-//            mapFragment.getMapAsync(callback);
-//        }
-//    }
     public void onStop() // tells user the activy was stoped
     {
         super.onStop();
     }
 
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null)
-        {
+        if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
     }
@@ -258,12 +260,10 @@ public class Gps_Fragment extends Fragment
     private static final List<PatternItem> PATTERN_POLYGON_BETA = Arrays.asList(DOT, GAP, DASH, GAP);
 
 
-    public int getRedcolor(int radius, Resources res)
-    {
-        int  color = res.getColor(R.color.red1);
+    public int getRedcolor(int radius, Resources res) {
+        int color = res.getColor(R.color.red1);
 
-        switch (radius)
-        {
+        switch (radius) {
             case 1:
                 color = res.getColor(R.color.red1);
                 break;
@@ -298,4 +298,20 @@ public class Gps_Fragment extends Fragment
         return color;
     }
 
+    private void getLocation()
+    {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+        else
+         {
+             locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (locationGPS != null)
+            {
+                lat = locationGPS.getLatitude();
+                longt = locationGPS.getLongitude();
+            }
+        }
+    }
 }
