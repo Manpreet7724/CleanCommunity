@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -19,6 +20,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -68,10 +70,11 @@ public class Gps_Fragment extends Fragment
     String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public double lat;
     public double longt;
-    Button button;
+    Button abutton,bbutton,cbutton;
     public String holdAreaname;
     Marker centerMarker;
     Circle addcircle;
+    Boolean addbutton =false;
 
     public static Gps_Fragment getInstance() {
         Gps_Fragment chatFragment = new Gps_Fragment();
@@ -98,7 +101,7 @@ public class Gps_Fragment extends Fragment
                     }
                     googleMap.setMyLocationEnabled(true);
                     getLocation();
-                    float zoom = 12;
+                    float zoom = 15;
                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, longt), zoom));
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -178,8 +181,6 @@ public class Gps_Fragment extends Fragment
                             }
 
                         }
-
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error)
                         {
@@ -196,20 +197,20 @@ public class Gps_Fragment extends Fragment
             {
                 @Override
                 public void onCameraIdle() {
+                    if (!addbutton)
+                    {
                     LatLng center = googleMap.getCameraPosition().target;
                     googleMap.clear();
 
 
                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                        {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             LocationData temp;
                             FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                             DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                            {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 LocationData data = snapshot.getValue(LocationData.class);
                                 DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
 
@@ -226,38 +227,81 @@ public class Gps_Fragment extends Fragment
                                 x++;
                             }
                         }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+                }
+
+            });
+
+
+            abutton= getActivity().findViewById(R.id.getStarbutton);
+            bbutton= getActivity().findViewById(R.id.btn_cancel);
+            abutton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    addbutton=true;
+                    abutton.setVisibility(View.GONE);
+                    bbutton.setVisibility(View.VISIBLE);
+                    //cbutton.setVisibility(View.VISIBLE);
+                    getLocation();
+                    centerMarker = googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(lat, longt)));
+
+                    addcircle = googleMap.addCircle(new CircleOptions()
+                            .center(new LatLng(lat, longt))
+                            .radius(100)
+                            .strokeColor(getRedcolor(1, getResources()))
+                            .fillColor(getRedcolor(1, getResources()))
+                            .clickable(true));
+                    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                    {
+                        @Override
+                        public void onMapClick(LatLng point)
+                        {
+                            centerMarker.setPosition(point);
+                            addcircle.setCenter(point);
+                        }
+                    });
+                    googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener()
+                    {
+                        @Override
+                        public void onMarkerDragStart(Marker marker)
+                        {
+                        }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error)
+                        public void onMarkerDragEnd(Marker marker)
+                        {
+                            lat = centerMarker.getPosition().latitude;
+                            longt=centerMarker.getPosition().longitude;
+                        }
+
+                        @Override
+                        public void onMarkerDrag(Marker marker)
                         {
                         }
                     });
 
                 }
-
             });
-
-
-            button= getActivity().findViewById(R.id.getStarbutton);
-            button.setOnClickListener(new View.OnClickListener()
+            bbutton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    getLocation();
-                    centerMarker = googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(lat, longt))
-                            .draggable(true));
-
-                    addcircle = googleMap.addCircle(new CircleOptions()
-                            .center(new LatLng(lat, longt))
-                            .radius(10)
-                            .strokeColor(getRedcolor(1, getResources()))
-                            .fillColor(getRedcolor(1, getResources()))
-                            .clickable(true));
+                    addbutton=false;
+                    abutton.setVisibility(View.VISIBLE);
+                    bbutton.setVisibility(View.GONE);
+                    //cbutton.setVisibility(View.GONE);
+                    centerMarker.remove();
+                    addcircle.remove();
                 }
             });
-
 
         }
 

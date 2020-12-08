@@ -17,6 +17,18 @@
         android:text="@string/add"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
-        tools:ignore="OnClick" />
+     />
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="169dp"
+        android:layout_height="42dp"
+        android:text="@string/cancel"
+        android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="bottom|start"
+        app:backgroundTint="@android:color/transparent"
+        android:visibility="gone"
+        />
+
 
 </fragment>
