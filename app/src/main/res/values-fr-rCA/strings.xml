@@ -24,4 +24,8 @@
     <string name="add">ajouter</string>
     <string name="signout">SignOut</string>
     <string name="add_location">Ajouter emplacement</string>
+    <string name="new_password">Nouveau mot de passe</string>
+    <string name="update_password">Mettre à jour le mot de passe</string>
+    <string name="gmailPassUpdate">" Si vous vous êtes connecté via un compte Gmail, la modification de votre mot de passe ne changera pas le mot de passe de votre compte Google, mais créera plutôt un compte pour l'application (si vous n'en avez pas déjà un) avec le nouveau mot de passe. Êtes-vous d'accord avec ça?"</string>
+    <string name="send_coordinates">Envoyer les coordonnées</string>
 </resources>

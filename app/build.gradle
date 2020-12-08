@@ -29,12 +29,6 @@ android {
             keyAlias 'debug'
             keyPassword 'cleancommunity'
         }
-        debug {
-            storeFile file('C:\\Users\\Sunny\\.android\\debug.ks')
-            storePassword 'cleancommunity'
-            keyAlias 'debug'
-            keyPassword 'cleancommunity'
-        }
     }
 
     buildTypes {
@@ -59,6 +53,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation files('libs/org.apache.http.legacy.jar')
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
