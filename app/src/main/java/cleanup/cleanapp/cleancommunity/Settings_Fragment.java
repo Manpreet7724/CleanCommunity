@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Looper;
 import android.provider.Settings;
@@ -33,6 +36,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,25 +56,26 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
 
 public class Settings_Fragment extends Fragment implements View.OnClickListener {
 
     Context context;
-    Button signoutButton, passUpdate, notification;
+    Button signoutButton, passUpdate, notification, nightmode;
     EditText editPassUpdate;
     TextView username, useremail;
     String newPassword;
+    public static boolean nightmodecheck=false;
     private static final int REQUEST_LOCATION = 1;
-    int PERMISSION_ID = 44;
-    String backgroundColor;
-    FusedLocationProviderClient mFusedLocationClient;
     LocationManager locationManager;
     public double lat;
     public double longt;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_settings_, container, false);
+
 
         signoutButton = rootView.findViewById(R.id.logout);
         signoutButton.setOnClickListener(this);
@@ -75,7 +83,17 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         passUpdate.setOnClickListener(this);
         notification = rootView.findViewById(R.id.notification);
         notification.setOnClickListener(this);
+        nightmode = rootView.findViewById(R.id.nightmode);
+        nightmode.setOnClickListener(this);
 
+        if(nightmodecheck)
+        {
+            nightmode.setText(getString(R.string.light));
+        }
+        else
+        {
+            nightmode.setText(getString(R.string.night_mode));
+        }
         editPassUpdate = rootView.findViewById(R.id.editPassUpdate);
         username = rootView.findViewById(R.id.userNameSetting);
         useremail = rootView.findViewById(R.id.userEmailSetting);
@@ -107,9 +125,23 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         if (v.getId() == R.id.notification){
             coordinatesNotif();
         }
+        if (v.getId() == R.id.nightmode)
+        {
+            if(nightmodecheck)
+            {
+                nightmodecheck = false;
+            }
+            else
+            {
+                nightmodecheck = true;
+            }
+            final Intent intent = new Intent(getActivity(), GpsMainAct.class);
+            startActivity(intent);
+        }
     }
 
-    public void signout() {
+    public void signout()
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are you sure you want to log out?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

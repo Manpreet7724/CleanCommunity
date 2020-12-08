@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
@@ -87,6 +88,27 @@ public class Gps_Fragment extends Fragment
         @Override
         public void onMapReady(final GoogleMap googleMap)
         {
+            Settings_Fragment settting = new Settings_Fragment();
+            if(settting.nightmodecheck)
+            {
+                try {
+                    boolean success = googleMap.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.nightmode_map));
+
+                } catch (Resources.NotFoundException e) {
+                    Log.e("Error", "Can't find style. Error: ", e);
+                }
+            }
+            else
+            {
+                try
+                {
+                    boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), GoogleMap.MAP_TYPE_NORMAL));
+                } catch (Resources.NotFoundException e)
+                {
+                    Log.e("Error", "Can't find style. Error: ", e);
+                }
+            }
             x = 0;
             final ArrayList<LocationData> circle = new ArrayList<>();
 
@@ -197,7 +219,8 @@ public class Gps_Fragment extends Fragment
             googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener()
             {
                 @Override
-                public void onCameraIdle() {
+                public void onCameraIdle()
+                {
                     if (!addbutton)
                     {
                     LatLng center = googleMap.getCameraPosition().target;

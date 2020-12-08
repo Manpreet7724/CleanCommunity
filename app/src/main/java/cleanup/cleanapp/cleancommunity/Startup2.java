@@ -78,7 +78,8 @@ public class Startup2 extends AppCompatActivity
         super.onDestroy();
     }
 
-    public void googleSignup() {
+    public void googleSignup()
+    {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -86,20 +87,16 @@ public class Startup2 extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try
             {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
             }
             catch (ApiException e)
             {
-                // Google Sign In failed, update UI appropriately
                 Toast.makeText(Startup2.this, "Google Sign in failed", Toast.LENGTH_LONG).show();
-                // ...
             }
         }
     }
