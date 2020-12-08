@@ -67,8 +67,7 @@ public class Gps_Fragment extends Fragment
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     FirebaseDatabase database;
-    EditText areaNickname, radius, longitude, latitude, rating, contributor;
-    String areaNicknameText, radiusText, longitudeText, latitudeText, ratingText, contributorText;
+    EditText areaNickname, radius, longitude, latitude, rating, contributor;//, radiusText, longitudeText, latitudeText, ratingText, contributorText;
     public double lat;
     public double longt;
     Button abutton,bbutton,cbutton,dbutton;
@@ -93,7 +92,8 @@ public class Gps_Fragment extends Fragment
 
             FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                {
                     LocationData temp;
                     FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
                     DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
@@ -194,7 +194,6 @@ public class Gps_Fragment extends Fragment
                 }
             });
 
-
             googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener()
             {
                 @Override
@@ -203,7 +202,6 @@ public class Gps_Fragment extends Fragment
                     {
                     LatLng center = googleMap.getCameraPosition().target;
                     googleMap.clear();
-
 
                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -243,6 +241,11 @@ public class Gps_Fragment extends Fragment
             bbutton= getActivity().findViewById(R.id.btn_cancel);
             cbutton= getActivity().findViewById(R.id.btn_next);
             dbutton=getActivity().findViewById(R.id.btn_done);
+            areaNickname=getActivity().findViewById(R.id.areaname);
+            final int[] seekrating = new int[1];
+            final int[] seekrad = new int[1];
+            seekrating[0]=3;
+            seekrad[0]=100;
             abutton.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -286,6 +289,10 @@ public class Gps_Fragment extends Fragment
                     abutton.setVisibility(View.VISIBLE);
                     bbutton.setVisibility(View.GONE);
                     cbutton.setVisibility(View.GONE);
+                    areaNickname.setVisibility(View.GONE);
+                    rseekBar.setVisibility(View.GONE);
+                    dbutton.setVisibility(View.GONE);
+                    radseekbar.setVisibility(View.GONE);
                     centerMarker.remove();
                     addcircle.remove();
                 }
@@ -302,8 +309,14 @@ public class Gps_Fragment extends Fragment
                     bbutton.setVisibility(View.VISIBLE);
                     cbutton.setVisibility(View.GONE);
                     rseekBar.setVisibility(View.VISIBLE);
+                    areaNickname.setVisibility(View.VISIBLE);
                     dbutton.setVisibility(View.VISIBLE);
                     radseekbar.setVisibility(View.VISIBLE);
+
+                    lat=centerMarker.getPosition().latitude;
+                    longt=centerMarker.getPosition().longitude;
+
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, longt), 15));
 
                     centerMarker.remove();
                     rseekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
@@ -314,6 +327,7 @@ public class Gps_Fragment extends Fragment
                             Resources res = getResources();
                             addcircle.setStrokeColor(getRedcolor(progress, res));
                             addcircle.setFillColor(getRedcolor(progress, res));
+                            seekrating[0] =progress;
                         }
                         @Override
                         public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -327,7 +341,7 @@ public class Gps_Fragment extends Fragment
                         {
                             Resources res = getResources();
                             addcircle.setRadius((double)progress);
-
+                            seekrad[0] = progress;
                         }
                         @Override
                         public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -347,11 +361,44 @@ public class Gps_Fragment extends Fragment
                     addbutton=false;
                     abutton.setVisibility(View.VISIBLE);
                     bbutton.setVisibility(View.GONE);
+                    areaNickname.setVisibility(View.GONE);
                     cbutton.setVisibility(View.GONE);
                     rseekBar.setVisibility(View.GONE);
                     dbutton.setVisibility(View.GONE);
                     radseekbar.setVisibility(View.GONE);
                     addcircle.remove();
+
+                    String areaNicknameText,contributorText;
+
+                    areaNicknameText = areaNickname.getText().toString().trim();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    contributorText = user.getDisplayName();
+
+                    LocationData locationData = new LocationData();
+
+                    DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Location");
+
+                    int ratingInput = seekrating[0];
+                    int radiusInput = seekrad[0];
+                    float latitudeInput = (float) lat;
+                    float longitudeInput = (float) longt;
+
+                    if(!areaNicknameText.equals(""))
+                    {
+                        locationData.setAreaNickname(areaNicknameText);
+                        locationData.setLatitude(latitudeInput);
+                        locationData.setLongitude(longitudeInput);
+                        locationData.setRadius(radiusInput);
+                        locationData.setRating(ratingInput);
+                        locationData.setContributor(contributorText);
+                        database.push().setValue(locationData);
+                    }
+                    else
+                    {
+
+                       // display toast error saying missing  areaname
+                    }
+
                 }
             });
 

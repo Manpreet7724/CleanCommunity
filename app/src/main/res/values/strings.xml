@@ -25,6 +25,7 @@
     <string name="cancel">Cancel</string>
     <string name="next">next</string>
     <string name="done">done</string>
+    <string name="nick">Area Nickname</string>
     <string name="placeholder" translatable="false">placeholder</string>
     <string name="signout">SignOut</string>
     <string name="add_location">Add Location</string>
