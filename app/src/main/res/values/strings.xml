@@ -6,7 +6,6 @@
     <string name="welcome">Welcome!</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
-    <string name="phone">Phone</string>
     <string name="conPassword">Confirm password</string>
     <string name="password">Password</string>
     <string name="frogot_pass">Forgot Password?</string>
@@ -27,5 +26,6 @@
     <string name="signout">SignOut</string>
     <string name="add_location">Add Location</string>
     <string name="update_password">Update Password</string>
+    <string name="new_password">New Password</string>
 
 </resources>

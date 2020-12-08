@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity
 {
+
     String emailTxt;
     String passwordTxt;
     EditText editEmail;
@@ -30,6 +31,7 @@ public class Login extends AppCompatActivity
     public static final String PREFS_NAME = "MyPrefsFile";
     public static final String PREFS_USER = "prefsUsername";
     public static final String PREFS_PASS = "prefsPassword";
+    private static final String IS_CHECKED = "ischecked";
 
 
     private FirebaseAuth auth;
@@ -52,6 +54,11 @@ public class Login extends AppCompatActivity
 
         String emailTxt = pref.getString(PREFS_USERNAME, "");
         String passwordTxt = pref.getString(PREFS_PASSWORD, "");
+        String LoginString = pref.getString(IS_CHECKED, "");
+
+        if(LoginString.equals("true")){
+            stayLogin.setChecked(true);
+        }
 
         editEmail.setText(emailTxt);
         editPassword.setText(passwordTxt);
@@ -85,7 +92,6 @@ public class Login extends AppCompatActivity
             checkPreferences();
         }
 
-
         auth.signInWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(task.isSuccessful()){
@@ -107,6 +113,7 @@ public class Login extends AppCompatActivity
                 .edit()
                 .putString(PREFS_USERNAME, emailTxt)
                 .putString(PREFS_PASSWORD, passwordTxt)
+                .putString(IS_CHECKED, "true")
                 .apply();
         return pref;
     }

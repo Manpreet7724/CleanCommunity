@@ -6,7 +6,6 @@
     <string name="welcome">Welcome!</string>
     <string name="full_name">\t\t\t\Full Name</string>
     <string name="email">\t\t\t\Email</string>
-    <string name="phone">\t\t\t\Phone</string>
     <string name="conPassword">\t\t\t\Confirm password</string>
     <string name="password">\t\t\t\Password</string>
     <string name="frogot_pass">Forgot Password?</string>

@@ -13,12 +13,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignUp extends AppCompatActivity {
-    String nameTxt, emailTxt, phoneTxt, passwordTxt, conPasswordTxt;
-    EditText editName, editEmail, editPhone, editPassword, editConPass;
+    String nameTxt, emailTxt, passwordTxt, conPasswordTxt;
+    EditText editName, editEmail, editPassword, editConPass;
     FirebaseAuth auth;
 
     @Override
@@ -28,13 +30,12 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.signup);
     }
 
-    public void adddata(View view) {
+    public void addData(View view) {
 
         auth = FirebaseAuth.getInstance();
 
         editName = findViewById(R.id.editPersonName);
         editEmail = findViewById(R.id.editEmail);
-        editPhone = findViewById(R.id.editPhone);
         editPassword = findViewById(R.id.editPassword);
         editConPass = findViewById(R.id.editConPassword);
 
@@ -52,7 +53,6 @@ public class SignUp extends AppCompatActivity {
     private void registerUserdata() {
         nameTxt = editName.getText().toString().trim();
         emailTxt = editEmail.getText().toString().trim();
-        phoneTxt = editPhone.getText().toString().trim();
         passwordTxt = editPassword.getText().toString().trim();
         conPasswordTxt = editConPass.getText().toString().trim();
 
@@ -64,11 +64,6 @@ public class SignUp extends AppCompatActivity {
         if (emailTxt.isEmpty()) {
             editEmail.setError("Please input your Email");
             editEmail.requestFocus();
-            return;
-        }
-        if (phoneTxt.isEmpty()) {
-            editPhone.setError("Please input your Phone number");
-            editPhone.requestFocus();
             return;
         }
         if (passwordTxt.isEmpty()) {
@@ -85,21 +80,15 @@ public class SignUp extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    UserData userdata = new UserData(nameTxt, emailTxt, phoneTxt, passwordTxt);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    FirebaseDatabase.getInstance().getReference("User")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(userdata).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
-                                final Intent intent = new Intent(SignUp.this, GetStarted.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(nameTxt).build();
+
+                    user.updateProfile(profileUpdates);
+                    Toast.makeText(SignUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
+                    final Intent intent = new Intent(SignUp.this, GetStarted.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
                 }
