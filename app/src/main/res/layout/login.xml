@@ -11,69 +11,75 @@
         android:id="@+id/editPasswordLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="458dp"
+        android:layout_marginTop="16dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor,RtlSymmetry" />
-
-    <EditText
-        android:id="@+id/editTusername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="391dp"
-        android:autofillHints=""
-        android:background="@drawable/userinputtext"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textPersonName"
-        android:paddingStart="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTusername"
         tools:ignore="LabelFor,RtlSymmetry" />
 
     <Button
         android:id="@+id/buttonlogin2"
         android:layout_width="169dp"
         android:layout_height="42dp"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="599dp"
+        android:layout_marginTop="68dp"
         android:background="#FFFFFF"
         android:onClick="loginUser"
         android:text="@string/button_login"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editPasswordLog" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
-        android:layout_marginTop="655dp"
-        android:text="@string/frogot_pass"
+        android:layout_marginTop="28dp"
+        android:text="@string/forgot_pass"
         android:textStyle="bold"
+        android:onClick="resetpass"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonlogin2" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="527dp"
+        android:layout_marginTop="12dp"
         android:text="@string/checkbox"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editPasswordLog" />
+
+    <EditText
+        android:id="@+id/editTusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:background="@drawable/userinputtext"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textPersonName"
+        android:paddingStart="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547"
+        tools:ignore="LabelFor,RtlSymmetry" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

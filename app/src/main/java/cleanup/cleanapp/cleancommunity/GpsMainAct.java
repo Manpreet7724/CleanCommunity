@@ -70,11 +70,5 @@ public class GpsMainAct extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void addNewLocation(View view)
-    {
-        final Intent intent = new Intent(this, SwipeupActivity.class);
-        startActivity(intent);
-    }
-
 
 }

@@ -33,14 +33,13 @@
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/email"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386"
+        app:layout_constraintVertical_bias="0.339"
         tools:ignore="LabelFor" />
 
     <Button
@@ -64,8 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/frogot_pass"
+        android:text="@string/forgot_pass"
         android:textStyle="bold"
+        android:onClick="resetpass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
