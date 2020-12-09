@@ -68,7 +68,7 @@ public class Gps_Fragment extends Fragment
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     FirebaseDatabase database;
-    EditText areaNickname, radius, longitude, latitude, rating, contributor;//, radiusText, longitudeText, latitudeText, ratingText, contributorText;
+    EditText areaNickname;
     public double lat;
     public double longt;
     Button abutton,bbutton,cbutton,dbutton;
@@ -89,11 +89,23 @@ public class Gps_Fragment extends Fragment
         public void onMapReady(final GoogleMap googleMap)
         {
             Settings_Fragment settting = new Settings_Fragment();
-            if(settting.nightmodecheck)
+            abutton= getActivity().findViewById(R.id.getStarbutton);
+            bbutton= getActivity().findViewById(R.id.btn_cancel);
+            cbutton= getActivity().findViewById(R.id.btn_next);
+            dbutton=getActivity().findViewById(R.id.btn_done);
+            if(Settings_Fragment.nightmodecheck)
             {
-                try {
-                    boolean success = googleMap.setMapStyle(
-                            MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.nightmode_map));
+                try
+                {
+                    boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.nightmode_map));
+                    abutton.setBackgroundTintList(null);
+                    abutton.setBackgroundColor(getResources().getColor(R.color.white));
+                    bbutton.setBackgroundTintList(null);
+                    bbutton.setBackgroundColor(getResources().getColor(R.color.white));
+                    cbutton.setBackgroundTintList(null);
+                    cbutton.setBackgroundColor(getResources().getColor(R.color.white));
+                    dbutton.setBackgroundTintList(null);
+                    dbutton.setBackgroundColor(getResources().getColor(R.color.white));
 
                 } catch (Resources.NotFoundException e) {
                     Log.e("Error", "Can't find style. Error: ", e);
@@ -104,6 +116,14 @@ public class Gps_Fragment extends Fragment
                 try
                 {
                     boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), GoogleMap.MAP_TYPE_NORMAL));
+                    abutton.setBackgroundResource(R.color.transparent);
+                    abutton.setBackgroundColor(getResources().getColor(R.color.black));
+                    bbutton.setBackgroundResource(R.color.transparent);
+                    bbutton.setBackgroundColor(getResources().getColor(R.color.black));
+                    cbutton.setBackgroundResource(R.color.transparent);
+                    cbutton.setBackgroundColor(getResources().getColor(R.color.black));
+                    dbutton.setBackgroundResource(R.color.transparent);
+                    dbutton.setTextColor(getResources().getColor(R.color.black));
                 } catch (Resources.NotFoundException e)
                 {
                     Log.e("Error", "Can't find style. Error: ", e);
@@ -156,14 +176,14 @@ public class Gps_Fragment extends Fragment
             googleMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener()
             {
                 @Override
-                public void onCircleClick(final Circle circle)
+                public void onCircleClick(final Circle circles)
                 {
-                    circle.getCenter();
+                    circles.getCenter();
 
                     final DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
-                    int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
-                    circle.setStrokeColor(strokeColor);
+                    int strokeColor = circles.getStrokeColor() ^ 0x00ffffff;
+                    circles.setStrokeColor(strokeColor);
 
                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener()
                     {
@@ -175,7 +195,7 @@ public class Gps_Fragment extends Fragment
                                 LatLng save;
 
                                 save = new LatLng(data.latitude, data.longitude);
-                                if (circle.getCenter().equals(save))
+                                if (circles.getCenter().equals(save))
                                 {
                                     final String key = snapshot.getKey();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -185,17 +205,65 @@ public class Gps_Fragment extends Fragment
                                             + getResources().getString(R.string.longitude) + " " + data.longitude + "\n"
                                             + getResources().getString(R.string.radius) + " " + data.radius + "\n"
                                             + getResources().getString(R.string.contributor) + " " + data.contributor).setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
-                                            circle.setStrokeColor(strokeColor);
-
+                                        public void onClick(DialogInterface dialog, int id)
+                                        {
+                                            int strokeColor = circles.getStrokeColor() ^ 0x00ffffff;
+                                            circles.setStrokeColor(strokeColor);
                                         }
                                     });
                                     builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
 
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            FirebaseDatabase.getInstance().getReference("Location").child(key).removeValue();
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                            builder.setMessage("Are you sure you want to delete the selected location?");
+                                            builder.setPositiveButton("Yes",  new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id)
+                                                {
+                                                    googleMap.clear();
+                                                    FirebaseDatabase.getInstance().getReference("Location").child(key).removeValue();
+                                                    FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener()
+                                                    {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            LocationData temp;
+                                                            FirebaseUser locationUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                            DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
+
+                                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                                LocationData data = snapshot.getValue(LocationData.class);
+                                                                DatabaseReference currentLocationUserChild = locationUserChild.child(locationUser.getUid());
+
+                                                                String uid = currentLocationUserChild.toString();
+                                                                circle.add(new LocationData(uid));
+                                                                temp = circle.get(x);
+                                                                Resources res = getResources();
+                                                                temp.addcircle(googleMap.addCircle(new CircleOptions()
+                                                                        .center(new LatLng(data.latitude, data.longitude))
+                                                                        .radius(data.radius)
+                                                                        .strokeColor(getRedcolor(data.rating, res))
+                                                                        .fillColor(getRedcolor(data.rating, res))
+                                                                        .clickable(true)));
+                                                                x++;
+                                                            }
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which)
+                                                {
+                                                    int strokeColor = circles.getStrokeColor() ^ 0x00ffffff;
+                                                    circles.setStrokeColor(strokeColor);
+                                                }
+                                            });
+                                            AlertDialog a = builder.create();
+                                            a.show();
                                         }
                                     });
                                     AlertDialog a = builder.create();
@@ -259,11 +327,6 @@ public class Gps_Fragment extends Fragment
 
             });
 
-
-            abutton= getActivity().findViewById(R.id.getStarbutton);
-            bbutton= getActivity().findViewById(R.id.btn_cancel);
-            cbutton= getActivity().findViewById(R.id.btn_next);
-            dbutton=getActivity().findViewById(R.id.btn_done);
             areaNickname=getActivity().findViewById(R.id.areaname);
             final int[] seekrating = new int[1];
             final int[] seekrad = new int[1];
