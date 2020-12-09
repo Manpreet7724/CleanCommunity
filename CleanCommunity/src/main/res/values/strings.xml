@@ -66,7 +66,6 @@ Manpreet Parmar               n01302460
     <string name="googleauth_good">Google Authentication Successful</string>
     <string name="fail_register">Failed to register, please input a proper email</string>
     <string name="register_good">Sign Up Successful</string>
-    <string name="password_short">Password should be longer than 6 characters</string>
     <string name="input_password">Please input a Password</string>
     <string name="input_email">Please input your Email</string>
     <string name="input_name">Please input your Name</string>
@@ -78,5 +77,6 @@ Manpreet Parmar               n01302460
     <string name="map">Map</string>
     <string name="settings">Settings</string>
     <string name="not_valid_email">Please enter a valid email</string>
+    <string name="not_valid_pass">Password should be longer than 6 characters and include at least one number and no special characters</string>
 
 </resources>

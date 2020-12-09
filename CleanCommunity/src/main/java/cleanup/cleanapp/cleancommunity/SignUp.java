@@ -77,8 +77,8 @@ public class SignUp extends AppCompatActivity {
             editPassword.requestFocus();
             return;
         }
-        if (passwordTxt.length() < 6) {
-            editPassword.setError(getString(R.string.password_short));
+        if(!PasswordValidator(passwordTxt)){
+            editPassword.setError(getString(R.string.not_valid_pass));
             editPassword.requestFocus();
             return;
         }
@@ -110,7 +110,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     public static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9+._%\\-+]{1,256}" +
+            "[a-zA-Z0-9+._%\\-]{1,256}" +
                     "@" +
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
                     "(" +
@@ -121,6 +121,17 @@ public class SignUp extends AppCompatActivity {
 
     public static boolean EmailValidator(String email) {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    public static final Pattern PASSWORD_PATTERN = Pattern.compile(
+            "(?=.*[0-9])" +             //must include a digit
+                    "(?=.*[a-zA-Z])" +  //must include characters
+                    "(?=\\S+$)" +       //no whitespace include
+                    ".{6,}"             //at least 6 characterss
+    );
+
+    public static boolean PasswordValidator(String password) {
+        return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
     protected void onStart()
@@ -140,7 +151,6 @@ public class SignUp extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
 }
 
 
