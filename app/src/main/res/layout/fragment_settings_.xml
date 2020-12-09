@@ -49,9 +49,9 @@
 
     <EditText
         android:id="@+id/editPassUpdate"
-        android:layout_width="140dp"
+        android:layout_width="182dp"
         android:layout_height="40dp"
-        android:layout_marginStart="208dp"
+        android:layout_marginStart="220dp"
         android:layout_marginTop="400dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"

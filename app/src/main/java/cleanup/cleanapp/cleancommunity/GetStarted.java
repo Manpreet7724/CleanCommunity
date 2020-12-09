@@ -10,13 +10,14 @@ public class GetStarted extends AppCompatActivity
 {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
+    protected void onCreate(Bundle savedInstanceState) //
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.getstarted);
+
     }
     @Override
-    protected void onStop() // tells user the activy was stoped
+    protected void onStop()
     {
         super.onStop();
     }
@@ -26,10 +27,10 @@ public class GetStarted extends AppCompatActivity
         super.onDestroy();
     }
 
-
     public void act_GPS(View view)
     {
         final Intent intent = new Intent(this, GpsMainAct.class);
         startActivity(intent);
+        finish();
     }
 }

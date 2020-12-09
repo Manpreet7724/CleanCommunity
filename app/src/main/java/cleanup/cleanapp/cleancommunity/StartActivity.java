@@ -1,13 +1,10 @@
 package cleanup.cleanapp.cleancommunity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.google.firebase.auth.FirebaseAuth;
-
+import androidx.appcompat.app.AppCompatActivity;
 
 public class StartActivity extends AppCompatActivity
 {
@@ -17,28 +14,21 @@ public class StartActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup);
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         final Handler h = new Handler();
-        final Intent intent = new Intent(this, Startup2.class);
+        final Intent intent = new Intent(this, Startup.class);
         h.postDelayed(new Runnable() {
-
             @Override
-
-            public void run() {
+            public void run()
+            {
                 startActivity(intent);
-
+                finish();
             }
 
         }, 1000);
     }
 
     @Override
-    protected void onStop() // tells user the activy was stoped
+    protected void onStop()
     {
         super.onStop();
     }

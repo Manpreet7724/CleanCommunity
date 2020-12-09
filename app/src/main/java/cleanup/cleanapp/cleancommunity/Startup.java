@@ -1,12 +1,14 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -23,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Startup2 extends AppCompatActivity
+public class Startup extends AppCompatActivity
 {
     private static final int RC_SIGN_IN = 100;
     int PERMISSION_ID = 44;
@@ -73,6 +75,7 @@ public class Startup2 extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+        System.exit(0);
     }
 
     public void googleSignup()
@@ -93,7 +96,7 @@ public class Startup2 extends AppCompatActivity
             }
             catch (ApiException e)
             {
-                Toast.makeText(Startup2.this, "Google Sign in failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(Startup.this, "Google Sign in failed", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -107,12 +110,13 @@ public class Startup2 extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Startup.this, "Google auth good", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
-                            Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Startup.this, "Google auth good", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -124,6 +128,26 @@ public class Startup2 extends AppCompatActivity
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_ID);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("Exiting the App")
+                .setMessage("Are you sure?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton)
+                    {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // The user is not sure, so you can exit or just stay
+                dialog.dismiss();
+            }
+        }).show();
+
+    }
 
 }
 

@@ -125,8 +125,9 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseAuth.getInstance().signOut();
-                final Intent intent = new Intent(getActivity(), Startup2.class);
+                final Intent intent = new Intent(getActivity(), Startup.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

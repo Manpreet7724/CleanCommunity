@@ -6,7 +6,6 @@
     android:layout_height="fill_parent"
     android:background="@drawable/base_screen">
 
-
     <TextView
         android:id="@+id/gettingstarted"
         android:layout_width="wrap_content"

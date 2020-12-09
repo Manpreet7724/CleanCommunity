@@ -86,6 +86,7 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
                     final Intent intent = new Intent(SignUp.this, GetStarted.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
                 }
@@ -108,7 +109,9 @@ public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        finish();
         super.onDestroy();
+        finish();
     }
 
 }

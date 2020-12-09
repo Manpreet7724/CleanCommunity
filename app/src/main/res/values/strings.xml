@@ -40,5 +40,16 @@
     <string name="input_rating">Enter the rating here (1–10)</string>
     <string name="enter_email">Please enter your email to recover your password:</string>
     <string name="google">google</string>
+    <string name="not_show_again">Do not show this dialog again.</string>
+    <string name="tutorial_message">On the top Left corner you will find a button that will allow you to add a new location creating a red circle on the map, you will be able to move the circle to your desired location by clicking on the map. \n On the top right, another button will take you to your current location</string>
+    <string name="tutorial_welcome">Welcome to CleanCommunity</string>
+    <string name="default_location">Error grabbing location, default location will be given</string>
+    <string name="area_radius_not_empty">Area Nickname and Rating cannot be empty</string>
+    <string name="ratings_no_letters">Area Rating cannot contain letters</string>
+    <string name="rating_between">The entered rating must be between 0 and 10</string>
+    <string name="confirm_delete">Are you sure you want to delete the selected location?</string>
+    <string name="yes">Yes</string>
+    <string name="delete">Delete</string>
+    <string name="ok">OK</string>
 
 </resources>
