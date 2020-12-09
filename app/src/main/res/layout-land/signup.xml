@@ -38,12 +38,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor,SmallSp" />
 
+
     <EditText
         android:id="@+id/editEmail"
         android:layout_width="239dp"
         android:layout_height="28dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginTop="127dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="120dp"
         android:autofillHints=""
         android:background="@drawable/userinputtext"
         android:ems="10"
@@ -53,7 +54,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor,SmallSp" />
-
 
     <EditText
         android:id="@+id/editPassword"
