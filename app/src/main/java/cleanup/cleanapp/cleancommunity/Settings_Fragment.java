@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.RingtoneManager;
@@ -44,6 +45,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.content.SharedPreferences;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -70,12 +72,14 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
     LocationManager locationManager;
     public double lat;
     public double longt;
+    public String PREFS_NIGHTMODE= "prefNightmode";
+    public static final String PREFS_NAME = "MyPrefsFile";
+    private static final String IS_CHECKED = "ischecked";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_settings_, container, false);
-
 
         signoutButton = rootView.findViewById(R.id.logout);
         signoutButton.setOnClickListener(this);
@@ -86,14 +90,6 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         nightmode = rootView.findViewById(R.id.nightmode);
         nightmode.setOnClickListener(this);
 
-        if(nightmodecheck)
-        {
-            nightmode.setText(getString(R.string.light));
-        }
-        else
-        {
-            nightmode.setText(getString(R.string.night_mode));
-        }
         editPassUpdate = rootView.findViewById(R.id.editPassUpdate);
         username = rootView.findViewById(R.id.userNameSetting);
         useremail = rootView.findViewById(R.id.userEmailSetting);
@@ -103,6 +99,18 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         useremail.setText(user.getEmail());
 
         context = Objects.requireNonNull(getActivity()).getApplicationContext();
+
+        SharedPreferences pref =  this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        nightmodecheck = pref.getBoolean(PREFS_NIGHTMODE, true );
+        if(nightmodecheck)
+        {
+            nightmode.setText(getString(R.string.light));
+        }
+        else
+        {
+            nightmode.setText(getString(R.string.night_mode));
+        }
 
         return rootView;
     }
@@ -135,6 +143,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
             {
                 nightmodecheck = true;
             }
+            checkPreferences();
             final Intent intent = new Intent(getActivity(), GpsMainAct.class);
             startActivity(intent);
         }
@@ -235,6 +244,15 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         Log.d("showNotification", "showNotification: " + reqCode);
     }
 
+    private SharedPreferences checkPreferences() {
+        SharedPreferences pref =  this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(PREFS_NIGHTMODE, nightmodecheck)
+                .apply();
+        return pref;
+    }
 
     public void onDestroy() {
 

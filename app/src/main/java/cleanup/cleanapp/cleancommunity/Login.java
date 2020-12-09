@@ -29,8 +29,6 @@ public class Login extends AppCompatActivity
     public String PREFS_USERNAME= "prefsUsername";
     public String PREFS_PASSWORD="prefsPassword";
     public static final String PREFS_NAME = "MyPrefsFile";
-    public static final String PREFS_USER = "prefsUsername";
-    public static final String PREFS_PASS = "prefsPassword";
     private static final String IS_CHECKED = "ischecked";
 
 
