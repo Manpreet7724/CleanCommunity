@@ -56,7 +56,7 @@ Manpreet Parmar               n01302460
     <string name="yes">Oui</string>
     <string name="delete">Supprimer</string>
     <string name="we_sent_email_to">Nous avons envoyé un e-mail à:</string>
-    <string name="incorrect_email">"Veuillez saisir une adresse e-mail valide pour l'un de vos comptes:  "</string>
+    <string name="incorrect_email">Veuillez saisir un e-mail valide:</string>
     <string name="exit_app">Quitter l\'application</string>
     <string name="confirm_exit">Êtes-vous sûr?</string>
     <string name="no">Non</string>
@@ -64,7 +64,6 @@ Manpreet Parmar               n01302460
     <string name="googleauth_good">Authentification Google réussie</string>
     <string name="fail_register">Échec de l\'inscription, veuillez saisir un e-mail approprié</string>
     <string name="register_good">Inscription réussie</string>
-    <string name="password_short">French  Le mot de passe doit comporter plus de 6 caractères</string>
     <string name="input_password">Veuillez saisir un mot de passe</string>
     <string name="input_email">Veuillez saisir votre email</string>
     <string name="input_name">Veuillez saisir votre nom</string>
@@ -76,4 +75,5 @@ Manpreet Parmar               n01302460
     <string name="map">Carte</string>
     <string name="settings">Réglages</string>
     <string name="not_valid_email">Veuillez saisir un e-mail valide</string>
+    <string name="not_valid_pass">Le mot de passe doit comporter plus de 6 caractères et inclure au moins un chiffre et aucun caractère spécial</string>
 </resources>

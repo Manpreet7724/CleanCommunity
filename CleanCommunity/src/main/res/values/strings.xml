@@ -58,7 +58,7 @@ Manpreet Parmar               n01302460
     <string name="delete">Delete</string>
     <string name="ok" translatable="false">OK</string>
     <string name="we_sent_email_to">We sent an email to: </string>
-    <string name="incorrect_email">Please enter a valid email for one of your accounts: </string>
+    <string name="incorrect_email">Please enter a valid email: </string>
     <string name="exit_app">Exiting the App</string>
     <string name="confirm_exit">Are you sure?</string>
     <string name="no">No</string>
