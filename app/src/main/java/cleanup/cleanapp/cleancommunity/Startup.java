@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -39,8 +38,9 @@ public class Startup extends AppCompatActivity
     FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
 
+    //Displays screen to the user and builds GoogleSignInOptions for the user to user google auth system
     @Override
-    protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup2);
@@ -62,6 +62,8 @@ public class Startup extends AppCompatActivity
             }
         });
     }
+
+    //On login or Signup button click, the user will be taken to the respective activity
     public void login(View view )
     {
         final Intent intent = new Intent(this, Login.class);
@@ -85,12 +87,12 @@ public class Startup extends AppCompatActivity
         System.exit(0);
     }
 
+    //Initializes google signup process
     public void googleSignup()
     {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -101,13 +103,13 @@ public class Startup extends AppCompatActivity
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
             }
-            catch (ApiException e)
-            {
-                Toast.makeText(Startup.this, "Google Sign in failed", Toast.LENGTH_LONG).show();
+            catch (ApiException e) {
+                e.printStackTrace();
             }
         }
     }
 
+    //On a successful google sign up process, advance to the next activity
     private void firebaseAuthWithGoogle(String idToken)
     {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -117,39 +119,40 @@ public class Startup extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(Startup.this, "Google auth good", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Startup.this, getString(R.string.googleauth_good), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
                             startActivity(intent);
                             finish();
 
                         } else {
-                            Toast.makeText(Startup.this, "Google auth good", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Startup.this, getString(R.string.googleauth_error), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
 
+    //Request location permission from the user
     void requestPermissions()
     {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ID);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_ID);
     }
 
+    //On back pressed, ask the user before terminating the app
     @Override
     public void onBackPressed()
     {
         new AlertDialog.Builder(this)
-                .setTitle("Exiting the App")
-                .setMessage("Are you sure?")
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.exit_app))
+                .setMessage(getString(R.string.confirm_exit))
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton)
                     {
                         dialog.dismiss();
                         finish();
                     }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                // The user is not sure, so you can exit or just stay
                 dialog.dismiss();
             }
         }).show();

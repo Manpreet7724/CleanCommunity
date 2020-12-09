@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -42,7 +41,6 @@ import java.util.Objects;
 import android.location.Location;
 import android.location.LocationManager;
 
-
 public class Settings_Fragment extends Fragment implements View.OnClickListener {
 
     Context context;
@@ -58,6 +56,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
     public String PREFS_NIGHTMODE= "prefNightmode";
     public static final String PREFS_NAME = "MyPrefsFile";
 
+    //Builds and display the fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -97,6 +96,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         return rootView;
     }
 
+    //Several onClick methods per each button of the fragment
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
@@ -106,7 +106,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
         if (v.getId() == R.id.passUpdate) {
             if (newPassword.isEmpty()) {
-                editPassUpdate.setError("Please input a new Password");
+                editPassUpdate.setError(getString(R.string.new_pass));
                 editPassUpdate.requestFocus();
             } else {
                 passUpdate();
@@ -117,6 +117,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
         if (v.getId() == R.id.nightmode)
         {
+            //If nightmodecheck is TRUE, build Gps_Fragment in nightmode, else build it as standard
             nightmodecheck = !nightmodecheck;
             checkPreferences();
             final Intent intent = new Intent(getActivity(), GpsMainAct.class);
@@ -124,6 +125,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    //Signs out the user, returning it to the startup screen
     public void signout()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -131,7 +133,9 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //Signs out the user from the app
                 FirebaseAuth.getInstance().signOut();
+                //Return to Startup
                 final Intent intent = new Intent(getActivity(), Startup.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -147,6 +151,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         a.show();
     }
 
+    //Updates the user's password
     public void passUpdate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.gmailPassUpdate);
@@ -161,7 +166,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), "Password successfully updated", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), getString(R.string.pass_updated), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -177,6 +182,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         a.show();
     }
 
+    //Checks if location permissions where given, if positive, notify the user of their current location
     public void coordinatesNotif() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -198,8 +204,8 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    //Notification message build
     public void showNotification(Context context, String title, String message, Intent intent, int reqCode) {
-
         PendingIntent pendingIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_ONE_SHOT);
         String CHANNEL_ID = "channel_name";// The id of the channel.
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -221,6 +227,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         Log.d("showNotification", "showNotification: " + reqCode);
     }
 
+    //SharedPreferences for nightmode
     private void checkPreferences()
     {
         SharedPreferences pref =  this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

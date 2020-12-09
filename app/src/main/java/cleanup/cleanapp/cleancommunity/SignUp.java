@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-
 public class SignUp extends AppCompatActivity {
     String nameTxt, emailTxt, passwordTxt, conPasswordTxt;
     EditText editName, editEmail, editPassword, editConPass;
@@ -34,6 +32,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.signup);
     }
 
+    //onClick of the SingUp button, stores the data offered and checks for password match
     public void addData(View view) {
 
         auth = FirebaseAuth.getInstance();
@@ -49,11 +48,12 @@ public class SignUp extends AppCompatActivity {
         if (passwordTxt.equals(conPasswordTxt)) {
             registerUserdata();
         } else {
-            Toast.makeText(SignUp.this, "Passwords do not Match", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUp.this, getString(R.string.password_no_match), Toast.LENGTH_LONG).show();
         }
 
     }
 
+    //If password matched, stores user data into firebase authentication system
     private void registerUserdata() {
         nameTxt = editName.getText().toString().trim();
         emailTxt = editEmail.getText().toString().trim();
@@ -61,26 +61,27 @@ public class SignUp extends AppCompatActivity {
         conPasswordTxt = editConPass.getText().toString().trim();
 
         if (nameTxt.isEmpty()) {
-            editName.setError("Please input your Name");
+            editName.setError(getString(R.string.input_name));
             editName.requestFocus();
             return;
         }
         if (emailTxt.isEmpty()) {
-            editEmail.setError("Please input your Email");
+            editEmail.setError(getString(R.string.input_email));
             editEmail.requestFocus();
             return;
         }
         if (passwordTxt.isEmpty()) {
-            editPassword.setError("Please input a Password");
+            editPassword.setError(getString(R.string.input_password));
             editPassword.requestFocus();
             return;
         }
         if (passwordTxt.length() < 6) {
-            editPassword.setError("Password should be longer than 6 characters");
+            editPassword.setError(getString(R.string.password_short));
             editPassword.requestFocus();
             return;
         }
 
+        //If all the logic is correct, sign in the user to firebase authentication
         auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -90,12 +91,12 @@ public class SignUp extends AppCompatActivity {
                             .setDisplayName(nameTxt).build();
 
                     user.updateProfile(profileUpdates);
-                    Toast.makeText(SignUp.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, getString(R.string.register_good), Toast.LENGTH_LONG).show();
                     final Intent intent = new Intent(SignUp.this, GetStarted.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(SignUp.this, "Failed to register", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, getString(R.string.fail_register), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -116,9 +117,7 @@ public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        finish();
         super.onDestroy();
-        finish();
     }
 
 }

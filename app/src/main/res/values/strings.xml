@@ -57,5 +57,25 @@ Manpreet Parmar               n01302460
     <string name="yes">Yes</string>
     <string name="delete">Delete</string>
     <string name="ok">OK</string>
+    <string name="we_sent_email_to">"We sent an email to : "</string>
+    <string name="incorrect_email">"Email inputted incorrect : "</string>
+    <string name="exit_app">Exiting the App</string>
+    <string name="confirm_exit">Are you sure?</string>
+    <string name="no">No</string>
+    <string name="googleauth_error">Google authentication error</string>
+    <string name="googleauth_good">Google Authentication Successful</string>
+    <string name="fail_register">Failed to register, please input a proper email</string>
+    <string name="register_good">Sign Up Successful</string>
+    <string name="password_short">Password should be longer than 6 characters</string>
+    <string name="input_password">Please input a Password</string>
+    <string name="input_email">Please input your Email</string>
+    <string name="input_name">Please input your Name</string>
+    <string name="password_no_match">Passwords do not Match</string>
+    <string name="login_fail">Failed to login</string>
+    <string name="login_good">Login Successful</string>
+    <string name="new_pass">Please input a new Password</string>
+    <string name="pass_updated">Password successfully updated</string>
+    <string name="map">Map</string>
+    <string name="settings">Settings</string>
 
 </resources>

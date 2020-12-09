@@ -1,3 +1,4 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
@@ -5,10 +6,9 @@ Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
 
-package cleanup.cleanapp.cleancommunity;
-
 import com.google.android.gms.maps.model.Circle;
 
+//Object to hold location data for the database
 public class LocationData {
 
     String areaNickname, contributor;

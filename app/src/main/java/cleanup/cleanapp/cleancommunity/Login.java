@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-
 public class Login extends AppCompatActivity
 {
 
@@ -35,17 +33,18 @@ public class Login extends AppCompatActivity
     EditText editEmail;
     EditText editPassword;
     CheckBox stayLogin;
-    public String PREFS_USERNAME= "prefsUsername";
+    public String PREFS_EMAIL= "prefsEmail";
     public String PREFS_PASSWORD="prefsPassword";
     public static final String PREFS_NAME = "MyPrefsFile";
     private static final String IS_CHECKED = "ischecked";
 
-
+    //Needed empty constructor
     public Login() {
     }
 
+    //Creates and display login screen for the user
     @Override
-    protected void onCreate(Bundle savedInstanceState) // tells user the activy is created
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -57,7 +56,7 @@ public class Login extends AppCompatActivity
 
         SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        String emailTxt = pref.getString(PREFS_USERNAME, "");
+        String emailTxt = pref.getString(PREFS_EMAIL, "");
         String passwordTxt = pref.getString(PREFS_PASSWORD, "");
         String LoginString = pref.getString(IS_CHECKED, "");
 
@@ -70,24 +69,24 @@ public class Login extends AppCompatActivity
 
     }
 
-
+    //onClick of Login button, store the information written by the user
     public void loginUser(View view)
     {
         emailTxt = editEmail.getText().toString().trim();
         passwordTxt = editPassword.getText().toString().trim();
 
         if(emailTxt.isEmpty()){
-            editEmail.setError("Please input your Email");
+            editEmail.setError(getString(R.string.input_email));
             editEmail.requestFocus();
             return;
         }
         if(passwordTxt.isEmpty()){
-            editPassword.setError("Please input a Password");
+            editPassword.setError(getString(R.string.input_password));
             editPassword.requestFocus();
             return;
         }
         if(passwordTxt.length() < 6){
-            editPassword.setError("Password should be longer than 6 characters");
+            editPassword.setError(getString(R.string.password_short));
             editPassword.requestFocus();
             return;
         }
@@ -97,28 +96,30 @@ public class Login extends AppCompatActivity
             checkPreferences();
         }
 
+        //Confirms the data written with the data inside firebase auth system
         auth.signInWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(task.isSuccessful()){
-                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, getString(R.string.login_good), Toast.LENGTH_LONG).show();
                     final Intent intent = new Intent(Login.this, GetStarted.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(Login.this, "Failed to login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, getString(R.string.login_fail), Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
+    //SharedPreferences to remain logged in
     private SharedPreferences checkPreferences()
     {
         SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
 
         getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                 .edit()
-                .putString(PREFS_USERNAME, emailTxt)
+                .putString(PREFS_EMAIL, emailTxt)
                 .putString(PREFS_PASSWORD, passwordTxt)
                 .putString(IS_CHECKED, "true")
                 .apply();
@@ -127,7 +128,7 @@ public class Login extends AppCompatActivity
 
 
     @Override
-    protected void onStop() // tells user the activy was stoped
+    protected void onStop()
     {
         super.onStop();
     }
@@ -137,7 +138,8 @@ public class Login extends AppCompatActivity
         super.onDestroy();
     }
 
-    public void resetpass(View view)
+    //Reset's the user's password
+    public void resetPass(View view)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot Password");
@@ -160,11 +162,11 @@ public class Login extends AppCompatActivity
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful())
                                 {
-                                    Toast.makeText(Login.this, "We sent an email to  : "+emailAddress, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Login.this, getString(R.string.we_sent_email_to) + emailAddress, Toast.LENGTH_LONG).show();
                                 }
                                 else
                                 {
-                                    Toast.makeText(Login.this, "Email inputed incorrect : "+emailAddress, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Login.this, getString(R.string.incorrect_email) + emailAddress, Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

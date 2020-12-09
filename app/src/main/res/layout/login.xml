@@ -52,7 +52,7 @@ Manpreet Parmar               n01302460
         android:layout_marginTop="28dp"
         android:text="@string/forgot_pass"
         android:textStyle="bold"
-        android:onClick="resetpass"
+        android:onClick="resetPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonlogin2" />

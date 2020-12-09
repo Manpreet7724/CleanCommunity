@@ -19,13 +19,13 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Sunny\\AndroidStudioProjects\\CleanCommunity\\app\\debug.ks')
+            storeFile file('C:\\Users\\Merry\\Documents\\CleanCommunity\\app\\debug.ks')
             storePassword 'cleancommunity'
             keyAlias 'debug'
             keyPassword 'cleancommunity'
         }
         debug {
-            storeFile file('C:\\Users\\Sunny\\AndroidStudioProjects\\CleanCommunity\\app\\debug.ks')
+            storeFile file('C:\\Users\\Merry\\Documents\\CleanCommunity\\app\\debug.ks')
             storePassword 'cleancommunity'
             keyAlias 'debug'
             keyPassword 'cleancommunity'

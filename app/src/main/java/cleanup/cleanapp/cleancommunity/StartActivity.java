@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StartActivity extends AppCompatActivity
 {
 
+    //Displays screen for a second, then jump to next activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

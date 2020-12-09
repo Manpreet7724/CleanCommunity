@@ -1,11 +1,10 @@
+package cleanup.cleanapp.cleancommunity;
 /*
 Team Cleanup
 Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567
 Manpreet Parmar               n01302460
 */
-
-package cleanup.cleanapp.cleancommunity;
 
 import android.os.Bundle;
 
@@ -19,6 +18,7 @@ public class GpsMainAct extends AppCompatActivity {
 
     private ViewPager viewPager;
 
+    //Creates main activity implementing the tab layout to hold the fragments
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,16 +30,14 @@ public class GpsMainAct extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         viewPager =  findViewById(R.id.viewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Map"));
-        tabLayout.addTab(tabLayout.newTab().setText("Settings"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.settings)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        //ViewPager is needed in order to make the tab layout functional
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -63,13 +61,14 @@ public class GpsMainAct extends AppCompatActivity {
 
 
     @Override
-    protected void onStop() // tells user the activy was stoped
+    protected void onStop()
     {
         super.onStop();
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
     }
 
