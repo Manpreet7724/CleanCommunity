@@ -11,7 +11,8 @@ Manpreet Parmar               n01302460
     android:id="@+id/login_scr"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/startup_screen2">
+    android:background="@drawable/startup_screen2"
+    tools:context=".Login">
 
     <EditText
         android:id="@+id/editPasswordLog"

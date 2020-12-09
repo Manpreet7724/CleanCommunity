@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
     String nameTxt, emailTxt, passwordTxt, conPasswordTxt;
     EditText editName, editEmail, editPassword, editConPass;
@@ -81,6 +83,11 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
+        if(!EmailValidator(emailTxt)){
+            editEmail.setError(getString(R.string.not_valid_email));
+            editEmail.requestFocus();
+        }
+
         //If all the logic is correct, sign in the user to firebase authentication
         auth.createUserWithEmailAndPassword(emailTxt, passwordTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,6 +107,20 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9+._%\\-+]{1,256}" +
+                    "@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
+
+    public static boolean EmailValidator(String email) {
+        return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
     protected void onStart()

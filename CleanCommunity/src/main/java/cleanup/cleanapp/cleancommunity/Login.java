@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Pattern;
+
 public class Login extends AppCompatActivity
 {
 
@@ -89,6 +91,11 @@ public class Login extends AppCompatActivity
             editPassword.setError(getString(R.string.password_short));
             editPassword.requestFocus();
             return;
+        }
+
+        if(!EmailValidator(emailTxt)){
+            editEmail.setError(getString(R.string.not_valid_email));
+            editEmail.requestFocus();
         }
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -181,6 +188,20 @@ public class Login extends AppCompatActivity
         });
 
         builder.show();
+    }
+
+    public static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9+._%\\-+]{1,256}" +
+                    "@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
+
+    public static boolean EmailValidator(String email) {
+        return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
 }
