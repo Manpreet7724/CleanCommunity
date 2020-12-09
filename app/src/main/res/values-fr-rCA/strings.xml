@@ -9,7 +9,7 @@
     <string name="email">Email</string>
     <string name="conPassword">Confirmez le mot de passe</string>
     <string name="password">Mot de passe</string>
-    <string name="frogot_pass">Mot de passe oublié?</string>
+    <string name="forgot_pass1">Mot de passe oublié?</string>
     <string name="checkbox">Rester connecté</string>
     <string name="wong_pass">Aïe, mauvais mot de passe!!!!!!!!!!!!</string>
     <string name="welcomemessage">Les déchets détruisent lentement l\'écosystème, la beauté et la vie de notre planète. La distance moyenne qu\'une personne transporte avant de la jeter est de 12 pas. Il est temps de faire une différence, faisons-le ensemble.</string>
@@ -28,4 +28,16 @@
     <string name="update_password">Mettre à jour le mot de passe</string>
     <string name="gmailPassUpdate">" Si vous vous êtes connecté via un compte Gmail, la modification de votre mot de passe ne changera pas le mot de passe de votre compte Google, mais créera plutôt un compte pour l'application (si vous n'en avez pas déjà un) avec le nouveau mot de passe. Êtes-vous d'accord avec ça?"</string>
     <string name="send_coordinates">Envoyer les coordonnées</string>
+    <string name="cancel">Annuler</string>
+    <string name="google">google</string>
+    <string name="next">prochain</string>
+    <string name="light">Mode lumière</string>
+    <string name="done">terminé</string>
+    <string name="nick">Surnom de la région</string>
+    <string name="night_mode">Mode sombre</string>
+    <string name="enter_email">"Veuillez entrer votre email pour récupérer votre mot de passe:  "</string>
+    <string name="enter_rating">Veuillez saisir la note souhaitée</string>
+    <string name="input_area_name">Entrez le nom de la zone ici</string>
+    <string name="input_rating">Saisissez la note ici (1–10)</string>
+    <string name="forgot_pass2">Mot de passe oublié</string>
 </resources>
