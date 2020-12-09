@@ -229,6 +229,7 @@ public class Gps_Fragment extends Fragment {
                                                         public void onCancelled(@NonNull DatabaseError error) {
                                                         }
                                                     });
+
                                                 }
                                             });
                                             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

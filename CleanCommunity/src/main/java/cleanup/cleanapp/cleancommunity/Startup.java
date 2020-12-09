@@ -122,7 +122,6 @@ public class Startup extends AppCompatActivity
                             Toast.makeText(Startup.this, getString(R.string.googleauth_good), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
                             startActivity(intent);
-                            finish();
 
                         } else {
                             Toast.makeText(Startup.this, getString(R.string.googleauth_error), Toast.LENGTH_LONG).show();
