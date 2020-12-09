@@ -16,10 +16,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -62,7 +60,8 @@ public class Login extends AppCompatActivity
         String passwordTxt = pref.getString(PREFS_PASSWORD, "");
         String LoginString = pref.getString(IS_CHECKED, "");
 
-        if(LoginString.equals("true")){
+        if(LoginString.equals("true"))
+        {
             stayLogin.setChecked(true);
         }
 
@@ -100,8 +99,13 @@ public class Login extends AppCompatActivity
         }
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        if(stayLogin.isChecked()) {
+        if(stayLogin.isChecked())
+        {
             checkPreferences();
+        }
+        else
+        {
+            rcheckPreferences();
         }
 
         //Confirms the data written with the data inside firebase auth system
@@ -121,32 +125,37 @@ public class Login extends AppCompatActivity
     }
 
     //SharedPreferences to remain logged in
-    private SharedPreferences checkPreferences()
+    private void checkPreferences()
     {
-        SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
-
-        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+         getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                 .edit()
                 .putString(PREFS_EMAIL, emailTxt)
                 .putString(PREFS_PASSWORD, passwordTxt)
                 .putString(IS_CHECKED, "true")
                 .apply();
-        return pref;
     }
-
+    private void rcheckPreferences()
+    {
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(PREFS_EMAIL, "")
+                .putString(PREFS_PASSWORD, "")
+                .putString(IS_CHECKED, "false")
+                .apply();
+    }
 
     @Override
     protected void onStop()
     {
         super.onStop();
     }
+
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
     }
 
-    //Reset's the user's password
     public void resetPass(View view)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -201,7 +210,8 @@ public class Login extends AppCompatActivity
                     ")+"
     );
 
-    public static boolean EmailValidator(String email) {
+    public static boolean EmailValidator(String email)
+    {
         return email != null && EMAIL_PATTERN.matcher(email).matches();
     }
 
