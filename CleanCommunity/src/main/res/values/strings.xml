@@ -52,11 +52,11 @@ Manpreet Parmar               n01302460
     <string name="default_location">Error grabbing location, default location will be given</string>
     <string name="area_radius_not_empty">Area Nickname and Rating cannot be empty</string>
     <string name="ratings_no_letters">Area Rating cannot contain letters</string>
-    <string name="rating_between">The entered rating must be between 0 and 10</string>
+    <string name="rating_between">The entered rating must be between 1 and 10</string>
     <string name="confirm_delete">Are you sure you want to delete the selected location?</string>
     <string name="yes">Yes</string>
     <string name="delete">Delete</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="we_sent_email_to">We sent an email to: </string>
     <string name="incorrect_email">Please enter a valid email for one of your accounts: </string>
     <string name="exit_app">Exiting the App</string>
