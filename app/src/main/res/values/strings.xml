@@ -23,6 +23,7 @@
     <string name="okay" translatable="false">Okay</string>
     <string name="add">add</string>
     <string name="cancel">Cancel</string>
+    <string name="google">google</string>
     <string name="next">next</string>
     <string name="light">Light mode</string>
     <string name="done">done</string>
@@ -35,5 +36,6 @@
     <string name="gmailPassUpdate">If you have logged in via Gmail account, changing your password will not change your google account password, but will instead create an account for the app (if you don\'t have one already) with the new password. Are you okay with this?</string>
     <string name="send_coordinates">Send Coordinates</string>
     <string name="night_mode">Dark Mode</string>
+    <string name="enter_email">Please enter your email to recover your password:</string>
 
 </resources>

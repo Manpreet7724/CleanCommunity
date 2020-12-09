@@ -1,12 +1,18 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -140,5 +146,48 @@ public class Startup2 extends AppCompatActivity
     }
 
 
+    public void resetpass(View view)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Forgot Password");
+
+        View viewInflated = LayoutInflater.from(this).inflate(R.layout.forgotpass,null);
+        final EditText input = viewInflated.findViewById(R.id.forgotemail);
+        builder.setView(viewInflated);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.dismiss();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                final String emailAddress =  input.getText().toString();
+
+                auth.sendPasswordResetEmail(emailAddress)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                {
+                                    Toast.makeText(Startup2.this, "We sent an email to  : "+emailAddress, Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(Startup2.this, "Email inputed incorrect : "+emailAddress, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
 }
 

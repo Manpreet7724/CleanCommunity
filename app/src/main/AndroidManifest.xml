@@ -41,9 +41,6 @@
             android:name=".GpsMainAct"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".SwipeupActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
             android:name=".StartActivity"
             android:screenOrientation="fullSensor"
             android:usesCleartextTraffic="true">
