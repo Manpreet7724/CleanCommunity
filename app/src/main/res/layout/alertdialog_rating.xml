@@ -1,3 +1,9 @@
+<!--
+Team Cleanup
+Curtis Ching                  n01274536
+Kevin Daniel Delgado Toledo   n01323567
+Manpreet Parmar               n01302460
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:paddingLeft="20dp"

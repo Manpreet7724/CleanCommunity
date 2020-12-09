@@ -1,3 +1,11 @@
+
+/*
+Team Cleanup
+Curtis Ching                  n01274536
+Kevin Daniel Delgado Toledo   n01323567
+Manpreet Parmar               n01302460
+*/
+
 package cleanup.cleanapp.cleancommunity;
 
 import android.content.Intent;
@@ -5,6 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import cleanup.cleanapp.cleancommunity.GpsMainAct;
+import cleanup.cleanapp.cleancommunity.R;
 
 public class GetStarted extends AppCompatActivity
 {
