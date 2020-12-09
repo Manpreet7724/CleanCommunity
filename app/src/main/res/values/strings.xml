@@ -21,7 +21,7 @@
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
     <string name="okay" translatable="false">Okay</string>
-    <string name="add">add</string>
+    <string name="add">Add location</string>
     <string name="cancel">Cancel</string>
     <string name="next">next</string>
     <string name="light">Light mode</string>
@@ -37,7 +37,9 @@
     <string name="night_mode">Dark Mode</string>
     <string name="enter_rating">Please enter the desired rating</string>
     <string name="input_area_name">Enter the area name here</string>
-    <string name="input_rating">Enter the rating here (0-10)</string>
+    <string name="input_rating">Enter the rating here (1–10)</string>
     <string name="enter_email">Please enter your email to recover your password:</string>
+    <string name="forgot_pass">Forgot Password</string>
+    <string name="google">google</string>
 
 </resources>

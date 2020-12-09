@@ -463,7 +463,7 @@ public class Gps_Fragment extends Fragment
                             }
 
                             int ratingInput = Integer.parseInt(areaRatingText);
-                            if(ratingInput < 0 || ratingInput > 10){
+                            if(ratingInput < 1 || ratingInput > 10){
                                 Toast.makeText(getActivity(), "The entered rating must be between 0 and 10", Toast.LENGTH_LONG).show();
                             }
                             else{
