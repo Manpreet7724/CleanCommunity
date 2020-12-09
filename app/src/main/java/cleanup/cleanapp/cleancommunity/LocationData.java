@@ -44,26 +44,27 @@ public class LocationData {
         this.rating = rating;
     }
 
+    @SuppressWarnings("unused")
     public String getAreaNickname() {
         return areaNickname;
     }
-
+    @SuppressWarnings("unused")
     public String getContributor() {
         return contributor;
     }
-
+    @SuppressWarnings("unused")
     public Float getLongitude() {
         return longitude;
     }
-
+    @SuppressWarnings("unused")
     public Float getLatitude() {
         return latitude;
     }
-
+    @SuppressWarnings("unused")
     public int getRadius() {
         return radius;
     }
-
+    @SuppressWarnings("unused")
     public int getRating() {
         return rating;
     }
@@ -73,13 +74,6 @@ public class LocationData {
         this.circle= circle;
     }
 
-    public Circle getCircle()
-    {
-        return circle;
-    }
-    public void setCircle(Circle circle)
-    {
-        this.circle = circle;
-    }
+
 
 }

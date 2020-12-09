@@ -1,8 +1,6 @@
 package cleanup.cleanapp.cleancommunity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,8 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class GpsMainAct extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
 
     @Override
@@ -21,11 +17,11 @@ public class GpsMainAct extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_layout);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        viewPager =  findViewById(R.id.viewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Map"));
         tabLayout.addTab(tabLayout.newTab().setText("Settings"));

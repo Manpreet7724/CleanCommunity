@@ -3,7 +3,6 @@ package cleanup.cleanapp.cleancommunity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,21 +11,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Looper;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,30 +26,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.content.SharedPreferences;
-
 import java.text.DecimalFormat;
 import java.util.Objects;
-
-import static android.content.ContentValues.TAG;
 import android.location.Location;
 import android.location.LocationManager;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
+
 
 public class Settings_Fragment extends Fragment implements View.OnClickListener {
 
@@ -74,7 +50,6 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
     public double longt;
     public String PREFS_NIGHTMODE= "prefNightmode";
     public static final String PREFS_NAME = "MyPrefsFile";
-    private static final String IS_CHECKED = "ischecked";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -135,14 +110,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
         if (v.getId() == R.id.nightmode)
         {
-            if(nightmodecheck)
-            {
-                nightmodecheck = false;
-            }
-            else
-            {
-                nightmodecheck = true;
-            }
+            nightmodecheck = !nightmodecheck;
             checkPreferences();
             final Intent intent = new Intent(getActivity(), GpsMainAct.class);
             startActivity(intent);
@@ -207,7 +175,8 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         }
         else
         {
-            locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+            getActivity();
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (locationGPS != null)
             {
@@ -244,14 +213,12 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         Log.d("showNotification", "showNotification: " + reqCode);
     }
 
-    private SharedPreferences checkPreferences() {
+    private void checkPreferences()
+    {
         SharedPreferences pref =  this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-        this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit()
-                .putBoolean(PREFS_NIGHTMODE, nightmodecheck)
-                .apply();
-        return pref;
+        pref.edit()
+             .putBoolean(PREFS_NIGHTMODE, nightmodecheck)
+             .apply();
     }
 
     public void onDestroy() {

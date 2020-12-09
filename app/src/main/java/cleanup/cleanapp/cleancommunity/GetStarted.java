@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GetStarted<view> extends AppCompatActivity
+public class GetStarted extends AppCompatActivity
 {
 
     @Override

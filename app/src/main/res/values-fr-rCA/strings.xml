@@ -9,7 +9,7 @@
     <string name="email">Email</string>
     <string name="conPassword">Confirmez le mot de passe</string>
     <string name="password">Mot de passe</string>
-    <string name="forgot_pass1">Mot de passe oublié?</string>
+    <string name="forgot_pass">Mot de passe oublié?</string>
     <string name="checkbox">Rester connecté</string>
     <string name="wong_pass">Aïe, mauvais mot de passe!!!!!!!!!!!!</string>
     <string name="welcomemessage">Les déchets détruisent lentement l\'écosystème, la beauté et la vie de notre planète. La distance moyenne qu\'une personne transporte avant de la jeter est de 12 pas. Il est temps de faire une différence, faisons-le ensemble.</string>
@@ -39,5 +39,4 @@
     <string name="enter_rating">Veuillez saisir la note souhaitée</string>
     <string name="input_area_name">Entrez le nom de la zone ici</string>
     <string name="input_rating">Saisissez la note ici (1–10)</string>
-    <string name="forgot_pass2">Mot de passe oublié</string>
 </resources>

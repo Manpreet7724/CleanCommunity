@@ -3,13 +3,8 @@ package cleanup.cleanapp.cleancommunity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,39 +13,26 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.location.LocationManager;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.Dash;
-import com.google.android.gms.maps.model.Dot;
-import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PatternItem;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,43 +40,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
 
 public class Gps_Fragment extends Fragment
 {
-    public static String holdArea;
-    FirebaseUser user;
-    FirebaseAuth auth;
+
     int x;
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
-    FirebaseDatabase database;
     EditText areaNickname, areaRating;
     public double lat;
     public double longt;
     Button abutton,bbutton,cbutton,dbutton;
-    public String holdAreaname;
     Marker centerMarker;
     Circle addcircle;
     Boolean addbutton =false,nextbtn=false;
     SeekBar radseekbar;
 
-    public static Gps_Fragment getInstance() {
-        Gps_Fragment chatFragment = new Gps_Fragment();
-        return chatFragment;
-    }
-
+    @SuppressWarnings("deprecation")
     private final OnMapReadyCallback callback = new OnMapReadyCallback()
     {
         @Override
         public void onMapReady(final GoogleMap googleMap)
         {
-            Settings_Fragment settting = new Settings_Fragment();
+
             abutton= getActivity().findViewById(R.id.getStarbutton);
             bbutton= getActivity().findViewById(R.id.btn_cancel);
             cbutton= getActivity().findViewById(R.id.btn_next);
@@ -103,7 +74,7 @@ public class Gps_Fragment extends Fragment
             {
                 try
                 {
-                    boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.nightmode_map));
+                    googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.nightmode_map));
                     abutton.setBackgroundTintList(null);
                     abutton.setBackgroundColor(getResources().getColor(R.color.white));
                     bbutton.setBackgroundTintList(null);
@@ -121,7 +92,7 @@ public class Gps_Fragment extends Fragment
             {
                 try
                 {
-                    boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), GoogleMap.MAP_TYPE_NORMAL));
+                    googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), GoogleMap.MAP_TYPE_NORMAL));
                     abutton.setBackgroundResource(R.color.transparent);
                     abutton.setBackgroundColor(getResources().getColor(R.color.black));
                     bbutton.setBackgroundResource(R.color.transparent);
@@ -152,7 +123,8 @@ public class Gps_Fragment extends Fragment
                     googleMap.setMyLocationEnabled(true);
                     getLocation();
                     float zoom = 15;
-                   googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, longt), zoom));
+                    CameraPosition position = CameraPosition.fromLatLngZoom(new LatLng(lat, longt), zoom);
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         LocationData data = snapshot.getValue(LocationData.class);
@@ -185,8 +157,6 @@ public class Gps_Fragment extends Fragment
                 public void onCircleClick(final Circle circles)
                 {
                     circles.getCenter();
-
-                    final DatabaseReference locationUserChild = FirebaseDatabase.getInstance().getReference("Location");
 
                     int strokeColor = circles.getStrokeColor() ^ 0x00ffffff;
                     circles.setStrokeColor(strokeColor);
@@ -297,9 +267,8 @@ public class Gps_Fragment extends Fragment
                 {
                     if (!addbutton)
                     {
-                    LatLng center = googleMap.getCameraPosition().target;
-                    googleMap.clear();
 
+                    googleMap.clear();
                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -333,9 +302,8 @@ public class Gps_Fragment extends Fragment
 
             });
 
-            final int[] seekrating = new int[1];
+
             final int[] seekrad = new int[1];
-            seekrating[0]=3;
             seekrad[0]=100;
             abutton.setOnClickListener(new View.OnClickListener()
             {
@@ -410,8 +378,7 @@ public class Gps_Fragment extends Fragment
                         @Override
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
                         {
-                            Resources res = getResources();
-                            addcircle.setRadius((double)progress);
+                            addcircle.setRadius(progress);
                             seekrad[0] = progress;
                         }
                         @Override
@@ -489,11 +456,6 @@ public class Gps_Fragment extends Fragment
                                     locationData.setContributor(contributorText);
                                     database.push().setValue(locationData);
                                 }
-                                else
-                                {
-
-                                    // display toast error saying missing  areaname
-                                }
                             }
                         }
                     });
@@ -531,24 +493,7 @@ public class Gps_Fragment extends Fragment
             mapFragment.getMapAsync(callback);
         }
     }
-
-    private static final int PATTERN_GAP_LENGTH_PX = 20;
-    private static final PatternItem DOT = new Dot();
-    private static final PatternItem GAP = new Gap(PATTERN_GAP_LENGTH_PX);
-
-    private static final List<PatternItem> PATTERN_POLYLINE_DOTTED = Arrays.asList(GAP, DOT);
-    private static final int COLOR_WHITE_ARGB = 0xffffffff;
-    private static final int COLOR_GREEN_ARGB = 0xff388E3C;
-    private static final int COLOR_PURPLE_ARGB = 0xff81C784;
-    private static final int COLOR_ORANGE_ARGB = 0xffF57F17;
-    private static final int COLOR_BLUE_ARGB = 0xffF9A825;
-    private static final int POLYGON_STROKE_WIDTH_PX = 8;
-    private static final int PATTERN_DASH_LENGTH_PX = 20;
-    private static final PatternItem DASH = new Dash(PATTERN_DASH_LENGTH_PX);
-    private static final List<PatternItem> PATTERN_POLYGON_ALPHA = Arrays.asList(GAP, DASH);
-    private static final List<PatternItem> PATTERN_POLYGON_BETA = Arrays.asList(DOT, GAP, DASH, GAP);
-
-
+    @SuppressWarnings("deprecation")
     public int getRedcolor(int radius, Resources res) {
         int color = res.getColor(R.color.red1);
 
@@ -594,12 +539,20 @@ public class Gps_Fragment extends Fragment
         }
         else
          {
-             locationManager = (LocationManager) getActivity().getSystemService(getActivity().LOCATION_SERVICE);
+             getActivity();
+             locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+             Log.e("test",locationManager.toString());
              Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (locationGPS != null)
+             if (locationGPS != null)
             {
                 lat = locationGPS.getLatitude();
                 longt = locationGPS.getLongitude();
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "Error grabbing location default location will be given", Toast.LENGTH_LONG).show();
+                lat = 43.7289;
+                longt = -79.6074;
             }
         }
     }

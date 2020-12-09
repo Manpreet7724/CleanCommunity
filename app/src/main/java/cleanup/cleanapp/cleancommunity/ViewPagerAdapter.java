@@ -9,7 +9,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     int totalTabs;
 
-    public ViewPagerAdapter(FragmentManager fm, int totalTabs) {
+    @SuppressWarnings("deprecation")
+    public ViewPagerAdapter(FragmentManager fm, int totalTabs)
+    {
         super(fm);
         this.totalTabs = totalTabs;
     }

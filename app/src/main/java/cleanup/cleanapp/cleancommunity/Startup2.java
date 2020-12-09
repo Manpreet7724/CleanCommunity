@@ -1,18 +1,9 @@
 package cleanup.cleanapp.cleancommunity;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -114,23 +105,17 @@ public class Startup2 extends AppCompatActivity
         {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                        if (task.isSuccessful())
+                        {
                             Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(),GetStarted.class);
                             startActivity(intent);
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Toast.makeText(Startup2.this, "Google auth good", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-    }
-
-     boolean checkPermissions()
-    {
-        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     void requestPermissions()
@@ -139,55 +124,6 @@ public class Startup2 extends AppCompatActivity
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_ID);
     }
 
-    private boolean isLocationEnabled()
-    {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
 
-
-    public void resetpass(View view)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Forgot Password");
-
-        View viewInflated = LayoutInflater.from(this).inflate(R.layout.forgotpass,null);
-        final EditText input = viewInflated.findViewById(R.id.forgotemail);
-        builder.setView(viewInflated);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.dismiss();
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                final String emailAddress =  input.getText().toString();
-
-                auth.sendPasswordResetEmail(emailAddress)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful())
-                                {
-                                    Toast.makeText(Startup2.this, "We sent an email to  : "+emailAddress, Toast.LENGTH_LONG).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(Startup2.this, "Email inputed incorrect : "+emailAddress, Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
 }
 
