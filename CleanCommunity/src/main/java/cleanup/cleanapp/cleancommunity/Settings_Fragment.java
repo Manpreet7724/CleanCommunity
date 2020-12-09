@@ -38,6 +38,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.text.DecimalFormat;
 import java.util.Objects;
+import java.util.regex.Pattern;
+
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -161,6 +163,12 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 newPassword = editPassUpdate.getText().toString().trim();
 
+                if(!PasswordValidator(newPassword)){
+                    editPassUpdate.setError(getString(R.string.not_valid_pass));
+                    editPassUpdate.requestFocus();
+                    return;
+                }
+
                 user.updatePassword(newPassword)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -234,6 +242,17 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         pref.edit()
              .putBoolean(PREFS_NIGHTMODE, nightmodecheck)
              .apply();
+    }
+
+    public static final Pattern PASSWORD_PATTERN = Pattern.compile(
+            "(?=.*[0-9])" +             //must include a digit
+                    "(?=.*[a-zA-Z])" +  //must include characters
+                    "(?=\\S+$)" +       //no whitespace include
+                    ".{6,}"             //at least 6 characterss
+    );
+
+    public static boolean PasswordValidator(String password) {
+        return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
     public void onDestroy() {

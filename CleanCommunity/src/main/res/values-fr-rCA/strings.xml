@@ -64,7 +64,6 @@ Manpreet Parmar               n01302460
     <string name="googleauth_good">Authentification Google réussie</string>
     <string name="fail_register">Échec de l\'inscription, veuillez saisir un e-mail approprié</string>
     <string name="register_good">Inscription réussie</string>
-    <string name="password_short">French  Le mot de passe doit comporter plus de 6 caractères</string>
     <string name="input_password">Veuillez saisir un mot de passe</string>
     <string name="input_email">Veuillez saisir votre email</string>
     <string name="input_name">Veuillez saisir votre nom</string>
