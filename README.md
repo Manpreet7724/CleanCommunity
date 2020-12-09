@@ -4,6 +4,8 @@ Curtis Ching                  n01274536
 Kevin Daniel Delgado Toledo   n01323567  
 Manpreet Parmar               n01302460  
 
+https://github.com/Manpreet7724/CleanCommunity
+
 Team cleanup developed an community run app in order to dispose of garbage in areas that are subject to littering. The app lets users report littering levels in an area, where users are able to set the radius and severity of trash/litter in that particular area and give it a name depending on the address of that area. This allows other users to join up and volunteer to clean up that area. The goal is to unite the community to create an interest in cleaning up our planet, generating data with visual representation of how much trash there is on our planet, in order to inspire large corporations, groups, and the government to increase attention and funding for eliminating littering. 
 
 
