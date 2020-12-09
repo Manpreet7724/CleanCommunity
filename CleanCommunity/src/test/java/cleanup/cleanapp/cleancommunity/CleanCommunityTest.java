@@ -1,8 +1,6 @@
 package cleanup.cleanapp.cleancommunity;
 
-import org.junit.Rule;
 import org.junit.Test;
-
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -10,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 public class CleanCommunityTest
 {
     @Test
-    public void emailValidation()
+    public void loginEmailValidation()
     {
         assertTrue(Login.EmailValidator("name@email.com"));
         assertTrue(Login.EmailValidator("name@email.co.uk"));
@@ -18,7 +16,11 @@ public class CleanCommunityTest
         assertFalse(Login.EmailValidator("name@email..com"));
         assertFalse(Login.EmailValidator("@email..com"));
         assertFalse(Login.EmailValidator(null));
+    }
 
+    @Test
+    public void signupEmailValidation()
+    {
         assertTrue(SignUp.EmailValidator("name@email.com"));
         assertTrue(SignUp.EmailValidator("name@email.co.uk"));
         assertFalse(SignUp.EmailValidator("name@email"));
@@ -27,7 +29,7 @@ public class CleanCommunityTest
     }
 
     @Test
-    public void passwordValidation()
+    public void loginPasswordValidation()
     {
         assertTrue(Login.PasswordValidator("password1"));
         assertTrue(Login.PasswordValidator("Password1"));
@@ -37,7 +39,11 @@ public class CleanCommunityTest
         assertFalse(Login.PasswordValidator("hey"));
         assertFalse(Login.PasswordValidator("hey!"));
         assertFalse(Login.PasswordValidator(null));
+    }
 
+    @Test
+    public void signupPasswordValidation()
+    {
         assertTrue(SignUp.PasswordValidator("password1"));
         assertTrue(SignUp.PasswordValidator("Password1"));
         assertFalse(SignUp.PasswordValidator("password!"));
