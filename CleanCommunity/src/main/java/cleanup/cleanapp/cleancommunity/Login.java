@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 
 public class Login extends AppCompatActivity
 {
-
     String emailTxt;
     String passwordTxt;
     EditText editEmail;
@@ -48,7 +47,6 @@ public class Login extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
         editEmail = findViewById(R.id.editTusername);
         editPassword = findViewById(R.id.editPasswordLog);
 
@@ -97,6 +95,7 @@ public class Login extends AppCompatActivity
             editEmail.setError(getString(R.string.not_valid_email));
             editEmail.requestFocus();
         }
+
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if(stayLogin.isChecked())
@@ -222,8 +221,12 @@ public class Login extends AppCompatActivity
                     ".{6,}"             //at least 6 characterss
     );
 
-    public static boolean PasswordValidator(String password) {
+    public static boolean PasswordValidator(String password)
+    {
         return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
+
+
+
 
 }
