@@ -32,7 +32,8 @@ Manpreet Parmar               n01302460
     <string name="add_location">Ajouter emplacement</string>
     <string name="new_password">Nouveau mot de passe</string>
     <string name="update_password">Mettre à jour le mot de passe</string>
-    <string name="gmailPassUpdate">" Si vous vous êtes connecté via un compte Gmail, la modification de votre mot de passe ne changera pas le mot de passe de votre compte Google, mais créera plutôt un compte pour l'application (si vous n'en avez pas déjà un) avec le nouveau mot de passe. Êtes-vous d'accord avec ça?"</string>
+    <string name="emailPassUpdate">Êtes-vous sûr de vouloir mettre à jour votre mot de passe?</string>
+    <string name="gmailUpdate">Nous ne pouvons pas modifier le mot de passe de votre compte Gmail</string>
     <string name="send_coordinates">Envoyer les coordonnées</string>
     <string name="cancel">Annuler</string>
     <string name="google">google</string>
@@ -75,5 +76,7 @@ Manpreet Parmar               n01302460
     <string name="map">Carte</string>
     <string name="settings">Réglages</string>
     <string name="not_valid_email">Veuillez saisir un e-mail valide</string>
-    <string name="not_valid_pass">Le mot de passe doit comporter plus de 6 caractères et inclure au moins un chiffre et aucun caractère spécial</string>
+    <string name="not_valid_pass">Le mot de passe doit comporter plus de 6 caractères et inclure au moins un chiffre</string>
+    <string name="consideration">When entering rating, please consider 1 as the cleanest and 10 as dirtiest. This is important for information for other users to understand which area has higher priority.</string>
+    <string name="apologies">Excuses</string>
 </resources>

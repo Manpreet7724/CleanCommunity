@@ -11,20 +11,27 @@ Manpreet Parmar               n01302460
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consideration"
+        android:textSize="16sp"/>
+
     <EditText
         android:id="@+id/ratingAlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:hint="@string/input_rating"
-        android:inputType="text"
-        android:autofillHints="" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/areaNicknameAlertDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:hint="@string/input_area_name"
-        android:inputType="text"
-        android:autofillHints="" />
+        android:inputType="text" />
 
 </LinearLayout>

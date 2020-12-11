@@ -36,6 +36,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.text.BreakIterator;
 import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -47,9 +49,9 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
 
     Context context;
     Button signoutButton, passUpdate, notification, nightmode;
-    EditText editPassUpdate;
+    EditText editPassUpdate, editPassConfirm;
     TextView username, useremail;
-    String newPassword;
+    String newPassword, newPasswordConfirm, email;
     public static boolean nightmodecheck=false;
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
@@ -74,10 +76,12 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         nightmode.setOnClickListener(this);
 
         editPassUpdate = rootView.findViewById(R.id.editPassUpdate);
+        editPassConfirm = rootView.findViewById(R.id.editPassConfirm);
         username = rootView.findViewById(R.id.userNameSetting);
         useremail = rootView.findViewById(R.id.userEmailSetting);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         username.setText(user.getDisplayName());
         useremail.setText(user.getEmail());
 
@@ -140,7 +144,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
                 //Return to Startup
                 final Intent intent = new Intent(getActivity(), Startup.class);
                 startActivity(intent);
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -155,44 +159,67 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
 
     //Updates the user's password
     public void passUpdate() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.gmailPassUpdate);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                newPassword = editPassUpdate.getText().toString().trim();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        useremail.setText(Objects.requireNonNull(user).getEmail());
+        email = useremail.getText().toString().trim();
+        Log.d("111111111111111111", email);
+        if(email.contains("@gmail.com")){
+            final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+            builder1.setTitle(R.string.apologies);
+            builder1.setMessage(R.string.gmailUpdate);
+            builder1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                if(!PasswordValidator(newPassword)){
-                    editPassUpdate.setError(getString(R.string.not_valid_pass));
-                    editPassUpdate.requestFocus();
-                    return;
                 }
+            });
+                final AlertDialog a = builder1.create();
+                 a.show();
+            }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.emailPassUpdate);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    newPassword = editPassUpdate.getText().toString().trim();
+                    newPasswordConfirm = editPassConfirm.getText().toString().trim();
 
-                user.updatePassword(newPassword)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), getString(R.string.pass_updated), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog a = builder.create();
-        a.show();
+                    if(!PasswordValidator(newPassword)){
+                        editPassUpdate.setError(getString(R.string.not_valid_pass));
+                        editPassUpdate.requestFocus();
+                        return;
+                    }
+
+                    if(newPassword.equals(newPasswordConfirm))
+                    {
+                        Objects.requireNonNull(user).updatePassword(newPassword)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getActivity(), getString(R.string.pass_updated), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                    }
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog a = builder.create();
+            a.show();
+
+        }
     }
 
     //Checks if location permissions where given, if positive, notify the user of their current location
     public void coordinatesNotif() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         }
         else
@@ -238,7 +265,7 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
     //SharedPreferences for nightmode
     private void checkPreferences()
     {
-        SharedPreferences pref =  this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences pref =  Objects.requireNonNull(this.getActivity()).getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         pref.edit()
              .putBoolean(PREFS_NIGHTMODE, nightmodecheck)
              .apply();
@@ -255,9 +282,12 @@ public class Settings_Fragment extends Fragment implements View.OnClickListener 
         return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
+    public static boolean passUpdateHasGmail(String emailTest) {
+        return emailTest.contains("@gmail.com");
+    }
+
     public void onDestroy() {
 
         super.onDestroy();
-
     }
 }

@@ -226,7 +226,8 @@ public class Login extends AppCompatActivity
         return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
-
-
+    public static boolean areTextFieldsEmpty(String email, String password){
+        return email.isEmpty() || password.isEmpty();
+    }
 
 }

@@ -68,6 +68,22 @@ Manpreet Parmar               n01302460
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="LabelFor,RtlSymmetry" />
 
+    <EditText
+        android:id="@+id/editPassConfirm"
+        android:layout_width="182dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="440dp"
+        android:layout_marginTop="184dp"
+        android:autofillHints=""
+        android:background="@drawable/userinputtext"
+        android:ems="10"
+        android:hint="@string/conPassword"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
     <Button
         android:id="@+id/nightmode"
         android:layout_width="169dp"

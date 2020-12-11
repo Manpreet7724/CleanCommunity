@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
@@ -97,7 +98,7 @@ public class SignUp extends AppCompatActivity {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(nameTxt).build();
 
-                    user.updateProfile(profileUpdates);
+                    Objects.requireNonNull(user).updateProfile(profileUpdates);
                     Toast.makeText(SignUp.this, getString(R.string.register_good), Toast.LENGTH_LONG).show();
                     final Intent intent = new Intent(SignUp.this, GetStarted.class);
                     startActivity(intent);
