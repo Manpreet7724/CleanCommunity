@@ -81,5 +81,14 @@ Manpreet Parmar               n01302460
     <string name="not_valid_pass">Password should be longer than 6 characters and include at least one number</string>
     <string name="consideration">When entering rating, please consider 1 as the cleanest and 10 as dirtiest. This is important for information for other users to understand which area has higher priority.</string>
     <string name="apologies">Apologies</string>
+    <string name="displayinfo">Display data</string>
+    <string name="displayerror">No extra data available please grab Clean Community Measuring Device (CCM)</string>
+    <string name="humidity">Humidity :</string>
+    <string name="co2">CO2 :</string>
+    <string name="tVOC">tVOC :</string>
+    <string name="temp">Temperature :</string>
+
+
+
 
 </resources>

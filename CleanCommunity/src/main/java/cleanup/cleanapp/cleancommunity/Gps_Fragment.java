@@ -178,6 +178,8 @@ public class Gps_Fragment extends Fragment {
                                 //Displays for the user the data of the clicked circle
                                 if (circles.getCenter().equals(save)) {
                                     final String key = snapshot.getKey();
+                                    final LatLng hold = new LatLng(data.latitude, data.longitude);
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                     builder.setMessage(getResources().getString(R.string.area_name) + " " + data.areaNickname + "\n"
                                             + getResources().getString(R.string.rating) + " " + data.rating + "\n"
@@ -190,6 +192,56 @@ public class Gps_Fragment extends Fragment {
                                             circles.setStrokeColor(strokeColor);
                                         }
                                     });
+                                    builder.setNeutralButton(getString(R.string.displayinfo), new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            FirebaseDatabase.getInstance().getReference().child("Readings").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot)
+                                                {
+                                                    final AlertDialog.Builder builderdata = new AlertDialog.Builder(getActivity());
+                                                    String msg = getString(R.string.displayerror);
+                                                    int flag =0;
+                                                    for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                                                    {
+                                                        readings rdata = snapshot.getValue(readings.class);
+                                                        LatLng compare = new LatLng(rdata.latitude, rdata.longitude);
+                                                        if (hold.equals(compare))
+                                                        {
+                                                            msg = getResources().getString(R.string.co2) + " " + rdata.CO2 + "\n"
+                                                                    + getResources().getString(R.string.humidity) + " " + rdata.Humidity + "\n"
+                                                                    + getResources().getString(R.string.temp) + " " + rdata.temp + "\n"
+                                                                    + getResources().getString(R.string.latitude) + " " + rdata.latitude + "\n"
+                                                                    + getResources().getString(R.string.longitude) + " " + rdata.longitude + "\n"
+                                                                    + getResources().getString(R.string.tVOC) + " " + rdata.tVOC + "\n";
+                                                           flag =1;
+                                                        }
+                                                        else
+                                                        {
+                                                            if (flag!=1) {
+                                                                msg = getString(R.string.displayerror);
+                                                            }
+                                                        }
+                                                    }
+                                                    builderdata.setMessage(msg);
+                                                    int strokeColor = circles.getStrokeColor() ^ 0x00ffffff;
+                                                    circles.setStrokeColor(strokeColor);
+                                                    AlertDialog a = builderdata.create();
+                                                    a.show();
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError)
+                                                {
+                                                    final AlertDialog.Builder builderdata = new AlertDialog.Builder(getActivity());
+                                                    String msg = String.valueOf(databaseError);
+                                                    builderdata.setMessage(msg);
+                                                    AlertDialog a = builderdata.create();
+                                                    a.show();
+                                                }
+                                            });
+                                        }
+                                    });
                                     //Displays a delete button for the user to remove the circle and erase the data from the database
                                     builder.setNegativeButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                                         @Override
@@ -199,6 +251,30 @@ public class Gps_Fragment extends Fragment {
                                             builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     googleMap.clear();
+                                                    FirebaseDatabase.getInstance().getReference().child("Readings").addListenerForSingleValueEvent(new ValueEventListener()
+                                                    {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                                        {
+                                                            for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                                                            {
+                                                                readings rdata = snapshot.getValue(readings.class);
+                                                                LatLng compare = new LatLng(rdata.latitude, rdata.longitude);
+                                                                LatLng hold = new LatLng(data.latitude, data.longitude);
+                                                                if (hold.equals(compare))
+                                                                {
+                                                                    final String key = snapshot.getKey();
+                                                                    FirebaseDatabase.getInstance().getReference("Readings").child(key).removeValue();
+
+                                                                }
+                                                            }
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+
                                                     FirebaseDatabase.getInstance().getReference("Location").child(key).removeValue();
                                                     FirebaseDatabase.getInstance().getReference().child("Location").addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
