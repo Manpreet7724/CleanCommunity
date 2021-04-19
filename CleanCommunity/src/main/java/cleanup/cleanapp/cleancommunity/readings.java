@@ -11,8 +11,8 @@ import com.google.android.gms.maps.model.Circle;
 //Object to hold location data for the database
 public class readings {
 
-    float CO2,Humidity;
-    double temp,tVOC;
+    float CO2,Humidity, temp ,tVOC;
+    
     float longitude, latitude;
     String uid;
     public readings(){
