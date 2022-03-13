@@ -48,3 +48,45 @@ android {
 
 6. After doing this and syncing your gradle files, the debug key should be implemented to work with our app.  
 7. An xml file called pass.xml should be inside the zip file, this xml file holds two strings, one with your client id for google signup and one with your google api key for google maps and the program should run correctly.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Youtube video
+https://youtu.be/PmjVgFuT31Q
